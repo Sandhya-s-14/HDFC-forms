@@ -66,12 +66,16 @@ var otpTimer;
 var timeLeft = 60;
 var attemptsLeft = 3;
 
-// ⏱ Timer
 function startOtpTimer() {
     clearInterval(otpTimer);
     timeLeft = 60;
 
-    var timerField = guideBridge.resolveNode("timer"); // create a field named 'timer'
+    var timerField = guideBridge.resolveNode("timer");
+
+    if (!timerField) {
+        console.log("Timer field not found");
+        return;
+    }
 
     otpTimer = setInterval(function () {
         timerField.value = "Time left: " + timeLeft + "s";
@@ -79,7 +83,7 @@ function startOtpTimer() {
 
         if (timeLeft < 0) {
             clearInterval(otpTimer);
-            timerField.value = "OTP expired. Please resend.";
+            timerField.value = "OTP expired";
             attemptsLeft = 0;
         }
     }, 1000);
@@ -89,7 +93,12 @@ function handleOtpFailure() {
     attemptsLeft--;
 
     if (attemptsLeft <= 0) {
-        guideBridge.resolveNode("Validate OTP").enabled = false;
+        var btn = guideBridge.resolveNode("validate_otp");
+
+        if (btn) {
+            btn.enabled = false;
+        }
+
         alert("Max attempts reached!");
         clearInterval(otpTimer);
     } else {
