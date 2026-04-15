@@ -62,31 +62,31 @@ export {
 };
 
 //---------------------------------------I addded this-----------------------------------------------------//
-var otpTimer;
-var timeLeft = 60;
-var attemptsLeft = 3;
+let otpTimer;
+let timeLeft = 60;
+let attemptsLeft = 3;
 
 function startOtpTimer() {
-    clearInterval(otpTimer);
-    timeLeft = 60;
+  clearInterval(otpTimer);
+  timeLeft = 60;
 
-    var timerField = guideBridge.resolveNode("timer");
+  const field = document.querySelector('[name="timer"]');
 
-    if (!timerField) {
-        console.log("Timer field not found");
-        return;
+  if (!field) {
+    console.log("Timer field not found");
+    return;
+  }
+
+  otpTimer = setInterval(() => {
+    field.value = `Time left: ${timeLeft}s`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      clearInterval(otpTimer);
+      field.value = "OTP expired";
+      attemptsLeft = 0;
     }
-
-    otpTimer = setInterval(function () {
-        timerField.value = "Time left: " + timeLeft + "s";
-        timeLeft--;
-
-        if (timeLeft < 0) {
-            clearInterval(otpTimer);
-            timerField.value = "OTP expired";
-            attemptsLeft = 0;
-        }
-    }, 1000);
+  }, 1000);
 }
 
 function handleOtpFailure() {
