@@ -60,3 +60,39 @@ function maskMobileNumber(mobileNumber) {
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber,
 };
+
+//---------------------------------------I addded this-----------------------------------------------------//
+var otpTimer;
+var timeLeft = 60;
+var attemptsLeft = 3;
+
+// ⏱ Timer
+function startOtpTimer() {
+    clearInterval(otpTimer);
+    timeLeft = 60;
+
+    var timerField = guideBridge.resolveNode("timer"); // create a field named 'timer'
+
+    otpTimer = setInterval(function () {
+        timerField.value = "Time left: " + timeLeft + "s";
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            clearInterval(otpTimer);
+            timerField.value = "OTP expired. Please resend.";
+            attemptsLeft = 0;
+        }
+    }, 1000);
+}
+
+function handleOtpFailure() {
+    attemptsLeft--;
+
+    if (attemptsLeft <= 0) {
+        guideBridge.resolveNode("Validate OTP").enabled = false;
+        alert("Max attempts reached!");
+        clearInterval(otpTimer);
+    } else {
+        alert("Wrong OTP. Attempts left: " + attemptsLeft);
+    }
+}
