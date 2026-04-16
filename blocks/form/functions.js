@@ -57,10 +57,10 @@ function maskMobileNumber(mobileNumber) {
 }
 
 //---------------------------------------I addded this-----------------------------------------------------//
+/* timer function */
 /**
-* Masks the first 5 digits of the mobile number with *
-* @param {globals}
-*/
+ * @param {scope} globals
+ */
 let otpTimer;
 let timeLeft = 60;
 let attemptsLeft = 3;
