@@ -61,51 +61,62 @@ function maskMobileNumber(mobileNumber) {
 /**
  * @param {scope} globals
  */
-let otpTimer;
-let timeLeft = 60;
-let attemptsLeft = 3;
-
 function startOtpTimer(globals) {
-  clearInterval(otpTimer);
-  timeLeft = 60;
-
-  const field = document.querySelector('[name="timer"]');
-
-  if (!field) {
-    console.log("Timer field not found");
-    return;
+  const timerField = globals.form.otp_verification.timer;
+  let seconds = 30;
+ 
+  if (!timerField) {
+    return '00:30';
   }
-
-  otpTimer = setInterval(() => {
-    field.value = `Time left: ${timeLeft}s`;
-    timeLeft--;
-
-    if (timeLeft < 0) {
-      clearInterval(otpTimer);
-      field.value = "OTP expired";
-      attemptsLeft = 0;
+ 
+  if (window.otpTimerInterval) {
+    clearInterval(window.otpTimerInterval);
+    window.otpTimerInterval = null;
+  }
+ 
+  globals.functions.setProperty(timerField, {
+    value: '00:30',
+  });
+ 
+  window.otpTimerInterval = setInterval(() => {
+    seconds -= 1;
+ 
+    if (seconds >= 10) {
+      globals.functions.setProperty(timerField, {
+        value: `00:${seconds}`,
+      });
+    } else if (seconds >= 0) {
+      globals.functions.setProperty(timerField, {
+        value: `00:0${seconds}`,
+      });
+    }
+ 
+    if (seconds <= 0) {
+      clearInterval(window.otpTimerInterval);
+      window.otpTimerInterval = null;
+ 
+      globals.functions.setProperty(timerField, {
+        value: 'Time expired',
+      });
     }
   }, 1000);
+ 
+  return '00:30';
 }
-
-function handleOtpFailure(globals) {
-    attemptsLeft--;
-
-    if (attemptsLeft <= 0) {
-        var btn = guideBridge.resolveNode("validate_otp");
-
-        if (btn) {
-            btn.enabled = false;
-        }
-
-        alert("Max attempts reached!");
-        clearInterval(otpTimer);
-    } else {
-        alert("Wrong OTP. Attempts left: " + attemptsLeft);
-    }
+ 
+/**
+ * @param {scope} globals
+ */
+function stopOtpTimer(globals) {
+  const timerField =globals.form.otp_verification.timer;
+ 
+  if (window.otpTimerInterval) {
+    clearInterval(window.otpTimerInterval);
+    window.otpTimerInterval = null;
+  }
 }
+ 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, handleOtpFailure, 
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,
 };
-
