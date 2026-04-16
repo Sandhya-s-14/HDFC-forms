@@ -66,6 +66,7 @@ function startOtpTimer(globals) {
   const form = globals.form;
   const timerField = form.validate_otp.timer;
   const resendBtn = form.validate_otp.resend_otp;
+  const validateBtn = form.validate_otp.validate_otp;
 
   let seconds = 30;
 
@@ -77,6 +78,21 @@ function startOtpTimer(globals) {
       enabled: false,
     });
   }
+
+  // Enable validate button when timer starts
+  if (validateBtn) {
+    globals.functions.setProperty(validateBtn, {
+      enabled: true,
+    });
+  }
+
+  // Reset expiry flag
+  globals.functions.setProperty(form, {
+    properties: {
+      ...form.$properties,
+      otpExpired: false,
+    },
+  });
 
   // Clear existing timer
   if (window.otpTimerInterval) {
@@ -106,6 +122,21 @@ function startOtpTimer(globals) {
       globals.functions.setProperty(timerField, {
         value: 'Time expired',
       });
+
+      // ✅ Mark OTP expired
+      globals.functions.setProperty(form, {
+        properties: {
+          ...form.$properties,
+          otpExpired: true,
+        },
+      });
+
+      // ❌ Disable validate button
+      if (validateBtn) {
+        globals.functions.setProperty(validateBtn, {
+          enabled: false,
+        });
+      }
 
       const attempts = form.$properties?.otpAttempts || 0;
 
@@ -147,7 +178,6 @@ function resendOtp(globals) {
       });
     }
 
-    // Update UI
     if (attemptsField) {
       globals.functions.setProperty(attemptsField, {
         value: 'No attempts left',
@@ -160,7 +190,7 @@ function resendOtp(globals) {
 
   const updatedAttempts = attempts + 1;
 
-  // ✅ Store attempts safely
+  // ✅ Store attempts
   globals.functions.setProperty(form, {
     properties: {
       ...existingProps,
@@ -192,7 +222,7 @@ function resendOtp(globals) {
 
   console.log("New OTP generated");
 
-  // Restart timer
+  // Restart timer (also resets expiry)
   startOtpTimer(globals);
 }
 
@@ -219,6 +249,7 @@ function initOtp(globals) {
     properties: {
       ...existingProps,
       otpAttempts: 0,
+      otpExpired: false, // ✅ reset expiry
     },
   });
 
@@ -257,4 +288,3 @@ export {
   initOtp,
   debugForm
 };
-
