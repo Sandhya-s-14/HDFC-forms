@@ -62,6 +62,7 @@ function maskMobileNumber(mobileNumber) {
  * @param {scope} globals
  */
 function startOtpTimer(globals) {
+  debugger;
   const timerField = globals.form.otp_verification.timer;
   let seconds = 30;
  
