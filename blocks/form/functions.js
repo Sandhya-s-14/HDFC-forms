@@ -115,11 +115,6 @@ function stopOtpTimer(globals) {
     window.otpTimerInterval = null;
   }
 }
- 
-// eslint-disable-next-line import/prefer-default-export
-export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,debugForm
-};
 
 /**
  * @param {scope} globals
@@ -130,3 +125,9 @@ function debugForm(globals) {
   console.log('myForm', window.myForm);
   return '';
 }
+
+// eslint-disable-next-line import/prefer-default-export
+export {
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,debugForm
+};
+
