@@ -81,7 +81,6 @@ function startOtpTimer(globals) {
   // Clear existing timer
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
-    window.otpTimerInterval = null;
   }
 
   // Set initial time
@@ -103,15 +102,14 @@ function startOtpTimer(globals) {
 
     if (seconds <= 0) {
       clearInterval(window.otpTimerInterval);
-      window.otpTimerInterval = null;
 
       globals.functions.setProperty(timerField, {
         value: 'Time expired',
       });
 
-      // Enable resend only if attempts < 3
       const attempts = form.$properties?.otpAttempts || 0;
 
+      // Enable resend only if attempts < 3
       if (resendBtn && attempts < 3) {
         globals.functions.setProperty(resendBtn, {
           enabled: true,
@@ -125,11 +123,16 @@ function startOtpTimer(globals) {
  * @param {scope} globals
  */
 function resendOtp(globals) {
+  console.log("🔥 resendOtp triggered");
+
   const form = globals.form;
   const resendBtn = form.validate_otp.resend_otp;
   const timerField = form.validate_otp.timer;
 
-  const attempts = form.$properties?.otpAttempts || 0;
+  const existingProps = form.$properties || {};
+  const attempts = existingProps.otpAttempts || 0;
+
+  console.log("Current attempts:", attempts);
 
   // ❌ Block after 3 attempts
   if (attempts >= 3) {
@@ -148,15 +151,15 @@ function resendOtp(globals) {
 
   const updatedAttempts = attempts + 1;
 
-  // ✅ Store attempts in form properties (EDS way)
+  // ✅ Store attempts safely
   globals.functions.setProperty(form, {
     properties: {
-      ...form.$properties,
+      ...existingProps,
       otpAttempts: updatedAttempts,
     },
   });
 
-  console.log("Resend attempt:", updatedAttempts);
+  console.log("New attempt:", updatedAttempts);
 
   // Disable resend immediately
   if (resendBtn) {
@@ -165,7 +168,7 @@ function resendOtp(globals) {
     });
   }
 
-  // 👉 Call backend API here in real implementation
+  // 👉 API already called via rule
   console.log("New OTP generated");
 
   // Restart timer
@@ -175,7 +178,7 @@ function resendOtp(globals) {
 /**
  * @param {scope} globals
  */
-function stopOtpTimer(globals) {
+function stopOtpTimer() {
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
@@ -183,13 +186,16 @@ function stopOtpTimer(globals) {
 }
 
 /**
- * Initialize attempts when OTP is first generated
+ * Initialize OTP (first time)
  * @param {scope} globals
  */
 function initOtp(globals) {
-  globals.functions.setProperty(globals.form, {
+  const form = globals.form;
+  const existingProps = form.$properties || {};
+
+  globals.functions.setProperty(form, {
     properties: {
-      ...globals.form.$properties,
+      ...existingProps,
       otpAttempts: 0,
     },
   });
