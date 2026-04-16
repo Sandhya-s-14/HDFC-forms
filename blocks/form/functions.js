@@ -289,52 +289,71 @@ function fetchOffer(globals) {
   const mobile = form.validate_otp.mobile?.value;
   const otp = form.validate_otp.otp?.value;
 
-  if (!mobile || !otp) return;
+  if (!mobile || !otp) {
+    console.log("❌ Missing mobile or OTP");
+    return;
+  }
 
-  fetch("https://your-ngrok-url/api/verify-otp-offer", {
+  fetch("https://lugged-delay-rift.ngrok-free.dev/api/verify-otp-offer", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ mobile, otp }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      console.log("Response status:", res.status);
+      return res.json();
+    })
     .then((result) => {
       console.log("API Response:", result);
 
       if (result.status === "SUCCESS") {
         const data = result.data;
 
+        // ✅ Set Loan Amount
         globals.functions.setProperty(form.offer_page.loan_amount, {
           value: data.offerAmount,
+          displayValue: String(data.offerAmount),
         });
 
+        // ✅ Set Tenure
         globals.functions.setProperty(form.offer_page.loan_tenture, {
           value: data.tenure,
+          displayValue: String(data.tenure),
         });
 
+        // ✅ Set ROI
         globals.functions.setProperty(form.offer_page.rate_of_interest, {
           value: data.rateOfInterest,
+          displayValue: String(data.rateOfInterest),
         });
 
+        // ✅ Set Taxes
         globals.functions.setProperty(form.offer_page.taxes, {
           value: data.taxes,
+          displayValue: String(data.taxes),
         });
 
-        // ✅ Trigger EMI calculation
+        // ✅ Calculate EMI immediately
         calculateEMI(globals);
 
       } else {
         globals.functions.setProperty(form.offer_page.error_message, {
           value: "Invalid OTP",
+          displayValue: "Invalid OTP",
         });
       }
     })
     .catch((err) => {
-      console.error("API Error:", err);
+      console.error("❌ API Error:", err);
     });
 }
 
+/**
+ * Calculate EMI dynamically
+ * @param {scope} globals
+ */
 function calculateEMI(globals) {
   console.log("🔥 EMI triggered");
 
@@ -344,9 +363,14 @@ function calculateEMI(globals) {
   const tenure = Number(form.offer_page.loan_tenture?.value);
   const roi = Number(form.offer_page.rate_of_interest?.value);
 
+  console.log("Values:", loan, tenure, roi);
+
   const emiField = form.offer_page.emi;
 
-  if (!loan || !tenure || !roi) return;
+  if (!loan || !tenure || !roi) {
+    console.log("❌ Missing values for EMI");
+    return;
+  }
 
   const r = roi / 12 / 100;
 
@@ -354,8 +378,12 @@ function calculateEMI(globals) {
     (loan * r * Math.pow(1 + r, tenure)) /
     (Math.pow(1 + r, tenure) - 1);
 
+  const roundedEMI = Math.round(emi);
+
+  // ✅ IMPORTANT: set both value + displayValue
   globals.functions.setProperty(emiField, {
-    value: Math.round(emi),
+    value: roundedEMI,
+    displayValue: String(roundedEMI),
   });
 }
 
