@@ -281,7 +281,7 @@ function debugForm(globals) {
  * Fetch Offer Data
  * @param {scope} globals
  */
-async function fetchOffer(globals) {
+function fetchOffer(globals) {
   const form = globals.form;
 
   const mobile = form.validate_otp.mobile?.value;
@@ -338,6 +338,7 @@ async function fetchOffer(globals) {
  * @param {scope} globals
  */
 function calculateEMI(globals) {
+  console.log("🔥 EMI triggered");
   const form = globals.form;
 
   const loan = Number(form.offer_page.loan_amount?.value);
