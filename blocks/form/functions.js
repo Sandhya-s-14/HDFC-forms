@@ -128,6 +128,7 @@ function resendOtp(globals) {
   const form = globals.form;
   const resendBtn = form.validate_otp.resend_otp;
   const timerField = form.validate_otp.timer;
+  const attemptsField = form.validate_otp.attempts_text;
 
   const existingProps = form.$properties || {};
   const attempts = existingProps.otpAttempts || 0;
@@ -146,6 +147,14 @@ function resendOtp(globals) {
       });
     }
 
+    // Update UI
+    if (attemptsField) {
+      globals.functions.setProperty(attemptsField, {
+        value: 'No attempts left',
+        readOnly: true,
+      });
+    }
+
     return;
   }
 
@@ -161,6 +170,19 @@ function resendOtp(globals) {
 
   console.log("New attempt:", updatedAttempts);
 
+  // Update attempts UI
+  if (attemptsField) {
+    const remaining = 3 - updatedAttempts;
+
+    globals.functions.setProperty(attemptsField, {
+      value:
+        remaining > 0
+          ? `${remaining}/3 attempts left`
+          : 'No attempts left',
+      readOnly: true,
+    });
+  }
+
   // Disable resend immediately
   if (resendBtn) {
     globals.functions.setProperty(resendBtn, {
@@ -168,7 +190,6 @@ function resendOtp(globals) {
     });
   }
 
-  // 👉 API already called via rule
   console.log("New OTP generated");
 
   // Restart timer
@@ -192,6 +213,7 @@ function stopOtpTimer() {
 function initOtp(globals) {
   const form = globals.form;
   const existingProps = form.$properties || {};
+  const attemptsField = form.validate_otp.attempts_text;
 
   globals.functions.setProperty(form, {
     properties: {
@@ -199,6 +221,14 @@ function initOtp(globals) {
       otpAttempts: 0,
     },
   });
+
+  // Initial attempts UI
+  if (attemptsField) {
+    globals.functions.setProperty(attemptsField, {
+      value: '3/3 attempts left',
+      readOnly: true,
+    });
+  }
 
   console.log("OTP initialized");
 
