@@ -283,7 +283,7 @@ function fetchOffer(globals) {
   const form = globals.form;
 
   // ✅ Correct OTP field
-  const otp = form.validate_otp.enter_otp?.value;
+  const otp = form.validate_otp.enter_otp.validate_box?.value;
 
   // ❗ Mobile is NOT in this panel
   // So either:
