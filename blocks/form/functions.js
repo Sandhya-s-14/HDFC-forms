@@ -56,17 +56,16 @@ function maskMobileNumber(mobileNumber) {
   return ` ${'*'.repeat(5)}${value.substring(5)}`;
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber,
-};
-
 //---------------------------------------I addded this-----------------------------------------------------//
+/**
+* Masks the first 5 digits of the mobile number with *
+* @param {globals}
+*/
 let otpTimer;
 let timeLeft = 60;
 let attemptsLeft = 3;
 
-function startOtpTimer() {
+function startOtpTimer(globals) {
   clearInterval(otpTimer);
   timeLeft = 60;
 
@@ -89,7 +88,7 @@ function startOtpTimer() {
   }, 1000);
 }
 
-function handleOtpFailure() {
+function handleOtpFailure(globals) {
     attemptsLeft--;
 
     if (attemptsLeft <= 0) {
@@ -105,3 +104,8 @@ function handleOtpFailure() {
         alert("Wrong OTP. Attempts left: " + attemptsLeft);
     }
 }
+// eslint-disable-next-line import/prefer-default-export
+export {
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, handleOtpFailure, 
+};
+
