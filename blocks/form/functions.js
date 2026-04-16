@@ -278,10 +278,12 @@ function debugForm(globals) {
 
 //----------------------OFFER PAGE-------------------------------
 /**
- * Fetch Offer Data
+ * Fetch Offer Data (EDS compatible)
  * @param {scope} globals
  */
 function fetchOffer(globals) {
+  console.log("🔥 fetchOffer triggered");
+
   const form = globals.form;
 
   const mobile = form.validate_otp.mobile?.value;
@@ -289,56 +291,53 @@ function fetchOffer(globals) {
 
   if (!mobile || !otp) return;
 
-  try {
-    const res = await fetch("https://your-ngrok-url/api/verify-otp-offer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ mobile, otp }),
+  fetch("https://your-ngrok-url/api/verify-otp-offer", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ mobile, otp }),
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log("API Response:", result);
+
+      if (result.status === "SUCCESS") {
+        const data = result.data;
+
+        globals.functions.setProperty(form.offer_page.loan_amount, {
+          value: data.offerAmount,
+        });
+
+        globals.functions.setProperty(form.offer_page.loan_tenture, {
+          value: data.tenure,
+        });
+
+        globals.functions.setProperty(form.offer_page.rate_of_interest, {
+          value: data.rateOfInterest,
+        });
+
+        globals.functions.setProperty(form.offer_page.taxes, {
+          value: data.taxes,
+        });
+
+        // ✅ Trigger EMI calculation
+        calculateEMI(globals);
+
+      } else {
+        globals.functions.setProperty(form.offer_page.error_message, {
+          value: "Invalid OTP",
+        });
+      }
+    })
+    .catch((err) => {
+      console.error("API Error:", err);
     });
-
-    const result = await res.json();
-
-    if (result.status === "SUCCESS") {
-      const data = result.data;
-
-      globals.functions.setProperty(form.offer_page.loan_amount, {
-        value: data.offerAmount,
-      });
-
-      globals.functions.setProperty(form.offer_page.loan_tenture, {
-        value: data.tenure,
-      });
-
-      globals.functions.setProperty(form.offer_page.rate_of_interest, {
-        value: data.rateOfInterest,
-      });
-
-      globals.functions.setProperty(form.offer_page.taxes, {
-        value: data.taxes,
-      });
-
-      // Calculate EMI after setting values
-      calculateEMI(globals);
-
-    } else {
-      globals.functions.setProperty(form.offer_page.error_message, {
-        value: "Invalid OTP",
-      });
-    }
-
-  } catch (err) {
-    console.error("API error", err);
-  }
 }
 
-/**
- * Calculate EMI
- * @param {scope} globals
- */
 function calculateEMI(globals) {
   console.log("🔥 EMI triggered");
+
   const form = globals.form;
 
   const loan = Number(form.offer_page.loan_amount?.value);
