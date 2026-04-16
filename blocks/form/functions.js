@@ -57,59 +57,125 @@ function maskMobileNumber(mobileNumber) {
 }
 
 //---------------------------------------I addded this-----------------------------------------------------//
-/* timer function */
+/* timer + otp logic */
+
 /**
  * @param {scope} globals
  */
 function startOtpTimer(globals) {
-  const timerField = globals.form.validate_otp.timer;
+  const form = globals.form;
+  const timerField = form.validate_otp.timer;
+  const resendBtn = form.validate_otp.resend_otp;
+
   let seconds = 30;
- 
-  if (!timerField) {
-    return '00:30';
+
+  if (!timerField) return;
+
+  // Disable resend button when timer starts
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      enabled: false,
+    });
   }
- 
+
+  // Clear existing timer
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
   }
- 
+
+  // Set initial time
   globals.functions.setProperty(timerField, {
     value: '00:30',
   });
- 
+
   window.otpTimerInterval = setInterval(() => {
-    seconds -= 1;
- 
-    if (seconds >= 10) {
+    seconds--;
+
+    const formatted =
+      seconds >= 10 ? `00:${seconds}` : `00:0${seconds}`;
+
+    if (seconds >= 0) {
       globals.functions.setProperty(timerField, {
-        value: `00:${seconds}`,
-      });
-    } else if (seconds >= 0) {
-      globals.functions.setProperty(timerField, {
-        value: `00:0${seconds}`,
+        value: formatted,
       });
     }
- 
+
     if (seconds <= 0) {
       clearInterval(window.otpTimerInterval);
       window.otpTimerInterval = null;
- 
+
       globals.functions.setProperty(timerField, {
         value: 'Time expired',
       });
+
+      // Enable resend only if attempts < 3
+      const attempts = form.$properties?.otpAttempts || 0;
+
+      if (resendBtn && attempts < 3) {
+        globals.functions.setProperty(resendBtn, {
+          enabled: true,
+        });
+      }
     }
   }, 1000);
- 
-  return '00:30';
 }
- 
+
+/**
+ * @param {scope} globals
+ */
+function resendOtp(globals) {
+  const form = globals.form;
+  const resendBtn = form.validate_otp.resend_otp;
+  const timerField = form.validate_otp.timer;
+
+  const attempts = form.$properties?.otpAttempts || 0;
+
+  // ❌ Block after 3 attempts
+  if (attempts >= 3) {
+    globals.functions.setProperty(timerField, {
+      value: 'Maximum resend attempts reached',
+    });
+
+    if (resendBtn) {
+      globals.functions.setProperty(resendBtn, {
+        enabled: false,
+      });
+    }
+
+    return;
+  }
+
+  const updatedAttempts = attempts + 1;
+
+  // ✅ Store attempts in form properties (EDS way)
+  globals.functions.setProperty(form, {
+    properties: {
+      ...form.$properties,
+      otpAttempts: updatedAttempts,
+    },
+  });
+
+  console.log("Resend attempt:", updatedAttempts);
+
+  // Disable resend immediately
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      enabled: false,
+    });
+  }
+
+  // 👉 Call backend API here in real implementation
+  console.log("New OTP generated");
+
+  // Restart timer
+  startOtpTimer(globals);
+}
+
 /**
  * @param {scope} globals
  */
 function stopOtpTimer(globals) {
-  const timerField =globals.form.validate_otp.timer;
- 
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
@@ -117,17 +183,42 @@ function stopOtpTimer(globals) {
 }
 
 /**
+ * Initialize attempts when OTP is first generated
+ * @param {scope} globals
+ */
+function initOtp(globals) {
+  globals.functions.setProperty(globals.form, {
+    properties: {
+      ...globals.form.$properties,
+      otpAttempts: 0,
+    },
+  });
+
+  console.log("OTP initialized");
+
+  startOtpTimer(globals);
+}
+
+/**
+ * Debug helper
  * @param {scope} globals
  */
 function debugForm(globals) {
   window.myForm = globals.form;
-  // eslint-disable-next-line no-console
   console.log('myForm', window.myForm);
   return '';
 }
 
-// eslint-disable-next-line import/prefer-default-export
+// export functions
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,debugForm
+  getFullName,
+  days,
+  submitFormArrayToString,
+  maskMobileNumber,
+  startOtpTimer,
+  stopOtpTimer,
+  resendOtp,
+  initOtp,
+  debugForm
 };
 
