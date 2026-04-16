@@ -62,8 +62,6 @@ function maskMobileNumber(mobileNumber) {
  * @param {scope} globals
  */
 function startOtpTimer(globals) {
-  window.myGlobals = globals;   // 👈 capture it
-  console.log("captured globals");
   const timerField = globals.form.otp_verification.timer;
   let seconds = 30;
  
@@ -120,5 +118,15 @@ function stopOtpTimer(globals) {
  
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,debugForm
 };
+
+/**
+ * @param {scope} globals
+ */
+function debugForm(globals) {
+  window.myForm = globals.form;
+  // eslint-disable-next-line no-console
+  console.log('myForm', window.myForm);
+  return '';
+}
