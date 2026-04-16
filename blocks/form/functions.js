@@ -278,7 +278,7 @@ function debugForm(globals) {
 
 //----------------------OFFER PAGE-------------------------------
 /**
- * Fetch Offer Data after OTP validation
+ * Fetch Offer Data
  * @param {scope} globals
  */
 async function fetchOffer(globals) {
@@ -287,10 +287,7 @@ async function fetchOffer(globals) {
   const mobile = form.validate_otp.mobile?.value;
   const otp = form.validate_otp.otp?.value;
 
-  if (!mobile || !otp) {
-    console.log("Mobile or OTP missing");
-    return;
-  }
+  if (!mobile || !otp) return;
 
   try {
     const res = await fetch("https://your-ngrok-url/api/verify-otp-offer", {
@@ -306,12 +303,11 @@ async function fetchOffer(globals) {
     if (result.status === "SUCCESS") {
       const data = result.data;
 
-      // ✅ Set Offer Fields
       globals.functions.setProperty(form.offer_page.loan_amount, {
         value: data.offerAmount,
       });
 
-      globals.functions.setProperty(form.offer_page.tenure, {
+      globals.functions.setProperty(form.offer_page.loan_tenture, {
         value: data.tenure,
       });
 
@@ -323,63 +319,43 @@ async function fetchOffer(globals) {
         value: data.taxes,
       });
 
-      // Optional: Store max loan in properties
-      globals.functions.setProperty(form, {
-        properties: {
-          ...form.$properties,
-          maxLoanAmount: data.offerAmount,
-        },
-      });
-
-      // ✅ Calculate EMI immediately
+      // Calculate EMI after setting values
       calculateEMI(globals);
 
     } else {
-      console.log("Invalid OTP");
-
       globals.functions.setProperty(form.offer_page.error_message, {
         value: "Invalid OTP",
       });
     }
 
   } catch (err) {
-    console.error("API Error:", err);
-
-    globals.functions.setProperty(form.offer_page.error_message, {
-      value: "Something went wrong",
-    });
+    console.error("API error", err);
   }
 }
 
-//-------------------------EMI-------------------------
 /**
- * Calculate EMI dynamically
+ * Calculate EMI
  * @param {scope} globals
  */
 function calculateEMI(globals) {
   const form = globals.form;
 
-  const loanField = form.offer_page.loan_amount;
-  const tenureField = form.offer_page.tenure;
-  const roiField = form.offer_page.rate_of_interest;
+  const loan = Number(form.offer_page.loan_amount?.value);
+  const tenure = Number(form.offer_page.loan_tenture?.value);
+  const roi = Number(form.offer_page.rate_of_interest?.value);
+
   const emiField = form.offer_page.emi;
 
-  const P = Number(loanField?.value);
-  const N = Number(tenureField?.value);
-  const annualRate = Number(roiField?.value);
+  if (!loan || !tenure || !roi) return;
 
-  if (!P || !N || !annualRate) return;
-
-  const r = annualRate / 12 / 100;
+  const r = roi / 12 / 100;
 
   const emi =
-    (P * r * Math.pow(1 + r, N)) /
-    (Math.pow(1 + r, N) - 1);
-
-  const roundedEMI = Math.round(emi);
+    (loan * r * Math.pow(1 + r, tenure)) /
+    (Math.pow(1 + r, tenure) - 1);
 
   globals.functions.setProperty(emiField, {
-    value: roundedEMI,
+    value: Math.round(emi),
   });
 }
 
