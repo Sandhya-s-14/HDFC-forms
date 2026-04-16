@@ -277,17 +277,22 @@ function debugForm(globals) {
 }
 
 //----------------------OFFER PAGE-------------------------------
-/**
- * Fetch Offer Data (EDS compatible)
- * @param {scope} globals
- */
 function fetchOffer(globals) {
   console.log("🔥 fetchOffer triggered");
 
   const form = globals.form;
 
-  const mobile = form.validate_otp.mobile?.value;
-  const otp = form.validate_otp.otp?.value;
+  // ✅ Correct OTP field
+  const otp = form.validate_otp.enter_otp?.value;
+
+  // ❗ Mobile is NOT in this panel
+  // So either:
+  // 1. Fetch from previous step
+  // 2. Hardcode (for now)
+  const mobile = form.mobile?.value || "9876543210";
+
+  console.log("Mobile:", mobile);
+  console.log("OTP:", otp);
 
   if (!mobile || !otp) {
     console.log("❌ Missing mobile or OTP");
@@ -301,52 +306,38 @@ function fetchOffer(globals) {
     },
     body: JSON.stringify({ mobile, otp }),
   })
-    .then((res) => {
-      console.log("Response status:", res.status);
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((result) => {
       console.log("API Response:", result);
 
       if (result.status === "SUCCESS") {
         const data = result.data;
 
-        // ✅ Set Loan Amount
         globals.functions.setProperty(form.offer_page.loan_amount, {
           value: data.offerAmount,
           displayValue: String(data.offerAmount),
         });
 
-        // ✅ Set Tenure
         globals.functions.setProperty(form.offer_page.loan_tenture, {
           value: data.tenure,
           displayValue: String(data.tenure),
         });
 
-        // ✅ Set ROI
         globals.functions.setProperty(form.offer_page.rate_of_interest, {
           value: data.rateOfInterest,
           displayValue: String(data.rateOfInterest),
         });
 
-        // ✅ Set Taxes
         globals.functions.setProperty(form.offer_page.taxes, {
           value: data.taxes,
           displayValue: String(data.taxes),
         });
 
-        // ✅ Calculate EMI immediately
         calculateEMI(globals);
-
-      } else {
-        globals.functions.setProperty(form.offer_page.error_message, {
-          value: "Invalid OTP",
-          displayValue: "Invalid OTP",
-        });
       }
     })
     .catch((err) => {
-      console.error("❌ API Error:", err);
+      console.error("API Error:", err);
     });
 }
 
