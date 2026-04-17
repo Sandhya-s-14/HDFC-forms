@@ -173,20 +173,23 @@ function resendOtp(globals) {
   console.log("📩 OTP resent");
 
   // ❗ Hit limit now
-  if (attempts >= 3) {
-    window.otpLockUntil = Date.now() + 15 * 60 * 1000;
+ if (attempts >= 3) {
+  window.otpLockUntil = Date.now() + 15 * 60 * 1000;
 
-    alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
+  alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
-    // ✅ FORCE PANEL SWITCH
-    globals.functions.setProperty(form.validate_otp, { _active: false });
+  // ❌ hide OTP panel
+  globals.functions.setProperty(globals.form.validate_otp, {
+    visible: false
+  });
 
-    setTimeout(() => {
-      globals.functions.setProperty(form.generate_otp, { _active: true });
-    }, 100);
+  // ✅ show Generate OTP panel
+  globals.functions.setProperty(globals.form.generate_otp, {
+    visible: true
+  });
 
-    return;
-  }
+  return;
+}
 
   startOtpTimer(globals);
 }
