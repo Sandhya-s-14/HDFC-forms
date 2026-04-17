@@ -151,8 +151,8 @@ function resendOtp(globals) {
     // 🔒 ensure lock exists
     window.otpLockUntil = window.otpLockUntil || (Date.now() + 15 * 60 * 1000);
 
-    // 👉 redirect
-    globals.functions.navigateTo("generate_otp");
+    // 👉 CORRECT NAVIGATION
+    globals.functions.navigateTo(form.generate_otp);
 
     return;
   }
@@ -183,13 +183,12 @@ function resendOtp(globals) {
 
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
-    // 👉 redirect after alert OK
-    globals.functions.navigateTo("generate_otp");
+    // 👉 CORRECT NAVIGATION
+    globals.functions.navigateTo(form.generate_otp);
 
     return;
   }
 
-  // ✅ restart timer if still allowed
   startOtpTimer(globals);
 }
 
