@@ -297,7 +297,7 @@ header.header-wrapper .header.block::before {
   content: "";
   display: block;
   width: 132px;
-  height: 34px;
+  height: 38px;
 
   background-image: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/hdfc-logo.svg");
   background-repeat: no-repeat;
@@ -315,7 +315,7 @@ header.header-wrapper .header.block::after {
   transform: translateY(-50%);
 
   width: 140px;   /* adjust if needed */
-  height: 32px;
+  height: 36px;
 
   background-image: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/header-img-icon.png");
   background-repeat: no-repeat;
