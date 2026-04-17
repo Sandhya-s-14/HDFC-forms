@@ -57,11 +57,8 @@ function maskMobileNumber(mobileNumber) {
 }
 
 //---------------------------------------I addded this-----------------------------------------------------//
-/* timer + otp logic */
+/* ================= OTP TIMER ================= */
 
-/**
- * @param {scope} globals
- */
 function startOtpTimer(globals) {
   const form = globals.form;
   const timerField = form.validate_otp.timer;
@@ -72,19 +69,11 @@ function startOtpTimer(globals) {
 
   if (!timerField) return;
 
-  // Disable resend button when timer starts
-  if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
-      enabled: false,
-    });
-  }
+  // Disable resend button
+  globals.functions.setProperty(resendBtn, { enabled: false });
 
-  // Enable validate button when timer starts
-  if (validateBtn) {
-    globals.functions.setProperty(validateBtn, {
-      enabled: true,
-    });
-  }
+  // Enable validate button
+  globals.functions.setProperty(validateBtn, { enabled: true });
 
   // Reset expiry flag
   globals.functions.setProperty(form, {
@@ -94,14 +83,13 @@ function startOtpTimer(globals) {
     },
   });
 
-  // Clear existing timer
+  // Clear previous timer
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
   }
 
-  // Set initial time
   globals.functions.setProperty(timerField, {
-    value: '00:30',
+    value: "00:30",
   });
 
   window.otpTimerInterval = setInterval(() => {
@@ -120,10 +108,9 @@ function startOtpTimer(globals) {
       clearInterval(window.otpTimerInterval);
 
       globals.functions.setProperty(timerField, {
-        value: 'Time expired',
+        value: "Time expired",
       });
 
-      // ✅ Mark OTP expired
       globals.functions.setProperty(form, {
         properties: {
           ...form.$properties,
@@ -131,17 +118,13 @@ function startOtpTimer(globals) {
         },
       });
 
-      // ❌ Disable validate button
-      if (validateBtn) {
-        globals.functions.setProperty(validateBtn, {
-          enabled: false,
-        });
-      }
+      globals.functions.setProperty(validateBtn, {
+        enabled: false,
+      });
 
-      const attempts = form.$properties?.otpAttempts || 0;
+      const attempts = Number(form.$properties?.otpAttempts || 0);
 
-      // Enable resend only if attempts < 3
-      if (resendBtn && attempts < 3) {
+      if (attempts < 3) {
         globals.functions.setProperty(resendBtn, {
           enabled: true,
         });
@@ -150,9 +133,8 @@ function startOtpTimer(globals) {
   }, 1000);
 }
 
-/**
- * @param {scope} globals
- */
+/* ================= RESEND OTP ================= */
+
 function resendOtp(globals) {
   console.log("🔥 resendOtp triggered");
 
@@ -161,15 +143,11 @@ function resendOtp(globals) {
   const timerField = form.validate_otp.timer;
   const attemptsField = form.validate_otp.attempts_text;
 
-  // ✅ ALWAYS get latest value (NO existingProps)
   let attempts = Number(form.$properties?.otpAttempts || 0);
 
-  console.log("Current attempts:", attempts);
-
-  // ❌ Block after 3 attempts
   if (attempts >= 3) {
     globals.functions.setProperty(timerField, {
-      value: 'Maximum resend attempts reached',
+      value: "Maximum attempts reached",
     });
 
     globals.functions.setProperty(resendBtn, {
@@ -177,17 +155,15 @@ function resendOtp(globals) {
     });
 
     globals.functions.setProperty(attemptsField, {
-      value: 'No attempts left',
+      value: "No attempts left",
       readOnly: true,
     });
 
     return;
   }
 
-  // ✅ Increment attempts
   attempts += 1;
 
-  // ✅ Store updated attempts (use fresh spread)
   globals.functions.setProperty(form, {
     properties: {
       ...form.$properties,
@@ -195,33 +171,76 @@ function resendOtp(globals) {
     },
   });
 
-  console.log("New attempt:", attempts);
-
-  // ✅ Update UI text (clean format)
   const remaining = 3 - attempts;
 
   globals.functions.setProperty(attemptsField, {
     value:
       remaining > 0
         ? `${remaining} attempts left`
-        : 'No attempts left',
+        : "No attempts left",
     readOnly: true,
   });
 
-  // Disable resend button immediately
   globals.functions.setProperty(resendBtn, {
     enabled: false,
   });
 
-  console.log("New OTP generated");
+  console.log("📩 New OTP generated");
 
-  // Restart timer
   startOtpTimer(globals);
 }
 
-/**
- * @param {scope} globals
- */
+/* ================= INVALID OTP HANDLER ================= */
+
+function handleInvalidOtp(globals) {
+  console.log("❌ Invalid OTP");
+
+  const form = globals.form;
+  const attemptsField = form.validate_otp.attempts_text;
+  const validateBtn = form.validate_otp.validate_otp;
+  const resendBtn = form.validate_otp.resend_otp;
+
+  let attempts = Number(form.$properties?.otpAttempts || 0);
+
+  if (attempts >= 3) return;
+
+  attempts += 1;
+
+  globals.functions.setProperty(form, {
+    properties: {
+      ...form.$properties,
+      otpAttempts: attempts,
+    },
+  });
+
+  const remaining = 3 - attempts;
+
+  globals.functions.setProperty(attemptsField, {
+    value:
+      remaining > 0
+        ? `${remaining} attempts left`
+        : "No attempts left",
+    readOnly: true,
+  });
+
+  if (attempts >= 3) {
+    globals.functions.setProperty(validateBtn, {
+      enabled: false,
+    });
+
+    globals.functions.setProperty(resendBtn, {
+      enabled: false,
+    });
+
+    console.log("🔒 Max attempts reached");
+
+    // Optional navigation
+    // globals.functions.navigateTo("error_page");
+  }
+}
+
+/* ================= STOP TIMER ================= */
+
 function stopOtpTimer() {
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
@@ -229,44 +248,36 @@ function stopOtpTimer() {
   }
 }
 
-/**
- * Initialize OTP (first time)
- * @param {scope} globals
- */
+/* ================= INIT OTP ================= */
+
 function initOtp(globals) {
   const form = globals.form;
-  const existingProps = form.$properties || {};
   const attemptsField = form.validate_otp.attempts_text;
 
   globals.functions.setProperty(form, {
     properties: {
-      ...existingProps,
+      ...form.$properties,
       otpAttempts: 0,
-      otpExpired: false, // ✅ reset expiry
+      otpExpired: false,
     },
   });
 
-  // Initial attempts UI
-  if (attemptsField) {
-    globals.functions.setProperty(attemptsField, {
-      value: '3/3 attempts left',
-      readOnly: true,
-    });
-  }
+  globals.functions.setProperty(attemptsField, {
+    value: "3 attempts left",
+    readOnly: true,
+  });
 
-  console.log("OTP initialized");
+  console.log("✅ OTP initialized");
 
   startOtpTimer(globals);
 }
 
-/**
- * Debug helper
- * @param {scope} globals
- */
+/* ================= DEBUG ================= */
+
 function debugForm(globals) {
   window.myForm = globals.form;
-  console.log('myForm', window.myForm);
-  return '';
+  console.log("myForm", window.myForm);
+  return "";
 }
 
 //----------------------OFFER PAGE-------------------------------
