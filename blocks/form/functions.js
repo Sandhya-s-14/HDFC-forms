@@ -58,6 +58,7 @@ function maskMobileNumber(mobileNumber) {
 
 //---------------------------------------I addded this-----------------------------------------------------//
 /* ================= OTP TIMER ================= */
+/* ================= OTP TIMER ================= */
 
 function startOtpTimer(globals) {
   const form = globals.form;
@@ -74,14 +75,6 @@ function startOtpTimer(globals) {
 
   // Enable validate button
   globals.functions.setProperty(validateBtn, { enabled: true });
-
-  // Reset expiry flag
-  globals.functions.setProperty(form, {
-    properties: {
-      ...form.$properties,
-      otpExpired: false,
-    },
-  });
 
   // Clear previous timer
   if (window.otpTimerInterval) {
@@ -111,19 +104,13 @@ function startOtpTimer(globals) {
         value: "Time expired",
       });
 
-      globals.functions.setProperty(form, {
-        properties: {
-          ...form.$properties,
-          otpExpired: true,
-        },
-      });
-
       globals.functions.setProperty(validateBtn, {
         enabled: false,
       });
 
-      const attempts = Number(form.$properties?.otpAttempts || 0);
+      const attempts = window.otpAttempts || 0;
 
+      // Enable resend only if attempts < 3
       if (attempts < 3) {
         globals.functions.setProperty(resendBtn, {
           enabled: true,
@@ -136,14 +123,14 @@ function startOtpTimer(globals) {
 /* ================= RESEND OTP ================= */
 
 function resendOtp(globals) {
-  console.log("🔥 resendOtp triggered");
+  console.log("🔥 resendOtp");
 
   const form = globals.form;
   const resendBtn = form.validate_otp.resend_otp;
   const timerField = form.validate_otp.timer;
   const attemptsField = form.validate_otp.attempts_text;
 
-  let attempts = Number(form.$properties?.otpAttempts || 0);
+  let attempts = window.otpAttempts || 0;
 
   if (attempts >= 3) {
     globals.functions.setProperty(timerField, {
@@ -156,20 +143,14 @@ function resendOtp(globals) {
 
     globals.functions.setProperty(attemptsField, {
       value: "No attempts left",
-      readOnly: true,
     });
 
     return;
   }
 
-  attempts += 1;
-
-  globals.functions.setProperty(form, {
-    properties: {
-      ...form.$properties,
-      otpAttempts: attempts,
-    },
-  });
+  // ✅ increment
+  attempts++;
+  window.otpAttempts = attempts;
 
   const remaining = 3 - attempts;
 
@@ -178,19 +159,18 @@ function resendOtp(globals) {
       remaining > 0
         ? `${remaining} attempts left`
         : "No attempts left",
-    readOnly: true,
   });
 
   globals.functions.setProperty(resendBtn, {
     enabled: false,
   });
 
-  console.log("📩 New OTP generated");
+  console.log("📩 OTP resent");
 
   startOtpTimer(globals);
 }
 
-/* ================= INVALID OTP HANDLER ================= */
+/* ================= INVALID OTP ================= */
 
 function handleInvalidOtp(globals) {
   console.log("❌ Invalid OTP");
@@ -200,18 +180,13 @@ function handleInvalidOtp(globals) {
   const validateBtn = form.validate_otp.validate_otp;
   const resendBtn = form.validate_otp.resend_otp;
 
-  let attempts = Number(form.$properties?.otpAttempts || 0);
+  let attempts = window.otpAttempts || 0;
 
   if (attempts >= 3) return;
 
-  attempts += 1;
-
-  globals.functions.setProperty(form, {
-    properties: {
-      ...form.$properties,
-      otpAttempts: attempts,
-    },
-  });
+  // ✅ increment
+  attempts++;
+  window.otpAttempts = attempts;
 
   const remaining = 3 - attempts;
 
@@ -220,9 +195,9 @@ function handleInvalidOtp(globals) {
       remaining > 0
         ? `${remaining} attempts left`
         : "No attempts left",
-    readOnly: true,
   });
 
+  // ❌ block after 3
   if (attempts >= 3) {
     globals.functions.setProperty(validateBtn, {
       enabled: false,
@@ -233,9 +208,6 @@ function handleInvalidOtp(globals) {
     });
 
     console.log("🔒 Max attempts reached");
-
-    // Optional navigation
-    // globals.functions.navigateTo("error_page");
   }
 }
 
@@ -254,13 +226,8 @@ function initOtp(globals) {
   const form = globals.form;
   const attemptsField = form.validate_otp.attempts_text;
 
-  globals.functions.setProperty(form, {
-    properties: {
-      ...form.$properties,
-      otpAttempts: 0,
-      otpExpired: false,
-    },
-  });
+  // ✅ initialize attempts
+  window.otpAttempts = 0;
 
   globals.functions.setProperty(attemptsField, {
     value: "3 attempts left",
@@ -280,108 +247,6 @@ function debugForm(globals) {
   return "";
 }
 
-//----------------------OFFER PAGE-------------------------------
-function fetchOffer(globals) {
-  console.log("🔥 fetchOffer triggered");
-
-  const form = globals.form;
-
-  // ✅ Correct OTP field
-  const otp = form.validate_otp.enter_otp.validate_box?.value;
-
-  // ❗ Mobile is NOT in this panel
-  // So either:
-  // 1. Fetch from previous step
-  // 2. Hardcode (for now)
-  const mobile = form.mobile?.value || "9876543210";
-
-  console.log("Mobile:", mobile);
-  console.log("OTP:", otp);
-
-  if (!mobile || !otp) {
-    console.log("❌ Missing mobile or OTP");
-    return;
-  }
-
-  fetch("https://lugged-delay-rift.ngrok-free.dev/api/verify-otp-offer", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ mobile, otp }),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      console.log("API Response:", result);
-
-      if (result.status === "SUCCESS") {
-        const data = result.data;
-
-        globals.functions.setProperty(form.offer_page.loan_amount, {
-          value: data.offerAmount,
-          displayValue: String(data.offerAmount),
-        });
-
-        globals.functions.setProperty(form.offer_page.loan_tenture, {
-          value: data.tenure,
-          displayValue: String(data.tenure),
-        });
-
-        globals.functions.setProperty(form.offer_page.rate_of_interest, {
-          value: data.rateOfInterest,
-          displayValue: String(data.rateOfInterest),
-        });
-
-        globals.functions.setProperty(form.offer_page.taxes, {
-          value: data.taxes,
-          displayValue: String(data.taxes),
-        });
-
-        calculateEMI(globals);
-      }
-    })
-    .catch((err) => {
-      console.error("API Error:", err);
-    });
-}
-
-/**
- * Calculate EMI dynamically
- * @param {scope} globals
- */
-function calculateEMI(globals) {
-  console.log("🔥 EMI triggered");
-
-  const form = globals.form;
-
-  const loan = Number(form.offer_page.loan_amount?.value);
-  const tenure = Number(form.offer_page.loan_tenture?.value);
-  const roi = Number(form.offer_page.rate_of_interest?.value);
-
-  console.log("Values:", loan, tenure, roi);
-
-  const emiField = form.offer_page.emi;
-
-  if (!loan || !tenure || !roi) {
-    console.log("❌ Missing values for EMI");
-    return;
-  }
-
-  const r = roi / 12 / 100;
-
-  const emi =
-    (loan * r * Math.pow(1 + r, tenure)) /
-    (Math.pow(1 + r, tenure) - 1);
-
-  const roundedEMI = Math.round(emi);
-
-  // ✅ IMPORTANT: set both value + displayValue
-  globals.functions.setProperty(emiField, {
-    value: roundedEMI,
-    displayValue: String(roundedEMI),
-  });
-}
-
 export {
   getFullName,
   days,
@@ -392,6 +257,4 @@ export {
   resendOtp,
   initOtp,
   debugForm,
-  fetchOffer,
-  calculateEMI,
 };
