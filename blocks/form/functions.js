@@ -183,8 +183,7 @@ function resendOtp(globals) {
 
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
-    // 👉 CORRECT NAVIGATION
-    window.goToGenerateOtp = true;
+    globals.form.navigateTo("generate_otp");
 
     return;
   }
