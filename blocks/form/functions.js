@@ -181,8 +181,7 @@ function handleInvalidOtp(form) {
 
   let attempts = window.otpAttempts || 0;
 
-  if (attempts >= 3) return;
-
+  // ✅ increment FIRST
   attempts++;
   window.otpAttempts = attempts;
 
@@ -195,8 +194,10 @@ function handleInvalidOtp(form) {
         : "No attempts left",
   });
 
+  // ✅ show alert when limit reached
   if (attempts >= 3) {
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
+
     form.$functions.setProperty(validateBtn, {
       enabled: false,
     });
