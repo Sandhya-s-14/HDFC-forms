@@ -172,10 +172,9 @@ function resendOtp(globals) {
 
 /* ================= INVALID OTP ================= */
 
-function handleInvalidOtp(globals) {
+function handleInvalidOtp(form) {
   console.log("❌ Invalid OTP");
 
-  const form = globals.form;
   const attemptsField = form.validate_otp.attempts_text;
   const validateBtn = form.validate_otp.validate_otp;
   const resendBtn = form.validate_otp.resend_otp;
@@ -184,30 +183,26 @@ function handleInvalidOtp(globals) {
 
   if (attempts >= 3) return;
 
-  // ✅ increment
   attempts++;
   window.otpAttempts = attempts;
 
   const remaining = 3 - attempts;
 
-  globals.functions.setProperty(attemptsField, {
+  form.$functions.setProperty(attemptsField, {
     value:
       remaining > 0
         ? `${remaining} attempts left`
         : "No attempts left",
   });
 
-  // ❌ block after 3
   if (attempts >= 3) {
-    globals.functions.setProperty(validateBtn, {
+    form.$functions.setProperty(validateBtn, {
       enabled: false,
     });
 
-    globals.functions.setProperty(resendBtn, {
+    form.$functions.setProperty(resendBtn, {
       enabled: false,
     });
-
-    console.log("🔒 Max attempts reached");
   }
 }
 
