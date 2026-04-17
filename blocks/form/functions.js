@@ -58,7 +58,6 @@ function maskMobileNumber(mobileNumber) {
 
 //---------------------------------------I addded this-----------------------------------------------------//
 /* ================= OTP TIMER ================= */
-/* ================= OTP TIMER ================= */
 
 function startOtpTimer(globals) {
   const form = globals.form;
@@ -70,13 +69,9 @@ function startOtpTimer(globals) {
 
   if (!timerField) return;
 
-  // Disable resend button
   globals.functions.setProperty(resendBtn, { enabled: false });
-
-  // Enable validate button
   globals.functions.setProperty(validateBtn, { enabled: true });
 
-  // Clear previous timer
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
   }
@@ -110,7 +105,6 @@ function startOtpTimer(globals) {
 
       const attempts = window.otpAttempts || 0;
 
-      // Enable resend only if attempts < 3
       if (attempts < 3) {
         globals.functions.setProperty(resendBtn, {
           enabled: true,
@@ -132,32 +126,30 @@ function resendOtp(globals) {
 
   let attempts = window.otpAttempts || 0;
 
-  // ❗ If already exceeded
+  // ❗ Already exceeded
   if (attempts >= 3) {
+    window.otpLockUntil = window.otpLockUntil || (Date.now() + 15 * 60 * 1000);
+
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
     globals.functions.setProperty(timerField, {
       value: "Maximum attempts reached",
     });
 
-    globals.functions.setProperty(resendBtn, {
-      enabled: false,
-    });
+    globals.functions.setProperty(resendBtn, { enabled: false });
 
     globals.functions.setProperty(attemptsField, {
       value: "No attempts left",
     });
 
-    // 🔒 ensure lock exists
-    window.otpLockUntil = window.otpLockUntil || (Date.now() + 15 * 60 * 1000);
-
-    // 👉 CORRECT NAVIGATION
-    globals.functions.navigateTo(form.generate_otp);
+    // ✅ Switch panel (correct way)
+    globals.functions.setProperty(form.validate_otp, { _active: false });
+    globals.functions.setProperty(form.generate_otp, { _active: true });
 
     return;
   }
 
-  // ✅ increment attempts
+  // ✅ Increment attempts
   attempts++;
   window.otpAttempts = attempts;
 
@@ -170,20 +162,19 @@ function resendOtp(globals) {
         : "No attempts left",
   });
 
-  globals.functions.setProperty(resendBtn, {
-    enabled: false,
-  });
+  globals.functions.setProperty(resendBtn, { enabled: false });
 
   console.log("📩 OTP resent");
 
-  // ❗ If this click reaches limit
+  // ❗ Hit limit now
   if (attempts >= 3) {
-    // 🔒 set lock
     window.otpLockUntil = Date.now() + 15 * 60 * 1000;
 
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
-    globals.form.navigateTo("generate_otp");
+    // ✅ Switch panel
+    globals.functions.setProperty(form.validate_otp, { _active: false });
+    globals.functions.setProperty(form.generate_otp, { _active: true });
 
     return;
   }
@@ -206,7 +197,6 @@ function initOtp(globals) {
   const form = globals.form;
   const attemptsField = form.validate_otp.attempts_text;
 
-  // ✅ initialize attempts
   window.otpAttempts = 0;
 
   globals.functions.setProperty(attemptsField, {
