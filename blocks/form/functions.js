@@ -132,7 +132,10 @@ function resendOtp(globals) {
 
   let attempts = window.otpAttempts || 0;
 
+  // ❗ SHOW ALERT HERE
   if (attempts >= 3) {
+    alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
+
     globals.functions.setProperty(timerField, {
       value: "Maximum attempts reached",
     });
@@ -166,6 +169,11 @@ function resendOtp(globals) {
   });
 
   console.log("📩 OTP resent");
+
+  // ❗ ALSO HANDLE EDGE CASE (3rd click)
+  if (attempts >= 3) {
+    alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
+  }
 
   startOtpTimer(globals);
 }
