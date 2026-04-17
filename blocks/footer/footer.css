@@ -18,3 +18,35 @@ footer .footer p {
     padding: 40px 32px 24px;
   }
 }
+
+/*-----------------------------------------------------------------------*/
+/* ================= FOOTER WRAPPER ================= */
+
+footer.footer-wrapper {
+  width: 100%;
+  background: #071d49;
+}
+
+/* ================= FOOTER BLOCK ================= */
+
+footer.footer-wrapper .footer.block {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px; /* adjust height */
+  padding: 0 16px;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* ================= TEXT ================= */
+
+footer.footer-wrapper .footer.block::before {
+  content: "© Copyright HDFC Bank Ltd.";
+}
