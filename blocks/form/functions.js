@@ -132,7 +132,7 @@ function resendOtp(globals) {
 
   let attempts = window.otpAttempts || 0;
 
-  // ❗ SHOW ALERT HERE
+  // ❗ If already exceeded
   if (attempts >= 3) {
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
@@ -148,10 +148,16 @@ function resendOtp(globals) {
       value: "No attempts left",
     });
 
+    // 🔒 ensure lock exists
+    window.otpLockUntil = window.otpLockUntil || (Date.now() + 15 * 60 * 1000);
+
+    // 👉 redirect
+    globals.functions.navigateTo("generate_otp");
+
     return;
   }
 
-  // ✅ increment
+  // ✅ increment attempts
   attempts++;
   window.otpAttempts = attempts;
 
@@ -170,50 +176,21 @@ function resendOtp(globals) {
 
   console.log("📩 OTP resent");
 
-  // ❗ ALSO HANDLE EDGE CASE (3rd click)
+  // ❗ If this click reaches limit
   if (attempts >= 3) {
+    // 🔒 set lock
+    window.otpLockUntil = Date.now() + 15 * 60 * 1000;
+
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
+
+    // 👉 redirect after alert OK
+    globals.functions.navigateTo("generate_otp");
+
+    return;
   }
 
+  // ✅ restart timer if still allowed
   startOtpTimer(globals);
-}
-
-/* ================= INVALID OTP ================= */
-
-function handleInvalidOtp(form) {
-  console.log("❌ Invalid OTP");
-
-  const attemptsField = form.validate_otp.attempts_text;
-  const validateBtn = form.validate_otp.validate_otp;
-  const resendBtn = form.validate_otp.resend_otp;
-
-  let attempts = window.otpAttempts || 0;
-
-  // ✅ increment FIRST
-  attempts++;
-  window.otpAttempts = attempts;
-
-  const remaining = 3 - attempts;
-
-  form.$functions.setProperty(attemptsField, {
-    value:
-      remaining > 0
-        ? `${remaining} attempts left`
-        : "No attempts left",
-  });
-
-  // ✅ show alert when limit reached
-  if (attempts >= 3) {
-    alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
-
-    form.$functions.setProperty(validateBtn, {
-      enabled: false,
-    });
-
-    form.$functions.setProperty(resendBtn, {
-      enabled: false,
-    });
-  }
 }
 
 /* ================= STOP TIMER ================= */
