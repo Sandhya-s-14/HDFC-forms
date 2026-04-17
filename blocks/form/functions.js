@@ -59,13 +59,15 @@ function maskMobileNumber(mobileNumber) {
 //---------------------------------------I addded this-----------------------------------------------------//
 /* ================= OTP TIMER ================= */
 
+/* ================= OTP TIMER ================= */
+
 function startOtpTimer(globals) {
   const form = globals.form;
   const timerField = form.validate_otp.timer;
   const resendBtn = form.validate_otp.resend_otp;
   const validateBtn = form.validate_otp.validate_otp;
 
-  let seconds = 30;
+  let seconds = 5;
 
   if (!timerField) return;
 
@@ -76,8 +78,9 @@ function startOtpTimer(globals) {
     clearInterval(window.otpTimerInterval);
   }
 
+  // ✅ FIXED initial value
   globals.functions.setProperty(timerField, {
-    value: "00:30",
+    value: "00:05",
   });
 
   window.otpTimerInterval = setInterval(() => {
@@ -142,9 +145,12 @@ function resendOtp(globals) {
       value: "No attempts left",
     });
 
-    // ✅ Switch panel (correct way)
+    // ✅ FORCE PANEL SWITCH
     globals.functions.setProperty(form.validate_otp, { _active: false });
-    globals.functions.setProperty(form.generate_otp, { _active: true });
+
+    setTimeout(() => {
+      globals.functions.setProperty(form.generate_otp, { _active: true });
+    }, 100);
 
     return;
   }
@@ -172,9 +178,12 @@ function resendOtp(globals) {
 
     alert("You have exceeded maximum OTP attempts. Please try again after 15 minutes.");
 
-    // ✅ Switch panel
+    // ✅ FORCE PANEL SWITCH
     globals.functions.setProperty(form.validate_otp, { _active: false });
-    globals.functions.setProperty(form.generate_otp, { _active: true });
+
+    setTimeout(() => {
+      globals.functions.setProperty(form.generate_otp, { _active: true });
+    }, 100);
 
     return;
   }
