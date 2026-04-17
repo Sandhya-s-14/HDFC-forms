@@ -161,8 +161,8 @@ function resendOtp(globals) {
   const timerField = form.validate_otp.timer;
   const attemptsField = form.validate_otp.attempts_text;
 
-  const existingProps = form.$properties || {};
-  const attempts = existingProps.otpAttempts || 0;
+  // ✅ ALWAYS get latest value (NO existingProps)
+  let attempts = Number(form.$properties?.otpAttempts || 0);
 
   console.log("Current attempts:", attempts);
 
@@ -172,57 +172,50 @@ function resendOtp(globals) {
       value: 'Maximum resend attempts reached',
     });
 
-    if (resendBtn) {
-      globals.functions.setProperty(resendBtn, {
-        enabled: false,
-      });
-    }
+    globals.functions.setProperty(resendBtn, {
+      enabled: false,
+    });
 
-    if (attemptsField) {
-      globals.functions.setProperty(attemptsField, {
-        value: 'No attempts left',
-        readOnly: true,
-      });
-    }
+    globals.functions.setProperty(attemptsField, {
+      value: 'No attempts left',
+      readOnly: true,
+    });
 
     return;
   }
 
-  const updatedAttempts = attempts + 1;
+  // ✅ Increment attempts
+  attempts += 1;
 
-  // ✅ Store attempts
+  // ✅ Store updated attempts (use fresh spread)
   globals.functions.setProperty(form, {
     properties: {
-      ...existingProps,
-      otpAttempts: updatedAttempts,
+      ...form.$properties,
+      otpAttempts: attempts,
     },
   });
 
-  console.log("New attempt:", updatedAttempts);
+  console.log("New attempt:", attempts);
 
-  // Update attempts UI
-  if (attemptsField) {
-    const remaining = 3 - updatedAttempts;
+  // ✅ Update UI text (clean format)
+  const remaining = 3 - attempts;
 
-    globals.functions.setProperty(attemptsField, {
-      value:
-        remaining > 0
-          ? `${remaining}/3 attempts left`
-          : 'No attempts left',
-      readOnly: true,
-    });
-  }
+  globals.functions.setProperty(attemptsField, {
+    value:
+      remaining > 0
+        ? `${remaining} attempts left`
+        : 'No attempts left',
+    readOnly: true,
+  });
 
-  // Disable resend immediately
-  if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
-      enabled: false,
-    });
-  }
+  // Disable resend button immediately
+  globals.functions.setProperty(resendBtn, {
+    enabled: false,
+  });
 
   console.log("New OTP generated");
 
-  // Restart timer (also resets expiry)
+  // Restart timer
   startOtpTimer(globals);
 }
 
