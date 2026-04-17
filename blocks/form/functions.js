@@ -59,8 +59,6 @@ function maskMobileNumber(mobileNumber) {
 //---------------------------------------I addded this-----------------------------------------------------//
 /* ================= OTP TIMER ================= */
 
-/* ================= OTP TIMER ================= */
-
 function startOtpTimer(globals) {
   const form = globals.form;
   const timerField = form.validate_otp.timer;
