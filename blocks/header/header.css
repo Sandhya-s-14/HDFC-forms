@@ -314,8 +314,8 @@ header.header-wrapper .header.block::after {
   top: 50%;
   transform: translateY(-50%);
 
-  width: 160px;   /* adjust if needed */
-  height: 36px;
+  width: 180px;   /* adjust if needed */
+  height: 40px;
 
   background-image: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/header-img-icon.png");
   background-repeat: no-repeat;
