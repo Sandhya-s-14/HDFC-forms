@@ -1010,32 +1010,32 @@ main .form form .checkbox-wrapper input[type="checkbox"]:checked {
     accent-color: #2563eb;   /* modern blue */
 }
 
-/* 🔹 Wrapper text (full sentence) */
+/* 🔹 Base text */
 main .form form .field-terms-privacy-text p {
     font-family: Roboto, Arial, sans-serif !important;
     font-size: 14px !important;
     font-weight: 400 !important;
-    color: #374151 !important;   /* grey text */
+    color: #374151 !important;
     line-height: 1.5;
     margin: 0;
 }
 
 
-/* 🔹 Links (blue like UI) */
-main .form form .field-terms-privacy-text a {
-    color: #1a73e8 !important;   /* Google-like blue */
-    font-weight: 500;
-    text-decoration: none;
+/* 🔹 Make <b> look like links */
+main .form form .field-terms-privacy-text b {
+    font-weight: 500 !important;     /* remove heavy bold */
+    color: #1a73e8 !important;       /* blue */
+    cursor: pointer;
 }
 
 
 /* 🔹 Hover effect */
-main .form form .field-terms-privacy-text a:hover {
+main .form form .field-terms-privacy-text b:hover {
     text-decoration: underline;
 }
 
 
-/* 🔹 Remove unwanted spacing from AEM */
+/* 🔹 Spacing fix */
 main .form form .field-terms-privacy-text {
     margin-top: 6px !important;
 }
