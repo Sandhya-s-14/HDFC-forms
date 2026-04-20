@@ -819,16 +819,31 @@ main .form form [data-id="text-c38781854a"] > p {
 }
 
 .text-wrapper.field-mobile::before {
-    content: "🇮🇳 +91";
+    content: "";
     position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
+    
+    width: 18px;
+    height: 12px;
+
+    background-image: url("https://flagcdn.com/w20/in.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.text-wrapper.field-mobile::after {
+    content: "+91";
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    
     font-size: 14px;
     color: #333;
-    z-index: 1;
 }
 
 #textinput-8b99849b80 {
-    padding-left: 65px;   /* adjust so text doesn’t overlap */
+    padding-left: 70px;
 }
