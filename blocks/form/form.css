@@ -811,4 +811,13 @@ main .form form [data-id="text-c38781854a"] > p {
     border-radius: 6px;
     padding: 12px;
     margin: 0;
+    font-size: 14px;
+}
+
+#textinput-8b99849b80,
+#datepicker-d98116bb83 {
+    height: 30px;
+    font-size: 12px;
+    padding: 4px 6px;
+    border-radius: 4px;
 }
