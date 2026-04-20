@@ -947,3 +947,65 @@ main .form form .field-description {
 .text-wrapper.field-mobile > input {
     margin-bottom: 0 !important;
 }
+
+
+/* ============================= */
+/* 🔹 WRAPPER (layout fix)       */
+/* ============================= */
+main .form form .checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+
+/* ============================= */
+/* 🔹 CHECKBOX INPUT             */
+/* ============================= */
+main .form form .checkbox-wrapper input[type="checkbox"] {
+    margin-top: 3px;           /* align with text */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+
+/* ============================= */
+/* 🔹 LABEL TEXT (MAIN FIX)      */
+/* ============================= */
+main .form form .checkbox-wrapper label {
+    flex: 1 !important;        /* remove AEM width issue */
+
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+
+    color: #333 !important;
+    margin: 0;
+}
+
+
+/* ============================= */
+/* 🔹 REMOVE AEM EXTRA SPACE     */
+/* ============================= */
+main .form form .checkbox-wrapper label::before {
+    display: none !important;
+}
+
+
+/* ============================= */
+/* 🔹 OPTIONAL: HOVER EFFECT     */
+/* ============================= */
+main .form form .checkbox-wrapper:hover label {
+    color: #111;
+}
+
+
+/* ============================= */
+/* 🔹 OPTIONAL: CHECKED STATE    */
+/* ============================= */
+main .form form .checkbox-wrapper input[type="checkbox"]:checked {
+    accent-color: #2563eb;   /* modern blue */
+}
