@@ -823,7 +823,7 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 10px;
 
-    top: 50%;                  /* 👈 move slightly up */
+    top: 30%;                  /* 👈 move slightly up */
     transform: translateY(-60%);
 
     width: 22px;               /* 👈 increased size */
@@ -839,7 +839,7 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 36px;
 
-    top: 50%;                  /* 👈 match flag */
+    top: 31%;                  /* 👈 match flag */
     transform: translateY(-60%);
 
     font-size: 15px;           /* 👈 slightly bigger */
