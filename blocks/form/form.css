@@ -1009,3 +1009,33 @@ main .form form .checkbox-wrapper:hover label {
 main .form form .checkbox-wrapper input[type="checkbox"]:checked {
     accent-color: #2563eb;   /* modern blue */
 }
+
+/* 🔹 Wrapper text (full sentence) */
+main .form form .field-terms-privacy-text p {
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #374151 !important;   /* grey text */
+    line-height: 1.5;
+    margin: 0;
+}
+
+
+/* 🔹 Links (blue like UI) */
+main .form form .field-terms-privacy-text a {
+    color: #1a73e8 !important;   /* Google-like blue */
+    font-weight: 500;
+    text-decoration: none;
+}
+
+
+/* 🔹 Hover effect */
+main .form form .field-terms-privacy-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* 🔹 Remove unwanted spacing from AEM */
+main .form form .field-terms-privacy-text {
+    margin-top: 6px !important;
+}
