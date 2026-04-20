@@ -814,7 +814,7 @@ main .form form [data-id="text-c38781854a"] > p {
     margin: 8px 0;
 
     font-family: Roboto, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;          /* normal, not bold */
     line-height: 1.5;
 
@@ -857,33 +857,36 @@ main .form form [data-id="text-c38781854a"] > p {
     padding-left: 70px;        /* 👈 more space for bigger flag */
 }
 
-.field-source-of-income {
-    font-family: Roboto, Arial, sans-serif !important;
-    font-size: 13px !important;
-}
-
-.field-source-of-income legend {
-    font-size: 15px;
-    font-weight: 500;          /* slightly bold heading */
-    color: #1f2937;
-    margin-bottom: 10px;
-}
-
-.field-source-of-income label {
-    font-size: 14px;
-    font-weight: 400;
-    color: #374151;
-    margin-bottom: 8px;
-}
-
-.field-source-of-income input[type="radio"]:checked + label,
-.field-source-of-income label:has(input:checked) {
-    font-weight: 500;
-    color: #111827;
-}
-
 .field-mobile input::placeholder,
 .field-dob input::placeholder {
     font-size: 14px;
     color: #6b7280;
+}
+
+/* 🔹 Force font for entire source-of-income block */
+main .form form .field-source-of-income {
+    font-family: Roboto, Arial, sans-serif !important;
+}
+
+/* 🔹 Heading: "Your source of income" */
+main .form form .field-source-of-income legend {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #1f2937 !important;
+    font-family: Roboto, Arial, sans-serif !important;
+}
+
+/* 🔹 Radio labels (Salaried, Self Employed...) */
+main .form form .field-source-of-income label {
+    font-size: 13.5px !important;
+    font-weight: 400 !important;
+    color: #374151 !important;
+    font-family: Roboto, Arial, sans-serif !important;
+}
+
+/* 🔹 When selected → slightly bold like UI */
+main .form form .field-source-of-income input[type="radio"]:checked + label,
+main .form form .field-source-of-income label:has(input:checked) {
+    font-weight: 500 !important;
+    color: #111827 !important;
 }
