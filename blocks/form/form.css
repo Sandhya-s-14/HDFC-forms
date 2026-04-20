@@ -1095,9 +1095,9 @@ main .form form [data-id="text-4ba7281fcb"] {
 /* 🔹 Text styling (same as reference) */
 main .form form [data-id="text-4ba7281fcb"] p {
     font-family: Roboto, Arial, sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    color: #1e1e1f !important;
+    font-size: 12px !important;
+    font-weight: 300 !important;
+    color: #000000 !important;
     line-height: 1.5;
     text-align: center;
     margin: 0;
@@ -1114,7 +1114,7 @@ main .form form .field-essentials-for-the-journey {
 main .form form .field-essentials-for-the-journey .plain-text-wrapper {
     display: flex;                 /* 👈 KEY FIX */
     align-items: center;           /* vertical align */
-    gap: 6px;                      /* space between icon & text */
+    gap: 10px;                      /* space between icon & text */
 }
 
 /* 🔹 Remove box */
@@ -1149,7 +1149,7 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 /* 🔹 Icons */
 .field-essential-mobile-phone::before {
-    background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
+    background-image: url("https://author-p96753-e1523920.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/s_hdfc_capstone/phone.svg");
 }
 
 .field-essential-pan-card::before {
