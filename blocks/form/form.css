@@ -823,7 +823,7 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 10px;
 
-    top: 45%;                  /* 👈 move slightly up */
+    top: 50%;                  /* 👈 move slightly up */
     transform: translateY(-50%);
 
     width: 22px;               /* 👈 increased size */
@@ -839,7 +839,7 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 36px;
 
-    top: 45%;                  /* 👈 match flag */
+    top: 50%;                  /* 👈 match flag */
     transform: translateY(-50%);
 
     font-size: 15px;           /* 👈 slightly bigger */
@@ -847,5 +847,5 @@ main .form form [data-id="text-c38781854a"] > p {
 }
 
 #textinput-8b99849b80 {
-    padding-left: 80px;        /* 👈 more space for bigger flag */
+    padding-left: 70px;        /* 👈 more space for bigger flag */
 }
