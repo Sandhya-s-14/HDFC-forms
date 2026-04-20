@@ -1166,10 +1166,18 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* 🔥 STEP 1: Make parent behave like inline */
+/* 🔥 STEP 1: Force BOTH wrappers into one row */
+[data-id="text-2376b002b9"],
+[data-id="button-cba3ca0b36"] {
+    grid-column: auto !important;
+    width: auto !important;
+}
+
+/* 🔥 STEP 2: Make parent row flex */
 #text-2376b002b9 {
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 
     background: none !important;
     border: none !important;
@@ -1178,28 +1186,22 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 /* 🔹 Text */
 #text-2376b002b9 p {
-    display: inline;
     margin: 0;
+    display: inline;
 
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: #374151;
 }
 
-/* 🔥 STEP 2: BREAK GRID (MOST IMPORTANT) */
-[data-id="text-2376b002b9"],
+/* 🔥 STEP 3: Bring button inline */
 [data-id="button-cba3ca0b36"] {
-    grid-column: span 12 !important;   /* 👈 force same row */
+    display: inline-flex !important;
+    align-items: center;
+    margin-left: 6px;
 }
 
-/* 🔥 STEP 3: Make button sit inline */
-[data-id="button-cba3ca0b36"] {
-    display: inline-block !important;
-    width: auto !important;
-    margin-left: 8px;
-}
-
-/* 🔹 Button styling */
+/* 🔹 Button style */
 #button-cba3ca0b36 {
     background: none !important;
     border: none !important;
