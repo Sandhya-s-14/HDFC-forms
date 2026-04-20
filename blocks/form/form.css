@@ -792,3 +792,9 @@ main div.form-wrapper {
 main .form form select[multiple] {
     height: calc(42px + 50px);
 }
+
+/*-------------------------------------------------------------*/
+.field-mobile input,
+.field-dob input {
+    font-size: 18px;
+}
