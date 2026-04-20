@@ -799,11 +799,10 @@ main .form form select[multiple] {
     font-size: 18px;
 }
 
-.plain-text-wrapper p {
-    background-color: #fff8e5;   /* light yellow */
-    border: 1px solid #f5d28c;   /* soft yellow border */
+[data-id="text-c38781854a"] p {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
     border-radius: 6px;
-    padding: 10px 14px;
-    font-size: 14px;
-    color: #7a5a00;              /* dark yellow/brown text */
+    padding: 12px;
+    color: #7a5a00;
 }
