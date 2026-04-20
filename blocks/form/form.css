@@ -849,3 +849,31 @@ main .form form [data-id="text-c38781854a"] > p {
 #textinput-8b99849b80 {
     padding-left: 70px;        /* 👈 more space for bigger flag */
 }
+
+main .form form .field-source-of-income {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+main .form form .field-source-of-income legend {
+    font-size: 16px;        /* 👈 slightly bigger */
+    font-weight: 600;       /* 👈 semi-bold */
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+main .form form .field-source-of-income label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+main .form form .field-source-of-income input[type="radio"] {
+    accent-color: #0a58ca;   /* 👈 blue */
+    margin-right: 8px;
+}
