@@ -1117,37 +1117,63 @@ main .form form .field-essentials-for-the-journey legend {
     margin-bottom: 16px;
 }
 
-/* 🔹 Each item container */
-main .form form .field-essentials-for-the-journey .field-wrapper {
+/* 🔹 Container row */
+main .form form .field-essentials-for-the-journey {
     display: flex;
-    align-items: center;
-    gap: 8px;                 /* space between icon & text */
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* 🔹 Remove unwanted background/box */
+/* 🔹 Each item (IMPORTANT FIX) */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper {
+    flex: 1;
     background: none !important;
-    padding: 0 !important;
     border: none !important;
+    padding: 0 !important;
 }
 
-/* 🔹 Text style */
+/* 🔹 Text */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper p {
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
-    font-weight: 400;
-    color: #374151;
-    margin: 0;
+    font-weight: 500;
+    color: #1d4ed8;     /* blue */
+    margin-top: 6px;
 }
 
-/* 🔹 ICON (Mobile Phone) */
-main .form form .field-essential-mobile-phone::before {
+/* 🔹 ICON BASE (apply here, not field-wrapper) */
+main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     content: "";
-    width: 16px;
-    height: 16px;
-    display: inline-block;
+    display: block;
+    margin: 0 auto 6px;
 
-    background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
+    width: 20px;
+    height: 20px;
+
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+/* 🔹 Individual icons (MATCH YOUR CLASSES) */
+
+/* Mobile */
+.field-essential-mobile-phone::before {
+    background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
+}
+
+/* PAN */
+.field-essential-pan-card::before {
+    background-image: url("https://cdn-icons-png.flaticon.com/512/3064/3064197.png");
+}
+
+/* DOB */
+.field-essential-date-of-birth::before {
+    background-image: url("https://cdn-icons-png.flaticon.com/512/747/747310.png");
+}
+
+/* Bank */
+.field-essential-cheque-book-bank-account-details::before {
+    background-image: url("https://cdn-icons-png.flaticon.com/512/2830/2830284.png");
+}
+
