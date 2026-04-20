@@ -824,7 +824,7 @@ main .form form [data-id="text-c38781854a"] > p {
     left: 10px;
 
     top: 50%;                  /* 👈 move slightly up */
-    transform: translateY(-50%);
+    transform: translateY(-60%);
 
     width: 22px;               /* 👈 increased size */
     height: 15px;
@@ -840,7 +840,7 @@ main .form form [data-id="text-c38781854a"] > p {
     left: 36px;
 
     top: 50%;                  /* 👈 match flag */
-    transform: translateY(-50%);
+    transform: translateY(-60%);
 
     font-size: 15px;           /* 👈 slightly bigger */
     color: #333;
