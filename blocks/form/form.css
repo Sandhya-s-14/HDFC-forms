@@ -1166,43 +1166,26 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* 🔥 STEP 1: Make BOTH wrappers full width */
-[data-id="text-2376b002b9"],
-[data-id="button-cba3ca0b36"] {
-    grid-column: span 12 !important;
-}
-
-/* 🔥 STEP 2: Convert TEXT wrapper into flex row */
-#text-2376b002b9 {
+/* Parent container (important) */
+[data-id="panelcontainer-fd1fd9a4d1"] {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
+    justify-content: space-between;
 }
 
-/* 🔹 Keep text in ONE LINE */
+/* Text */
+#text-2376b002b9 {
+    flex: 1;
+}
+
 #text-2376b002b9 p {
     margin: 0;
-    white-space: nowrap;   /* 👈 important fix */
-    
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: #374151;
 }
 
-/* 🔥 STEP 3: Move button inside flow */
-[data-id="button-cba3ca0b36"] {
-    display: flex !important;
-    align-items: center;
-    width: auto !important;
-    margin: 0 !important;
-}
-
-/* 🔹 Button styling */
+/* Button */
 #button-cba3ca0b36 {
     background: none !important;
     border: none !important;
@@ -1214,10 +1197,5 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
     padding: 0;
     cursor: pointer;
-    white-space: nowrap;   /* 👈 prevents breaking */
-}
-
-/* 🔹 Hover */
-#button-cba3ca0b36:hover {
-    text-decoration: underline;
+    white-space: nowrap;
 }
