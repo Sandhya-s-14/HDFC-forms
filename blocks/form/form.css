@@ -1166,42 +1166,41 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* 🔹 Reset text container */
+/* 🔥 STEP 1: Make parent behave like inline */
 #text-2376b002b9 {
+    display: inline-block;
+    vertical-align: middle;
+
     background: none !important;
     border: none !important;
     padding: 0 !important;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
 }
 
-/* 🔹 Text style */
+/* 🔹 Text */
 #text-2376b002b9 p {
-    margin: 0;
     display: inline;
+    margin: 0;
 
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: #374151;
 }
 
-/* 🔥 IMPORTANT: Break AEM grid on button wrapper */
+/* 🔥 STEP 2: BREAK GRID (MOST IMPORTANT) */
+[data-id="text-2376b002b9"],
 [data-id="button-cba3ca0b36"] {
-    grid-column: auto !important;
-    width: auto !important;
-    display: inline-flex !important;
-    align-items: center;
-    padding: 0 !important;
-    margin: 0 !important;
+    grid-column: span 12 !important;   /* 👈 force same row */
 }
 
-/* 🔹 Style button like inline link */
-#button-cba3ca0b36 {
-    position: static !important;
-    display: inline !important;
+/* 🔥 STEP 3: Make button sit inline */
+[data-id="button-cba3ca0b36"] {
+    display: inline-block !important;
+    width: auto !important;
+    margin-left: 8px;
+}
 
+/* 🔹 Button styling */
+#button-cba3ca0b36 {
     background: none !important;
     border: none !important;
     box-shadow: none !important;
@@ -1211,7 +1210,6 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     font-family: Roboto, Arial, sans-serif;
 
     padding: 0;
-    margin-left: 6px;
     cursor: pointer;
 }
 
