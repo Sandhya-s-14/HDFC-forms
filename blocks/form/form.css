@@ -1166,45 +1166,51 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* 🔹 Remove big blue/yellow box */
+/* 🔹 Reset text container */
 #text-2376b002b9 {
     background: none !important;
     border: none !important;
     padding: 0 !important;
-    margin-left: -1px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* 🔹 Inline text style */
+/* 🔹 Text style */
 #text-2376b002b9 p {
+    margin: 0;
+    display: inline;
+
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: #374151;
-    margin: 0;
 }
 
-/* 🔹 Make text + button inline */
-#text-2376b002b9 {
-    display: inline;
-}
-
-/* 🔹 Remove button box style */
+/* 🔹 Move button next to text (override AEM grid) */
 #button-cba3ca0b36 {
+    position: static !important;     /* remove grid positioning */
+    display: inline !important;
+
     background: none !important;
     border: none !important;
     box-shadow: none !important;
 
-    color: #2563eb !important;   /* blue link */
+    color: #2563eb !important;       /* blue link */
     font-size: 14px;
     font-family: Roboto, Arial, sans-serif;
 
     padding: 0;
-    margin-left: 6px;            /* space after text */
+    margin-left: 6px;
     cursor: pointer;
-
-    display: inline;
 }
 
-/* 🔹 Hover effect like link */
+/* 🔹 Remove spacing from parent wrapper (important) */
+#button-cba3ca0b36:parent {
+    display: inline !important;
+}
+
+/* 🔹 Hover effect */
 #button-cba3ca0b36:hover {
     text-decoration: underline;
 }
