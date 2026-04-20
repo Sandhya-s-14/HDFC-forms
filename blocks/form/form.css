@@ -1039,3 +1039,40 @@ main .form form .field-terms-privacy-text b:hover {
 main .form form .field-terms-privacy-text {
     margin-top: 6px !important;
 }
+
+/*---------------------------------SUBMIT BUTTON--------------------------------------*/
+
+/* 🔹 Default button reset */
+main .form form .button-wrapper button {
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 12px 24px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+
+/* 🔹 ENABLED BUTTON (blue gradient like screenshot) */
+main .form form .button-wrapper button:not(:disabled) {
+    background: linear-gradient(90deg, #6a85f1, #4f6de6);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(79, 109, 230, 0.25);
+    cursor: pointer;
+}
+
+
+/* 🔹 Hover effect */
+main .form form .button-wrapper button:not(:disabled):hover {
+    background: linear-gradient(90deg, #5a75e8, #3f5dd6);
+}
+
+
+/* 🔹 Disabled state (your current grey one) */
+main .form form .button-wrapper button:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+}
