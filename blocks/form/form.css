@@ -798,3 +798,12 @@ main .form form select[multiple] {
 .field-dob input {
     font-size: 18px;
 }
+
+.plain-text-wrapper p {
+    background-color: #fff8e5;   /* light yellow */
+    border: 1px solid #f5d28c;   /* soft yellow border */
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #7a5a00;              /* dark yellow/brown text */
+}
