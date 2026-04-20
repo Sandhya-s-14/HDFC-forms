@@ -1153,13 +1153,13 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 }
 
 .field-essential-pan-card::before {
-    background-image: url("https://cdn-icons-png.flaticon.com/512/3064/3064197.png");
+    background-image: url("http://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/card.svg");
 }
 
 .field-essential-date-of-birth::before {
-    background-image: url("https://cdn-icons-png.flaticon.com/512/747/747310.png");
+    background-image: url("http://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/date.svg");
 }
 
 .field-essential-cheque-book-bank-account-details::before {
-    background-image: url("https://cdn-icons-png.flaticon.com/512/2830/2830284.png");
+    background-image: url("http://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/bank-cheque.svg");
 }
