@@ -799,16 +799,17 @@ main .form form select[multiple] {
     font-size: 18px;
 }
 
-[data-id="text-c38781854a"] {
-    border: none;
-    background: transparent;
-    padding: 0;
+main .form form [data-id="text-c38781854a"] {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 
-[data-id="text-c38781854a"] p {
+main .form form [data-id="text-c38781854a"] p {
     background-color: #fff3cd;
     border: 1px solid #ffc107;
     border-radius: 6px;
     padding: 12px;
-    color: #7a5a00;
+    margin: 0;
 }
