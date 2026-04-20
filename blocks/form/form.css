@@ -928,3 +928,18 @@ main .form form .field-source-of-income label:has(input:checked) {
     padding-left: 68px;
 }
 
+/* OTP helper text */
+main .form form .field-description {
+    font-size: 13px !important;     /* 👈 smaller like design */
+    font-weight: 400;
+    line-height: 1.4;
+
+    color: #6b7280 !important;      /* 👈 lighter grey like UI */
+    margin-top: 6px;
+}
+
+#textinput-8b99849b80-description {
+    font-size: 13px !important;
+    color: #6b7280 !important;
+    line-height: 1.4;
+}
