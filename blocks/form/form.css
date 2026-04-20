@@ -1171,6 +1171,7 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     background: none !important;
     border: none !important;
     padding: 0 !important;
+    margin-left: -1px;
 }
 
 /* 🔹 Inline text style */
@@ -1179,4 +1180,31 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     font-size: 14px;
     color: #374151;
     margin: 0;
+}
+
+/* 🔹 Make text + button inline */
+#text-2376b002b9 {
+    display: inline;
+}
+
+/* 🔹 Remove button box style */
+#button-cba3ca0b36 {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    color: #2563eb !important;   /* blue link */
+    font-size: 14px;
+    font-family: Roboto, Arial, sans-serif;
+
+    padding: 0;
+    margin-left: 6px;            /* space after text */
+    cursor: pointer;
+
+    display: inline;
+}
+
+/* 🔹 Hover effect like link */
+#button-cba3ca0b36:hover {
+    text-decoration: underline;
 }
