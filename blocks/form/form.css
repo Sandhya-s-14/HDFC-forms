@@ -824,7 +824,7 @@ main .form form [data-id="text-c38781854a"] > p {
     left: 10px;
 
     top: 30%;                  /* 👈 move slightly up */
-    transform: translateY(-60%);
+    transform: translateY(-50%);
 
     width: 22px;               /* 👈 increased size */
     height: 15px;
@@ -840,7 +840,7 @@ main .form form [data-id="text-c38781854a"] > p {
     left: 36px;
 
     top: 33%;                  /* 👈 match flag */
-    transform: translateY(-60%);
+    transform: translateY(-50%);
 
     font-size: 15px;           /* 👈 slightly bigger */
     color: #333;
@@ -850,30 +850,15 @@ main .form form [data-id="text-c38781854a"] > p {
     padding-left: 70px;        /* 👈 more space for bigger flag */
 }
 
-main .form form .field-source-of-income {
-    padding: 0;
-    border: none;
-    background: transparent;
-}
-
-main .form form .field-source-of-income legend {
-    font-size: 16px;        /* 👈 slightly bigger */
-    font-weight: 600;       /* 👈 semi-bold */
-    color: #1a1a1a;
-    margin-bottom: 10px;
-}
-
-main .form form .field-source-of-income label {
+.field-source-of-income label {
     font-size: 14px;
-    font-weight: 400;
     color: #333;
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
-    cursor: pointer;
+    margin-bottom: 10px;
 }
 
-main .form form .field-source-of-income input[type="radio"] {
-    accent-color: #0a58ca;   /* 👈 blue */
+.field-source-of-income input[type="radio"] {
+    accent-color: #1a73e8;
     margin-right: 8px;
 }
