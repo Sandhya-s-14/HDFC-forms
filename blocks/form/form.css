@@ -1163,3 +1163,20 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 .field-essential-cheque-book-bank-account-details::before {
     background-image: url("http://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/bank-cheque.svg");
 }
+
+
+/*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
+/* 🔹 Remove big blue/yellow box */
+#text-2376b002b9 {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* 🔹 Inline text style */
+#text-2376b002b9 p {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
+}
