@@ -1149,7 +1149,7 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 /* 🔹 Icons */
 .field-essential-mobile-phone::before {
-    background-image: url("https://author-p96753-e1523920.adobeaemcloud.com/ui#/aem/assetdetails.html/content/dam/s_hdfc_capstone/phone.svg");
+    background-image: url("http://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/phone.svg");
 }
 
 .field-essential-pan-card::before {
