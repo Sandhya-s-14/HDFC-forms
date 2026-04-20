@@ -1076,3 +1076,9 @@ main .form form .button-wrapper button:disabled {
     cursor: not-allowed;
     box-shadow: none;
 }
+
+main .form form .button-wrapper button:not(:disabled)::after {
+    content: "›";
+    margin-left: 10px;
+    font-size: 18px;
+}
