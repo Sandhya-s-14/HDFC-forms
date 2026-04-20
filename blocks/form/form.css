@@ -1106,44 +1106,47 @@ main .form form [data-id="text-4ba7281fcb"] p {
 main .form form .field-essentials-for-the-journey {
     display: flex;
     justify-content: space-between;
-    text-align: left;            /* ❌ remove center alignment */
     margin-top: 12px;
 }
 
 /* 🔹 Each item */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper {
-    flex: 1;
+    display: flex;                 /* 👈 KEY FIX */
+    align-items: center;           /* vertical align */
+    gap: 6px;                      /* space between icon & text */
+}
+
+/* 🔹 Remove box */
+main .form form .field-essentials-for-the-journey .plain-text-wrapper {
     background: none !important;
     padding: 0 !important;
     border: none !important;
 }
 
-/* 🔹 ICON BASE (smaller + lighter) */
+/* 🔹 TEXT */
+main .form form .field-essentials-for-the-journey .plain-text-wrapper p {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #2563eb;
+    margin: 0;
+}
+
+/* 🔹 ICON BASE */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     content: "";
-    display: block;
+    display: inline-block;         /* 👈 IMPORTANT */
 
-    width: 16px;                 /* 👈 smaller */
-    height: 16px;
-
-    margin-bottom: 4px;
+    width: 14px;
+    height: 14px;
 
     background-size: contain;
     background-repeat: no-repeat;
 
-    opacity: 0.6;                /* 👈 light grey effect */
+    opacity: 0.6;
 }
 
-/* 🔹 TEXT */
-main .form form .field-essentials-for-the-journey .plain-text-wrapper p {
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 13px;             /* 👈 smaller */
-    font-weight: 400;            /* 👈 NOT bold */
-    color: #2563eb;              /* subtle blue */
-    margin: 0;
-}
-
-/* 🔹 ICONS (use subtle icons) */
+/* 🔹 Icons */
 .field-essential-mobile-phone::before {
     background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
 }
