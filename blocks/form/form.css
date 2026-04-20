@@ -814,12 +814,11 @@ main .form form [data-id="text-c38781854a"] > p {
     font-size: 14px;
 }
 
-#textinput-8b99849b80 {
-    padding-left: 55px;   /* space for +91 */
+.text-wrapper.field-mobile {
     position: relative;
 }
 
-#textinput-8b99849b80::before {
+.text-wrapper.field-mobile::before {
     content: "🇮🇳 +91";
     position: absolute;
     left: 10px;
@@ -827,4 +826,9 @@ main .form form [data-id="text-c38781854a"] > p {
     transform: translateY(-50%);
     font-size: 14px;
     color: #333;
+    z-index: 1;
+}
+
+#textinput-8b99849b80 {
+    padding-left: 65px;   /* adjust so text doesn’t overlap */
 }
