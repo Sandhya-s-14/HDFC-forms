@@ -1187,16 +1187,26 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     color: #374151;
 }
 
-/* 🔹 Move button next to text (override AEM grid) */
+/* 🔥 IMPORTANT: Break AEM grid on button wrapper */
+[data-id="button-cba3ca0b36"] {
+    grid-column: auto !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 🔹 Style button like inline link */
 #button-cba3ca0b36 {
-    position: static !important;     /* remove grid positioning */
+    position: static !important;
     display: inline !important;
 
     background: none !important;
     border: none !important;
     box-shadow: none !important;
 
-    color: #2563eb !important;       /* blue link */
+    color: #2563eb !important;
     font-size: 14px;
     font-family: Roboto, Arial, sans-serif;
 
@@ -1205,12 +1215,7 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
     cursor: pointer;
 }
 
-/* 🔹 Remove spacing from parent wrapper (important) */
-#button-cba3ca0b36:parent {
-    display: inline !important;
-}
-
-/* 🔹 Hover effect */
+/* 🔹 Hover */
 #button-cba3ca0b36:hover {
     text-decoration: underline;
 }
