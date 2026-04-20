@@ -1108,8 +1108,8 @@ main .form form .field-essentials-for-the-journey legend {
     border: none !important;
 
     font-family: Roboto, Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
 
     color: #111827;
 
@@ -1117,7 +1117,37 @@ main .form form .field-essentials-for-the-journey legend {
     margin-bottom: 16px;
 }
 
-/* ❌ Remove orange line if added earlier */
-main .form form .field-essentials-for-the-journey legend::after {
-    display: none !important;
+/* 🔹 Each item container */
+main .form form .field-essentials-for-the-journey .field-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;                 /* space between icon & text */
+}
+
+/* 🔹 Remove unwanted background/box */
+main .form form .field-essentials-for-the-journey .plain-text-wrapper {
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* 🔹 Text style */
+main .form form .field-essentials-for-the-journey .plain-text-wrapper p {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #374151;
+    margin: 0;
+}
+
+/* 🔹 ICON (Mobile Phone) */
+main .form form .field-essential-mobile-phone::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+
+    background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
