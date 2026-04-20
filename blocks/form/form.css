@@ -1085,7 +1085,7 @@ main .form form .button-wrapper button:not(:disabled)::after {
 
 /* 🔹 Wrapper (adds the line above) */
 main .form form [data-id="text-4ba7281fcb"] {
-    border-top: 1px solid #e5e7eb;   /* 👈 light grey line */
+    border-top: 1px solid #a5a6a8;   /* 👈 light grey line */
     margin-top: 16px;
     padding-top: 12px;
 }
@@ -1100,4 +1100,24 @@ main .form form [data-id="text-4ba7281fcb"] p {
     line-height: 1.5;
     text-align: center;
     margin: 0;
+}
+
+/* 🔹 Essentials heading - simple text */
+main .form form .field-essentials-for-the-journey legend {
+    background: none !important;
+    border: none !important;
+
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #111827;
+
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+/* ❌ Remove orange line if added earlier */
+main .form form .field-essentials-for-the-journey legend::after {
+    display: none !important;
 }
