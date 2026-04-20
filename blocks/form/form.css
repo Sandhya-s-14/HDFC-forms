@@ -822,13 +822,14 @@ main .form form [data-id="text-c38781854a"] > p {
     content: "";
     position: absolute;
     left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    
-    width: 18px;
-    height: 12px;
 
-    background-image: url("https://flagcdn.com/w20/in.png");
+    top: 45%;                  /* 👈 move slightly up */
+    transform: translateY(-50%);
+
+    width: 22px;               /* 👈 increased size */
+    height: 15px;
+
+    background-image: url("https://flagcdn.com/w40/in.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -836,14 +837,15 @@ main .form form [data-id="text-c38781854a"] > p {
 .text-wrapper.field-mobile::after {
     content: "+91";
     position: absolute;
-    left: 32px;
-    top: 50%;
+    left: 36px;
+
+    top: 45%;                  /* 👈 match flag */
     transform: translateY(-50%);
-    
-    font-size: 14px;
+
+    font-size: 15px;           /* 👈 slightly bigger */
     color: #333;
 }
 
 #textinput-8b99849b80 {
-    padding-left: 70px;
+    padding-left: 80px;        /* 👈 more space for bigger flag */
 }
