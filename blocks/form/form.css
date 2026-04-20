@@ -1082,3 +1082,22 @@ main .form form .button-wrapper button:not(:disabled)::after {
     margin-left: 10px;
     font-size: 18px;
 }
+
+/* 🔹 Wrapper (adds the line above) */
+main .form form [data-id="text-4ba7281fcb"] {
+    border-top: 1px solid #e5e7eb;   /* 👈 light grey line */
+    margin-top: 16px;
+    padding-top: 12px;
+}
+
+
+/* 🔹 Text styling (same as reference) */
+main .form form [data-id="text-4ba7281fcb"] p {
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #6b7280 !important;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+}
