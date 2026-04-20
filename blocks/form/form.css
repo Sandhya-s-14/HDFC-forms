@@ -935,11 +935,15 @@ main .form form .field-description {
     line-height: 1.4;
 
     color: #6b7280 !important;      /* 👈 lighter grey like UI */
-    margin-top: 6px;
+     margin-top: 2px !important;
 }
 
 #textinput-8b99849b80-description {
     font-size: 13px !important;
     color: #6b7280 !important;
     line-height: 1.4;
+}
+
+.text-wrapper.field-mobile > input {
+    margin-bottom: 0 !important;
 }
