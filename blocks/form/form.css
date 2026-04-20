@@ -809,9 +809,16 @@ main .form form [data-id="text-c38781854a"] > p {
     background-color: #fff3cd;
     border: 1px solid #ffc107;
     border-radius: 6px;
-    padding: 12px;
-    margin: 0;
+
+    padding: 12px 14px;
+    margin: 8px 0;
+
+    font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
+    font-weight: 400;          /* normal, not bold */
+    line-height: 1.5;
+
+    color: #333333;            /* soft dark grey */
 }
 
 .text-wrapper.field-mobile {
@@ -850,15 +857,32 @@ main .form form [data-id="text-c38781854a"] > p {
     padding-left: 70px;        /* 👈 more space for bigger flag */
 }
 
-.field-source-of-income label {
-    font-size: 14px;
-    color: #333;
-    display: flex;
-    align-items: center;
+.field-source-of-income {
+    font-family: Roboto, Arial, sans-serif;
+}
+
+.field-source-of-income legend {
+    font-size: 15px;
+    font-weight: 500;          /* slightly bold heading */
+    color: #1f2937;
     margin-bottom: 10px;
 }
 
-.field-source-of-income input[type="radio"] {
-    accent-color: #1a73e8;
-    margin-right: 8px;
+.field-source-of-income label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.field-source-of-income input[type="radio"]:checked + label,
+.field-source-of-income label:has(input:checked) {
+    font-weight: 500;
+    color: #111827;
+}
+
+.field-mobile input::placeholder,
+.field-dob input::placeholder {
+    font-size: 14px;
+    color: #6b7280;
 }
