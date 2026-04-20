@@ -1102,30 +1102,38 @@ main .form form [data-id="text-4ba7281fcb"] p {
     margin: 0;
 }
 
-/* 🔹 Essentials heading - simple text */
+/* ============================= */
+/* 🔹 ESSENTIALS SECTION */
+/* ============================= */
+
+/* Container (row layout) */
+main .form form .field-essentials-for-the-journey {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+    margin-top: 24px;
+    gap: 20px;
+}
+
+/* Heading */
 main .form form .field-essentials-for-the-journey legend {
+    width: 100%;
+    text-align: center;
+
     background: none !important;
     border: none !important;
 
     font-family: Roboto, Arial, sans-serif;
     font-size: 16px;
-    font-weight: 500;
-
+    font-weight: 600;
     color: #111827;
 
+    margin-bottom: 20px;
     padding: 0;
-    margin-bottom: 16px;
 }
 
-/* 🔹 Container row */
-main .form form .field-essentials-for-the-journey {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* 🔹 Each item (IMPORTANT FIX) */
+/* Each item wrapper */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper {
     flex: 1;
     background: none !important;
@@ -1133,47 +1141,79 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper {
     padding: 0 !important;
 }
 
-/* 🔹 Text */
+/* Text */
 main .form form .field-essentials-for-the-journey .plain-text-wrapper p {
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #1d4ed8;     /* blue */
+    color: #1d4ed8;
     margin-top: 6px;
 }
 
-/* 🔹 ICON BASE (apply here, not field-wrapper) */
-main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
+/* ============================= */
+/* 🔹 ICON BASE (IMPORTANT FIX) */
+/* Apply to FIELD, not wrapper */
+/* ============================= */
+
+main .form form .field-essentials-for-the-journey [class*="field-essential-"]::before {
     content: "";
     display: block;
-    margin: 0 auto 6px;
+    margin: 0 auto 8px;
 
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
 
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* 🔹 Individual icons (MATCH YOUR CLASSES) */
+/* ============================= */
+/* 🔹 ICONS */
+/* ============================= */
 
 /* Mobile */
-.field-essential-mobile-phone::before {
+main .form form .field-essential-mobile-phone::before {
     background-image: url("https://cdn-icons-png.flaticon.com/512/597/597177.png");
 }
 
-/* PAN */
-.field-essential-pan-card::before {
+/* PAN Card */
+main .form form .field-essential-pan-card::before {
     background-image: url("https://cdn-icons-png.flaticon.com/512/3064/3064197.png");
 }
 
-/* DOB */
-.field-essential-date-of-birth::before {
+/* Date of Birth */
+main .form form .field-essential-date-of-birth::before {
     background-image: url("https://cdn-icons-png.flaticon.com/512/747/747310.png");
 }
 
-/* Bank */
-.field-essential-cheque-book-bank-account-details::before {
+/* Bank Details */
+main .form form .field-essential-cheque-book-bank-account-details::before {
     background-image: url("https://cdn-icons-png.flaticon.com/512/2830/2830284.png");
 }
 
+/* ============================= */
+/* 🔹 OPTIONAL HOVER EFFECT */
+/* ============================= */
+
+main .form form .field-essentials-for-the-journey .plain-text-wrapper:hover p {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ============================= */
+/* 🔹 RESPONSIVE (MOBILE FIX) */
+/* ============================= */
+
+@media (max-width: 768px) {
+    main .form form .field-essentials-for-the-journey {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    main .form form .field-essentials-for-the-journey .plain-text-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
