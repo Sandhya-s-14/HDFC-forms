@@ -1166,36 +1166,41 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* Parent container (important) */
-[data-id="panelcontainer-fd1fd9a4d1"] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Text */
+/* 🔹 Reset text container */
 #text-2376b002b9 {
-    flex: 1;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
+/* 🔹 Text style */
 #text-2376b002b9 p {
     margin: 0;
+    display: inline;
     font-family: Roboto, Arial, sans-serif;
     font-size: 14px;
     color: #374151;
 }
 
-/* Button */
+/* 🔹 Move button next to text (override AEM grid) */
 #button-cba3ca0b36 {
+    position: static !important; /* remove grid positioning */
+    display: inline !important;
     background: none !important;
     border: none !important;
     box-shadow: none !important;
-
-    color: #2563eb !important;
+    color: #2563eb !important;   /* blue link */
     font-size: 14px;
     font-family: Roboto, Arial, sans-serif;
-
     padding: 0;
+    margin-left: 6px;
     cursor: pointer;
-    white-space: nowrap;
+}
+
+/* 🔹 Hover effect */
+#button-cba3ca0b36:hover {
+    text-decoration: underline;
 }
