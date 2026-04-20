@@ -858,8 +858,8 @@ main .form form [data-id="text-c38781854a"] > p {
 }
 
 .field-source-of-income {
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 16px;
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 13px !important;
 }
 
 .field-source-of-income legend {
