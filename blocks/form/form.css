@@ -794,11 +794,37 @@ main .form form select[multiple] {
 }
 
 /*-------------------------------------------------------------*/
-.field-mobile input,
-.field-dob input {
-    font-size: 18px;
+/* ============================= */
+/* 🔹 GLOBAL FONT (IMPORTANT)   */
+/* ============================= */
+main .form form {
+    font-family: Roboto, Arial, sans-serif !important;
+    font-size: 14px !important;
+    color: #333 !important;
 }
 
+
+/* ============================= */
+/* 🔹 INPUT FIELDS              */
+/* ============================= */
+.field-mobile input,
+.field-dob input {
+    font-size: 14px !important;     /* 👈 match UI */
+    font-family: Roboto, Arial, sans-serif !important;
+}
+
+
+/* Placeholder */
+.field-mobile input::placeholder,
+.field-dob input::placeholder {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+
+/* ============================= */
+/* 🔹 INFO BOX (YELLOW)         */
+/* ============================= */
 main .form form [data-id="text-c38781854a"] {
     border: none !important;
     background: none !important;
@@ -810,17 +836,46 @@ main .form form [data-id="text-c38781854a"] > p {
     border: 1px solid #ffc107;
     border-radius: 6px;
 
-    padding: 12px 14px;
-    margin: 8px 0;
+    padding: 10px 12px;
+    margin: 6px 0;
 
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 400;          /* normal, not bold */
-    line-height: 1.5;
-
-    color: #333333;            /* soft dark grey */
+    font-size: 13px !important;   /* 👈 EXACT match */
+    font-weight: 400;
+    line-height: 1.4;
+    color: #333;
 }
 
+
+/* ============================= */
+/* 🔹 SOURCE OF INCOME          */
+/* ============================= */
+
+/* Heading */
+main .form form .field-source-of-income legend {
+    font-size: 14px !important;   /* 👈 same scale */
+    font-weight: 500 !important;
+    color: #1f2937 !important;
+}
+
+/* Radio labels */
+main .form form .field-source-of-income label {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #374151 !important;
+    line-height: 1.3;
+}
+
+/* Selected */
+main .form form .field-source-of-income input[type="radio"]:checked + label,
+main .form form .field-source-of-income label:has(input:checked) {
+    font-weight: 500 !important;
+    color: #111827 !important;
+}
+
+
+/* ============================= */
+/* 🔹 MOBILE FLAG +91           */
+/* ============================= */
 .text-wrapper.field-mobile {
     position: relative;
 }
@@ -830,11 +885,11 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 10px;
 
-    top: 30%;                  /* 👈 move slightly up */
+    top: 50%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
-    width: 22px;               /* 👈 increased size */
-    height: 15px;
+    width: 20px;
+    height: 14px;
 
     background-image: url("https://flagcdn.com/w40/in.png");
     background-size: cover;
@@ -844,49 +899,17 @@ main .form form [data-id="text-c38781854a"] > p {
 .text-wrapper.field-mobile::after {
     content: "+91";
     position: absolute;
-    left: 36px;
+    left: 34px;
 
-    top: 33%;                  /* 👈 match flag */
+    top: 50%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
-    font-size: 15px;           /* 👈 slightly bigger */
+    font-size: 14px;
     color: #333;
 }
 
+/* Input spacing */
 #textinput-8b99849b80 {
-    padding-left: 70px;        /* 👈 more space for bigger flag */
+    padding-left: 68px;
 }
 
-.field-mobile input::placeholder,
-.field-dob input::placeholder {
-    font-size: 14px;
-    color: #6b7280;
-}
-
-/* 🔹 Force font for entire source-of-income block */
-main .form form .field-source-of-income {
-    font-family: Roboto, Arial, sans-serif !important;
-}
-
-/* 🔹 Heading: "Your source of income" */
-main .form form .field-source-of-income legend {
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    color: #1f2937 !important;
-    font-family: Roboto, Arial, sans-serif !important;
-}
-
-/* 🔹 Radio labels (Salaried, Self Employed...) */
-main .form form .field-source-of-income label {
-    font-size: 13.5px !important;
-    font-weight: 400 !important;
-    color: #374151 !important;
-    font-family: Roboto, Arial, sans-serif !important;
-}
-
-/* 🔹 When selected → slightly bold like UI */
-main .form form .field-source-of-income input[type="radio"]:checked + label,
-main .form form .field-source-of-income label:has(input:checked) {
-    font-weight: 500 !important;
-    color: #111827 !important;
-}
