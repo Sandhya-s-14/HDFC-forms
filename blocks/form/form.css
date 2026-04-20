@@ -839,7 +839,7 @@ main .form form [data-id="text-c38781854a"] > p {
     position: absolute;
     left: 36px;
 
-    top: 31%;                  /* 👈 match flag */
+    top: 33%;                  /* 👈 match flag */
     transform: translateY(-60%);
 
     font-size: 15px;           /* 👈 slightly bigger */
