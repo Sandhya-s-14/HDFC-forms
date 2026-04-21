@@ -1311,9 +1311,9 @@ main .form form .field-wrapper {
 
 /* ATTEMPTS TEXT → align right within same width */
 .text-wrapper.field-attempts-text {
-  margin-top: -30px !important;
+  margin-top: -55px !important;
 
-  max-width: 520px !important;   /* same as OTP */
+  max-width: 590px !important;   /* same as OTP */
   display: flex;
   justify-content: flex-end;
 }
@@ -1329,7 +1329,7 @@ main .form form .field-wrapper {
   padding: 0 !important;
   margin: 0 !important;
 
-  font-size: 14px !important;
-  font-weight: 600 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
   color: #000 !important;
 }
