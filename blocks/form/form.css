@@ -1209,3 +1209,34 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 #button-cba3ca0b36:hover {
   text-decoration: underline;
 }
+
+/* 🔹 OTP container */
+.field-enter-otp input {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0 16px;
+  font-size: 18px;
+  letter-spacing: 12px; /* 👈 creates spaced dots look */
+  text-align: left;
+  outline: none;
+  background-color: #fff;
+}
+
+/* 🔹 Placeholder dots effect */
+.field-enter-otp input::placeholder {
+  letter-spacing: 12px;
+  color: #9ca3af;
+}
+
+/* 🔹 Focus state */
+.field-enter-otp input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* 🔹 Optional: center dots like UI */
+.field-enter-otp {
+  position: relative;
+}
