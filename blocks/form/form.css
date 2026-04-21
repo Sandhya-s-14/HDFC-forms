@@ -1276,26 +1276,30 @@ main .form form .field-wrapper {
   font-size: 14px;
 }
 
+/* Prevent label from going to next line */
 [data-id="textinput-e3d9a98aa0"] .field-label {
+  display: inline !important;
+  white-space: nowrap;   /* 👈 IMPORTANT */
+
   margin: 0 !important;
   color: #6b7280;
-  font-size: 14px;
 }
 
-/* THIS IS THE KEY FIX */
+/* Timer value */
 [data-id="textinput-e3d9a98aa0"] input {
   border: none !important;
   background: transparent !important;
   padding: 0 !important;
 
   width: auto !important;
-  min-width: 60px;
+  min-width: 50px;
+
+  display: inline !important;
 
   color: #2563eb !important;
   font-weight: 500;
-  font-size: 14px;
 
-  pointer-events: none; /* prevent typing */
+  pointer-events: none;
 }
 
 [data-id="textinput-e3d9a98aa0"].field-wrapper {
