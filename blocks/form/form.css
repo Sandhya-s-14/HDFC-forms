@@ -1288,3 +1288,8 @@ main .form form .field-wrapper {
   color: #6b7280; /* grey */
 }
 
+/* Show dynamic timer value */
+[data-id="textinput-e3d9a98aa0"]::after { /* comes from JS */
+  color: #2563eb;
+  font-weight: 500;
+}
