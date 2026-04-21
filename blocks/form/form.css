@@ -1257,16 +1257,45 @@ main .form form .field-wrapper {
   outline: none;
 }
 
-/* 🔹 Fake OTP dots (background trick) */
-[data-id="textinput-59b917ef95"] input {
-  background-image: radial-gradient(circle, #d1d5db 2px, transparent 2px);
-  background-size: 32px 8px;
-  background-position: 16px center;
-  background-repeat: repeat-x;
-}
-
 /* 🔹 Focus state */
 [data-id="textinput-59b917ef95"] input:focus {
   border-color: #2563eb;
   background-color: #ffffff;
+}
+
+/* 🔹 Hide input box */
+[data-id="textinput-e3d9a98aa0"] input {
+  border: none !important;
+  background: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  /* make it look like text */
+  font-size: 14px;
+  color: #111827;
+  width: auto;
+}
+
+/* 🔹 Style wrapper text */
+[data-id="textinput-e3d9a98aa0"] {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 🔹 Style label "Resend OTP in:" */
+[data-id="textinput-e3d9a98aa0"] .field-label {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 🔹 Style dynamic number (input value) */
+[data-id="textinput-e3d9a98aa0"] input {
+  font-weight: 500;
+  color: #111827;
 }
