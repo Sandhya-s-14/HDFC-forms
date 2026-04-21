@@ -1263,41 +1263,37 @@ main .form form .field-wrapper {
   background-color: #ffffff;
 }
 
-/* Timer wrapper */
-[data-id="textinput-e3d9a98aa0"] {
-  margin-top: -40px !important;   /* moves it closer to OTP */
-  margin-left: 6px !important;
+/* TIMER WRAPPER */
+.text-wrapper.field-timer {
+  display: flex !important;
+  align-items: center !important;
 
-  display: flex;
-  align-items: center;
-
-  justify-content: flex-start;    /* LEFT align */
+  margin-top: -10px !important;   /* adjust UP (safe value) */
+  margin-left: 6px !important;    /* slight RIGHT */
 }
 
-/* Ensure same left spacing as OTP */
-[data-id="textinput-e3d9a98aa0"].field-wrapper {
-  padding-left: 0 !important;
-}
-
-[data-id="textinput-e3d9a98aa0"] .field-label {
-  font-size: 14px;
-  font-weight: 400;
-  color: #6b7280;   /* soft grey */
-
+/* LABEL */
+.text-wrapper.field-timer .field-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #6b7280 !important;
   margin-right: 6px;
 }
 
-/* Timer value → BLACK + BOLD */
+/* TIMER VALUE */
 [data-id="textinput-e3d9a98aa0"] input {
   border: none !important;
   background: transparent !important;
 
   width: auto !important;
+  display: inline !important;
+
   padding: 0 !important;
+  margin: 0 !important;
 
-  font-size: 14px;
-  font-weight: 700;     /* BOLD */
-  color: #000 !important; /* BLACK */
+  font-size: 14px !important;
+  font-weight: 700 !important;   /* bold */
+  color: #000 !important;        /* black */
 
-  letter-spacing: 0.3px;
+  line-height: normal !important;
 }
