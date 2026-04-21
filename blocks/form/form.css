@@ -1172,7 +1172,7 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
   border: none !important;
   padding: 0 !important;
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
 }
 
@@ -1197,7 +1197,6 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
   font-family: Roboto, Arial, sans-serif;
   padding: 0;
   margin-left: -300px;
-  margin-top: 3px;
   cursor: pointer;
 }
 
