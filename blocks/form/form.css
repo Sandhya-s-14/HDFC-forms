@@ -1263,46 +1263,29 @@ main .form form .field-wrapper {
   background-color: #ffffff;
 }
 
-/* Timer wrapper */
+/* Timer wrapper BELOW OTP */
 [data-id="textinput-e3d9a98aa0"] {
   display: flex !important;
   align-items: center;
-  gap: 6px;
 
+  width: 100% !important;
   margin-top: 8px !important;
-  margin-bottom: 0 !important;
-
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 14px;
 }
 
-/* Prevent label from going to next line */
+/* "Resend OTP in:" */
 [data-id="textinput-e3d9a98aa0"] .field-label {
-  display: inline !important;
-  white-space: nowrap;   /* 👈 IMPORTANT */
-
-  margin: 0 !important;
+  margin-right: 6px;
   color: #6b7280;
 }
 
-/* Timer value */
+/* Timer value (00:21) */
 [data-id="textinput-e3d9a98aa0"] input {
   border: none !important;
   background: transparent !important;
-  padding: 0 !important;
 
   width: auto !important;
-  min-width: 50px;
-
-  display: inline !important;
+  padding: 0 !important;
 
   color: #2563eb !important;
-  font-weight: 500;
-
-  pointer-events: none;
-}
-
-[data-id="textinput-e3d9a98aa0"].field-wrapper {
-  margin: 0 !important;
-  grid-column: auto !important;
+  font-weight: 600;
 }
