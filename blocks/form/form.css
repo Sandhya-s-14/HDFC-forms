@@ -1167,6 +1167,24 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
 /* 🔹 Reset text container */
+#text-3e7757cb61 {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 🔹 Text style */
+#text-3e7757cb61 p {
+  margin: 0;
+  display: inline;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: #374151;
+}
+
 #text-2376b002b9 {
   background: none !important;
   border: none !important;
@@ -1240,16 +1258,4 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 [data-id="textinput-59b917ef95"] input:focus {
   border-color: #2563eb;
   background-color: #ffffff;
-}
-
-/* 🔹 Eye icon (fake) */
-[data-id="textinput-59b917ef95"]::after {
-  content: "👁";
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color: #6b7280;
-  pointer-events: none;
 }
