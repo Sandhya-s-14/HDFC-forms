@@ -1166,47 +1166,46 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
 
 
 /*------------------------------------2ND PAGE (VALIDATE OTP)-----------------------------------------------------------------------------*/
-/* 🔹 Make both wrappers inline (break AEM grid layout) */
-#text-2376b002b9.field-wrapper,
-#button-cba3ca0b36.field-wrapper {
-    display: inline-flex !important;
-    align-items: center;
-    width: auto !important;
-    grid-column: auto !important;   /* 🔥 VERY IMPORTANT */
-}
-
-/* 🔹 Keep them in same line */
+/* 🔹 Reset text container */
 #text-2376b002b9 {
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* 🔹 Text */
+/* 🔹 Text style */
 #text-2376b002b9 p {
-    margin: 0;
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 14px;
-    color: #374151;
-    display: inline;
+  margin: 0;
+  display: inline;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: #374151;
 }
 
-/* 🔹 Button as inline link */
+/* 🔹 Move button next to text (override AEM grid) */
 #button-cba3ca0b36 {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-
-    color: #2563eb !important;
-    font-size: 14px;
-    font-family: Roboto, Arial, sans-serif;
-
-    padding: 0;
-    margin-left: 6px;   /* small gap after text */
-    cursor: pointer;
+  position: static !important; /* remove grid positioning */
+  display: inline !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #2563eb !important; /* blue link */
+  font-size: 14px;
+  font-family: Roboto, Arial, sans-serif;
+  padding: 0;
+  margin-left: 6px;
+  cursor: pointer;
 }
 
-/* 🔹 Hover */
+/* 🔹 Remove spacing from parent wrapper (important) */
+#button-cba3ca0b36:parent {
+  display: inline !important;
+}
+
+/* 🔹 Hover effect */
 #button-cba3ca0b36:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
