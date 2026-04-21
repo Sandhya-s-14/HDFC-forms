@@ -76,24 +76,27 @@ function startOtpTimer(globals) {
     clearInterval(window.otpTimerInterval);
   }
 
-  // ✅ FIXED initial value
+  // ✅ Initial value
   globals.functions.setProperty(timerField, {
-    value: "00:05",
+    value: seconds + " secs",
   });
 
   window.otpTimerInterval = setInterval(() => {
     seconds--;
 
-    const formatted =
-      seconds >= 10 ? `00:${seconds}` : `00:0${seconds}`;
-
-    if (seconds >= 0) {
+    if (seconds > 0) {
       globals.functions.setProperty(timerField, {
-        value: formatted,
+        value: seconds + " secs",
       });
     }
 
-    if (seconds <= 0) {
+    if (seconds === 0) {
+      globals.functions.setProperty(timerField, {
+        value: "1 sec",   // singular case
+      });
+    }
+
+    if (seconds < 0) {
       clearInterval(window.otpTimerInterval);
 
       globals.functions.setProperty(timerField, {

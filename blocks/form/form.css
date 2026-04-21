@@ -1287,6 +1287,7 @@ main .form form .field-wrapper {
   margin-right: 6px;
 }
 
+/* Timer value → BLACK + BOLD */
 [data-id="textinput-e3d9a98aa0"] input {
   border: none !important;
   background: transparent !important;
@@ -1295,12 +1296,8 @@ main .form form .field-wrapper {
   padding: 0 !important;
 
   font-size: 14px;
-  font-weight: 600;
-  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 700;     /* BOLD */
+  color: #000 !important; /* BLACK */
 
-  color: #2563eb !important;   /* HDFC-like blue */
-}
-
-[data-id="textinput-59b917ef95"] {
-  margin-bottom: 4px !important;
+  letter-spacing: 0.3px;
 }
