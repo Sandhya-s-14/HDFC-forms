@@ -1263,39 +1263,38 @@ main .form form .field-wrapper {
   background-color: #ffffff;
 }
 
-/* 🔹 Hide input box */
+/* 🔹 Make wrapper inline */
+[data-id="textinput-e3d9a98aa0"] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* 🔹 Label: "Resend OTP in:" */
+[data-id="textinput-e3d9a98aa0"] .field-label {
+  margin: 0;
+  display: inline;
+  white-space: nowrap;
+}
+
+/* 🔹 Input (timer value) → look like text */
 [data-id="textinput-e3d9a98aa0"] input {
   border: none !important;
   background: none !important;
   outline: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-
-  /* make it look like text */
-  font-size: 14px;
-  color: #111827;
   width: auto;
-}
 
-/* 🔹 Style wrapper text */
-[data-id="textinput-e3d9a98aa0"] {
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 14px;
-  color: #6b7280;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* 🔹 Style label "Resend OTP in:" */
-[data-id="textinput-e3d9a98aa0"] .field-label {
-  margin: 0;
-  font-size: 14px;
-  color: #6b7280;
-}
-
-/* 🔹 Style dynamic number (input value) */
-[data-id="textinput-e3d9a98aa0"] input {
+  /* 🔹 Blue timer */
+  color: #2563eb;
   font-weight: 500;
-  color: #111827;
+}
+
+/* 🔹 Prevent line break */
+[data-id="textinput-e3d9a98aa0"] * {
+  white-space: nowrap;
 }
