@@ -1203,6 +1203,23 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
   color: #374151;
 }
 
+/* 🔹 Remove margin from Enter OTP */
+#text-3e7757cb61 p {
+  margin: 0 !important;
+}
+
+/* 🔹 Remove margin from description text */
+#text-2376b002b9 p {
+  margin: 0 !important;
+}
+
+/* 🔹 Remove spacing from wrappers */
+#text-3e7757cb61,
+#text-2376b002b9 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* 🔹 Move button next to text (override AEM grid) */
 #button-cba3ca0b36 {
   position: static !important; /* remove grid positioning */
