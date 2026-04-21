@@ -1292,25 +1292,33 @@ main .form form .field-wrapper {
   margin: 0 !important;
 
   font-size: 14px !important;
-  font-weight: 700 !important;   /* bold */
+  font-weight: 600 !important;   /* bold */
   color: #000 !important;        /* black */
 
   line-height: normal !important;
 }
 
-/* Make timer row full width so we can push content */
+/* TIMER ROW */
 .text-wrapper.field-timer {
-  justify-content: space-between !important;
-  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+
+  margin-top: -28px !important;
+  margin-left: 6px !important;
+
+  max-width: 520px !important;   /* 🔥 match OTP field width */
 }
 
-/* Move attempts text to same line (right side) */
+/* ATTEMPTS TEXT → align right within same width */
 .text-wrapper.field-attempts-text {
-  margin-top: -34px !important;   /* align with timer */
-  text-align: right !important;
+  margin-top: -30px !important;
+
+  max-width: 520px !important;   /* same as OTP */
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* Remove input box style for attempts */
+/* ATTEMPTS INPUT STYLE */
 [data-id="textinput-bd5f3a3e42"] input {
   border: none !important;
   background: transparent !important;
