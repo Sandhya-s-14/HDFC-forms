@@ -283,7 +283,7 @@ header.header-wrapper {
 header.header-wrapper .header.block {
   position: relative;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 8px;
   min-height: 72px;
   display: flex;
   align-items: center;
@@ -310,7 +310,7 @@ header.header-wrapper .header.block::before {
 header.header-wrapper .header.block::after {
   content: "";
   position: absolute;
-  right: 24px;
+  left: 1008px;
   top: 50%;
   transform: translateY(-50%);
 
