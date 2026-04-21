@@ -1193,10 +1193,10 @@ main .form form .field-essentials-for-the-journey .plain-text-wrapper::before {
   border: none !important;
   box-shadow: none !important;
   color: #2563eb !important; /* blue link */
-  font-size: 14px;
+  font-size: 13px;
   font-family: Roboto, Arial, sans-serif;
   padding: 0;
-  margin-left: 6px;
+  margin-left: -300px;
   cursor: pointer;
 }
 
