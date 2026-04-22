@@ -61,57 +61,80 @@ main .form fieldset.accordion {
 
 
 /*--------------------------------------------REVIEW PAGE----------------------------------------------*/
-/* =========================================
-   LOAN + PERSONAL DETAILS (FINAL UI)
-========================================= */
+/* ===============================
+   GLOBAL FONT (IMPORTANT)
+================================= */
+.field-loan-details,
+.field-personal-details {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
 
-/* Card container */
+
+/* ===============================
+   CARD CONTAINER
+================================= */
 .field-loan-details.panel-wrapper,
 .field-personal-details.panel-wrapper {
-    background: #f3f6fb;
+    background: #f4f7fc;
     border-radius: 16px;
     margin-bottom: 20px;
     overflow: hidden;
-    border: none;
+    border: 1px solid #e6ecf5;
 }
 
-/* Header */
+
+/* ===============================
+   HEADER
+================================= */
 .field-loan-details > legend,
 .field-personal-details > legend {
-    background: #d9e4f7;
-    padding: 14px 18px;
-    font-size: 15px;
+    background: #dfe9fb;
+    padding: 16px 20px;
+    font-size: 16px;
     font-weight: 600;
-    color: #2d3748;
+    color: #1f2d3d;
     border-radius: 16px 16px 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Layout container */
+
+/* ===============================
+   GRID LAYOUT
+================================= */
 .field-loan-details,
 .field-personal-details {
     display: flex;
     flex-wrap: wrap;
-    padding: 12px 18px 18px;
+    padding: 18px 20px;
 }
 
-/* 4 column layout */
+/* 4 columns */
 .field-loan-details .field-wrapper.col-3,
 .field-personal-details .field-wrapper.col-3 {
     width: 25%;
-    padding: 10px 8px;
+    padding: 14px 12px;
     box-sizing: border-box;
 }
 
-/* Full width rows (address etc.) */
-.field-personal-details .field-current-address,
-.field-personal-details .field-residence-type {
-    width: 100%;
+
+/* ===============================
+   LABEL
+================================= */
+.field-loan-details label,
+.field-personal-details label {
+    font-size: 12px;
+    color: #8a94a6;
+    margin-bottom: 6px;
+    display: block;
+    line-height: 1.4;
 }
 
-/* Remove input styling (convert to display look) */
+
+/* ===============================
+   VALUE (TEXT)
+================================= */
 .field-loan-details input,
 .field-personal-details input {
     border: none !important;
@@ -119,28 +142,29 @@ main .form fieldset.accordion {
     padding: 0 !important;
     height: auto !important;
     pointer-events: none;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    color: #2d3748;
+    color: #1f2d3d;
+    line-height: 1.5;
 }
 
-/* Labels */
-.field-loan-details label,
-.field-personal-details label {
-    font-size: 12px;
-    color: #8a94a6;
-    margin-bottom: 4px;
-    display: block;
-}
 
-/* Text wrapper (for left blue line) */
+/* ===============================
+   FIX TEXT WRAPPING ISSUE
+================================= */
 .field-loan-details .text-wrapper,
 .field-personal-details .text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     position: relative;
-    padding-left: 10px;
+    padding-left: 12px;
 }
 
-/* Left blue indicator line */
+
+/* ===============================
+   LEFT BLUE LINE
+================================= */
 .field-loan-details .text-wrapper::before,
 .field-personal-details .text-wrapper::before {
     content: "";
@@ -148,22 +172,60 @@ main .form fieldset.accordion {
     left: 0;
     top: 4px;
     width: 3px;
-    height: 18px;
+    height: 20px;
     background: #5a8dee;
     border-radius: 2px;
 }
 
-/* Dashed divider (for address section) */
+
+/* ===============================
+   ADDRESS FULL WIDTH + DIVIDER
+================================= */
 .field-personal-details .field-current-address {
+    width: 100%;
     border-top: 1px dashed #d6dbe6;
-    margin-top: 10px;
-    padding-top: 14px;
+    margin-top: 14px;
+    padding-top: 16px;
 }
 
-/* Remove AEM spacing issues */
+/* Residence type full width */
+.field-personal-details .field-residence-type {
+    width: 100%;
+    padding-top: 10px;
+}
+
+
+/* ===============================
+   REMOVE AEM SPACING BUG
+================================= */
 .field-loan-details .field-wrapper,
 .field-personal-details .field-wrapper {
     margin-bottom: 0 !important;
+}
+
+
+/* ===============================
+   FIX DATE TEXT (M/d/YY ISSUE)
+================================= */
+.field-personal-details .date-wrapper input {
+    color: #1f2d3d;
+    font-weight: 600;
+}
+
+
+/* ===============================
+   ARROW
+================================= */
+.field-loan-details > legend::after,
+.field-personal-details > legend::after {
+    content: "⌃";
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.field-loan-details[aria-expanded="true"] > legend::after,
+.field-personal-details[aria-expanded="true"] > legend::after {
+    transform: rotate(180deg);
 }
 
 
