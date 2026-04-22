@@ -61,74 +61,112 @@ main .form fieldset.accordion {
 
 
 /*--------------------------------------------REVIEW PAGE----------------------------------------------*/
-/* Accordion container */
+/* ===== Accordion Card Container ===== */
 .field-loan-details.panel-wrapper,
 .field-personal-details.panel-wrapper {
-    background: #f5f7fb;
-    border-radius: 14px;
-    margin-bottom: 16px;
-    padding: 0;
+    background: #f3f5fb;
+    border-radius: 16px;
+    margin-bottom: 20px;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e6eaf2;
 }
 
-/* Accordion header */
+/* ===== Header ===== */
 .field-loan-details > legend.field-label,
 .field-personal-details > legend.field-label {
-    background: linear-gradient(90deg, #c7d2fe, #e0e7ff);
-    padding: 14px 18px;
-    font-size: 15px;
+    background: linear-gradient(90deg, #cfd8f6, #e6ecff);
+    padding: 16px 20px;
+    font-size: 16px;
     font-weight: 600;
-    color: #1e3a8a;
-    border-radius: 14px 14px 0 0;
+    color: #2d3a8c;
+    border-radius: 16px 16px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0;
 }
 
-/* Arrow */
+/* ===== Arrow ===== */
 .field-loan-details > legend.field-label::after,
 .field-personal-details > legend.field-label::after {
     content: "⌃";
     font-size: 14px;
     transform: rotate(180deg);
-    transition: transform 0.3s ease;
+    transition: 0.3s ease;
 }
 
-/* Rotate arrow when open */
+/* Rotate when expanded */
 .field-loan-details[aria-expanded="true"] > legend.field-label::after,
 .field-personal-details[aria-expanded="true"] > legend.field-label::after {
     transform: rotate(0deg);
 }
 
-/* Inner content area */
+/* ===== Content Area ===== */
 .field-loan-details .field-wrapper,
 .field-personal-details .field-wrapper {
-    padding: 16px 18px;
     background: #ffffff;
+    padding: 18px 20px;
 }
 
-/* Field label (Loan Amount, EMI etc.) */
+/* ===== REMOVE INPUT BOX LOOK ===== */
+.field-wrapper input,
+.field-wrapper textarea,
+.field-wrapper select {
+    border: none !important;
+    background: transparent !important;
+    pointer-events: none;
+    padding: 0;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ===== Each Field Block ===== */
+.field-wrapper.col-3,
+.field-wrapper.col-4,
+.field-wrapper.col-6 {
+    background: transparent;
+    border-left: 3px solid #5b6cff;
+    padding-left: 12px;
+    margin-bottom: 18px;
+}
+
+/* ===== Labels ===== */
 .field-wrapper label {
     font-size: 12px;
-    color: #6b7280;
+    color: #8a94a6;
     margin-bottom: 4px;
     display: block;
 }
 
-/* Field value boxes */
+/* ===== Values ===== */
 .field-wrapper input,
 .field-wrapper .text-wrapper {
-    border: none;
-    border-left: 3px solid #6366f1;
-    padding-left: 10px;
-    background: transparent;
     font-size: 14px;
+    font-weight: 600;
     color: #111827;
 }
 
-/* Grid spacing */
-.field-wrapper.col-3 {
+/* ===== Full width fields (Address etc.) ===== */
+.field-wrapper.col-12 {
+    border-left: 3px solid #5b6cff;
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+/* ===== Divider line (like design) ===== */
+.field-wrapper.col-12 + .field-wrapper.col-12 {
+    border-top: 1px dashed #e5e7eb;
+    padding-top: 14px;
+}
+
+/* ===== Link styling (Click here) ===== */
+.field-wrapper a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ===== Spacing fix for grid ===== */
+.field-wrapper {
     margin-bottom: 16px;
 }
