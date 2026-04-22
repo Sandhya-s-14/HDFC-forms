@@ -50,28 +50,3 @@ footer.footer-wrapper .footer.block {
 footer.footer-wrapper .footer.block::before {
   content: "© Copyright HDFC Bank Ltd.";
 }
-
-/* FULL HEIGHT PAGE */
-html, body {
-  height: 100%;
-}
-
-/* MAKE BODY FLEX */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* MAIN CONTENT SHOULD EXPAND */
-main,
-.form,
-.panel-wrapper,
-#panelcontainer-fd1fd9a4d1 {
-  flex: 1;
-}
-
-/* PUSH FOOTER TO BOTTOM */
-footer.footer-wrapper {
-  margin-top: auto;
-}
