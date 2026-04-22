@@ -135,7 +135,6 @@ main .form form .field-loan-details > .date-wrapper,
 main .form form .field-personal-details > .date-wrapper {
   position: relative;
   display: inline-block;
-  width: 25%;
   vertical-align: top;
   padding: 0 18px 0 16px;
   margin-top: 16px;
@@ -153,9 +152,14 @@ main .form form .field-personal-details > .date-wrapper::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 22px;
+
+  /* 🔥 key fix */
+  top: 50%;
+  transform: translateY(-20%);
+
   width: 3px;
-  height: 20px;
+  height: 18px;
+
   background: #5a8dee;
   border-radius: 2px;
 }
