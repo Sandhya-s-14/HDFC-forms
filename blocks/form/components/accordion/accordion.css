@@ -152,15 +152,12 @@ main .form form .field-personal-details > .date-wrapper::before {
   content: "";
   position: absolute;
   left: 0;
-
-  /* 🔥 key fix */
-  top: 50%;
-  transform: translateY(-20%);
+  top: 6px;              /* aligns from label start */
 
   width: 3px;
-  height: 18px;
+  height: 42px;          /* spans label + value */
 
-  background: #5a8dee;
+  background: #8eaaff;
   border-radius: 2px;
 }
 
