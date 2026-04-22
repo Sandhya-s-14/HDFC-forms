@@ -109,7 +109,7 @@ main .form form .field-loan-details > legend.field-label.accordion-legend::befor
   transform: translateY(-50%);
   width: 16px;
   height: 16px;
-  background: url("https://cdn-icons-png.flaticon.com/512/833/833472.png") no-repeat center;
+  background: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/Loans.png") no-repeat center;
   background-size: contain;
 }
 
@@ -121,7 +121,7 @@ main .form form .field-personal-details > legend.field-label.accordion-legend::b
   transform: translateY(-50%);
   width: 16px;
   height: 16px;
-  background: url("https://cdn-icons-png.flaticon.com/512/1077/1077114.png") no-repeat center;
+  background: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/personal info.png") no-repeat center;
   background-size: contain;
 }
 
