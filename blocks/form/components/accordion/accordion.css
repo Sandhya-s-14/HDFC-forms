@@ -61,75 +61,85 @@ main .form fieldset.accordion {
 
 
 /*--------------------------------------------REVIEW PAGE----------------------------------------------*/
-/* =========================================
-   EXACT REVIEW UI (LOAN + PERSONAL)
-========================================= */
-
-/* FONT */
-.field-loan-details,
-.field-personal-details {
-    font-family: "Inter", "Segoe UI", Arial, sans-serif;
-    color: #1f2d3d;
-}
-
-
-/* CARD */
+/* =========================
+   CARD
+========================= */
 .field-loan-details.panel-wrapper,
 .field-personal-details.panel-wrapper {
     background: #f5f7fb;
-    border-radius: 16px;
+    border-radius: 14px;
     border: 1px solid #e6ecf5;
     margin-bottom: 20px;
     overflow: hidden;
 }
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 .field-loan-details > legend,
 .field-personal-details > legend {
     background: #dfe7f5;
-    padding: 16px 20px;
+    padding: 14px 18px;
     font-size: 16px;
     font-weight: 600;
     color: #1f2d3d;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 
-/* CONTENT WRAPPER */
-.field-loan-details,
-.field-personal-details {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 18px 20px;
-}
-
-
-/* 4 COLUMN GRID */
+/* =========================
+   GRID (KEEP AEM GRID, JUST FIX WIDTH)
+========================= */
 .field-loan-details .field-wrapper.col-3,
 .field-personal-details .field-wrapper.col-3 {
     width: 25%;
-    padding: 12px 10px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 12px 14px;
     box-sizing: border-box;
 }
 
 
-/* LABEL */
-.field-loan-details label,
-.field-personal-details label {
-    font-size: 12px;
-    color: #8a94a6;
-    margin-bottom: 4px;
+/* =========================
+   TEXT STRUCTURE
+========================= */
+.text-wrapper {
     display: block;
-    white-space: nowrap;   /* 🔥 FIX: prevent breaking */
+    position: relative;
+    padding-left: 12px;
 }
 
 
-/* VALUE */
-.field-loan-details input,
-.field-personal-details input {
+/* BLUE LINE */
+.text-wrapper::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 3px;
+    height: 16px;
+    background: #5a8dee;
+    border-radius: 2px;
+}
+
+
+/* =========================
+   LABEL (FIX BREAKING ISSUE)
+========================= */
+.text-wrapper label {
+    font-size: 12px;
+    color: #8a94a6;
+    display: block;
+    margin-bottom: 4px;
+
+    white-space: nowrap;   /* 🔥 KEY FIX */
+}
+
+
+/* =========================
+   VALUE
+========================= */
+.text-wrapper input {
     border: none !important;
     background: transparent !important;
     padding: 0 !important;
@@ -142,89 +152,36 @@ main .form fieldset.accordion {
 }
 
 
-/* TEXT STRUCTURE */
-.field-loan-details .text-wrapper,
-.field-personal-details .text-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    position: relative;
-    padding-left: 12px;
-}
-
-
-/* LEFT BLUE LINE */
-.field-loan-details .text-wrapper::before,
-.field-personal-details .text-wrapper::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 4px;
-    width: 3px;
-    height: 18px;
-    background: #5a8dee;
-    border-radius: 2px;
-}
-
-
-/* SECOND ROW SPACING (LOAN SECTION) */
+/* =========================
+   SECOND ROW SPACING
+========================= */
 .field-loan-details .field-wrapper:nth-child(n+5) {
-    margin-top: 8px;
-}
-
-
-/* ADDRESS FULL WIDTH */
-.field-personal-details .field-current-address {
-    width: 100%;
-    border-top: 1px dashed #d6dbe6;
-    margin-top: 14px;
-    padding-top: 16px;
-}
-
-/* RESIDENCE TYPE FULL WIDTH */
-.field-personal-details .field-residence-type {
-    width: 100%;
     margin-top: 10px;
 }
 
 
-/* REMOVE AEM DEFAULT SPACING */
-.field-loan-details .field-wrapper,
-.field-personal-details .field-wrapper {
+/* =========================
+   PERSONAL SECTION FULL WIDTH
+========================= */
+.field-personal-details .field-current-address,
+.field-personal-details .field-residence-type {
+    width: 100% !important;
+}
+
+
+/* ADDRESS DIVIDER */
+.field-personal-details .field-current-address {
+    border-top: 1px dashed #d6dbe6;
+    margin-top: 10px;
+    padding-top: 14px;
+}
+
+
+/* =========================
+   REMOVE AEM SPACING BUG
+========================= */
+.field-wrapper {
     margin-bottom: 0 !important;
-}
-
-
-/* FIX DATE TEXT */
-.field-personal-details .date-wrapper input {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-
-/* LINK STYLE (Click here) */
-.field-loan-details a {
-    color: #3b6edc;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.field-loan-details a:hover {
-    text-decoration: underline;
-}
-
-
-/* ARROW */
-.field-loan-details > legend::after,
-.field-personal-details > legend::after {
-    content: "⌃";
-    font-size: 14px;
-    transition: transform 0.3s ease;
-}
-
-.field-loan-details[aria-expanded="true"] > legend::after,
-.field-personal-details[aria-expanded="true"] > legend::after {
-    transform: rotate(180deg);
 }
 
 
