@@ -58,5 +58,6 @@ footer.footer-wrapper .footer.block::before {
 
 /* Ensures footer doesn't look "too high" when content is small */
 main {
-  margin-bottom: 20px;
+  display: block;
+  height: calc(100vh - 64px - 43px);
 }
