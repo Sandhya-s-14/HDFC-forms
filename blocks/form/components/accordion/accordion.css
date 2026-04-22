@@ -84,12 +84,20 @@ main .form form .field-personal-details {
 
 
 /* =========================
+   SPACE BETWEEN SECTIONS
+========================= */
+main .form form .field-loan-details {
+  margin-bottom: 28px;
+}
+
+
+/* =========================
    HEADER
 ========================= */
 main .form form .field-loan-details > legend.field-label.accordion-legend,
 main .form form .field-personal-details > legend.field-label.accordion-legend {
   background: #e7eefc;
-  padding: 18px 20px 18px 46px;
+  padding: 18px 20px 18px 56px; /* extra space for bigger icon */
   position: relative;
   font-size: 18px;
   font-weight: 600;
@@ -99,7 +107,7 @@ main .form form .field-personal-details > legend.field-label.accordion-legend {
 
 
 /* =========================
-   ICONS (DIFFERENT)
+   ICONS (BIGGER)
 ========================= */
 main .form form .field-loan-details > legend.field-label.accordion-legend::before {
   content: "";
@@ -107,8 +115,8 @@ main .form form .field-loan-details > legend.field-label.accordion-legend::befor
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+  width: 22px;   /* 🔥 increased */
+  height: 22px;  /* 🔥 increased */
   background: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/Loans.png") no-repeat center;
   background-size: contain;
 }
@@ -119,8 +127,8 @@ main .form form .field-personal-details > legend.field-label.accordion-legend::b
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+  width: 22px;   /* 🔥 increased */
+  height: 22px;  /* 🔥 increased */
   background: url("https://author-p96753-e1523920.adobeaemcloud.com/content/dam/s_hdfc_capstone/personal info.png") no-repeat center;
   background-size: contain;
 }
@@ -135,6 +143,7 @@ main .form form .field-loan-details > .date-wrapper,
 main .form form .field-personal-details > .date-wrapper {
   position: relative;
   display: inline-block;
+  width: 25%;
   vertical-align: top;
   padding: 0 18px 0 16px;
   margin-top: 16px;
@@ -143,7 +152,7 @@ main .form form .field-personal-details > .date-wrapper {
 
 
 /* =========================
-   BLUE LINE
+   BLUE LINE (FULL HEIGHT STYLE)
 ========================= */
 main .form form .field-loan-details > .text-wrapper::before,
 main .form form .field-personal-details > .text-wrapper::before,
@@ -152,11 +161,9 @@ main .form form .field-personal-details > .date-wrapper::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 6px;              /* aligns from label start */
-
+  top: 6px;
   width: 3px;
-  height: 42px;          /* spans label + value */
-
+  height: 42px;
   background: #8eaaff;
   border-radius: 2px;
 }
@@ -183,9 +190,8 @@ main .form form .field-loan-details input,
 main .form form .field-personal-details input,
 main .form form .field-loan-details textarea,
 main .form form .field-personal-details textarea {
-  border: 1px solid transparent;
+  border: none;
   background: transparent;
-  box-shadow: none;
   padding: 2px 0;
   margin: 0;
 
@@ -205,14 +211,6 @@ main .form form input:focus,
 main .form form textarea:focus {
   border-bottom: 1px solid #5a8dee;
   outline: none;
-}
-
-
-/* =========================
-   DATE FIX
-========================= */
-main .form form .date-wrapper input {
-  letter-spacing: 0;
 }
 
 
