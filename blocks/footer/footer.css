@@ -61,5 +61,5 @@ footer.footer-wrapper .footer.block::before {
 /* ================= PREVENT OVERLAP ================= */
 
 main {
-  padding-bottom: 60px; /* must be >= footer height */
+  padding-bottom: 90px; /* must be >= footer height */
 }
