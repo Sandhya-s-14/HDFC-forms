@@ -1333,3 +1333,18 @@ main .form form .field-wrapper {
   font-weight: 400 !important;
   color: #000 !important;
 }
+
+/*-------------------------------------------4TH PAGE----------------------------------------*/
+/* Review Details header */
+.field-review-details legend.field-label {
+    background: #8fb1d1;          /* light blue */
+    color: #1f2937;               /* dark text */
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 16px;
+    margin: 0;
+    width: 100%;
+    display: block;
+    border-bottom: 6px solid #e6b17e;  /* orange strip */
+    border-radius: 6px 6px 0 0;
+}
