@@ -62,126 +62,170 @@ main .form fieldset.accordion {
 
 /*--------------------------------------------REVIEW PAGE----------------------------------------------*/
 /* =========================
+   FONT
+========================= */
+main .form form .field-loan-details,
+main .form form .field-personal-details {
+  font-family: Roboto, Arial, sans-serif;
+}
+
+
+/* =========================
    CARD
 ========================= */
-.field-loan-details.panel-wrapper,
-.field-personal-details.panel-wrapper {
-    background: #f5f7fb;
-    border-radius: 14px;
-    border: 1px solid #e6ecf5;
-    margin-bottom: 20px;
-    overflow: hidden;
+main .form form .field-loan-details,
+main .form form .field-personal-details {
+  background: #f8faff;
+  border: 1px solid #edf0f5;
+  border-radius: 16px;
+  overflow: hidden;
+  padding-bottom: 16px;
 }
 
 
 /* =========================
    HEADER
 ========================= */
-.field-loan-details > legend,
-.field-personal-details > legend {
-    background: #dfe7f5;
-    padding: 14px 18px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1f2d3d;
+main .form form .field-loan-details > legend.field-label.accordion-legend,
+main .form form .field-personal-details > legend.field-label.accordion-legend {
+  background: #e7eefc;
+  padding: 18px 20px 18px 46px;
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+  color: #3f4a5a;
+  margin: 0 0 10px;
 }
 
 
 /* =========================
-   GRID (KEEP AEM GRID, JUST FIX WIDTH)
+   ICON
 ========================= */
-.field-loan-details .field-wrapper.col-3,
-.field-personal-details .field-wrapper.col-3 {
-    width: 25%;
-    display: inline-block;
-    vertical-align: top;
-    padding: 12px 14px;
-    box-sizing: border-box;
+main .form form .field-loan-details > legend.field-label.accordion-legend::before,
+main .form form .field-personal-details > legend.field-label.accordion-legend::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background: url("https://cdn-icons-png.flaticon.com/512/3064/3064197.png") no-repeat center;
+  background-size: contain;
 }
 
 
 /* =========================
-   TEXT STRUCTURE
+   FIELD BLOCK
 ========================= */
-.text-wrapper {
-    display: block;
-    position: relative;
-    padding-left: 12px;
-}
-
-
-/* BLUE LINE */
-.text-wrapper::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 3px;
-    height: 16px;
-    background: #5a8dee;
-    border-radius: 2px;
+main .form form .field-loan-details > .text-wrapper,
+main .form form .field-personal-details > .text-wrapper,
+main .form form .field-loan-details > .date-wrapper,
+main .form form .field-personal-details > .date-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 25%;
+  vertical-align: top;
+  padding: 0 18px 0 16px;
+  margin-top: 16px;
+  box-sizing: border-box;
 }
 
 
 /* =========================
-   LABEL (FIX BREAKING ISSUE)
+   BLUE LINE
 ========================= */
-.text-wrapper label {
-    font-size: 12px;
-    color: #8a94a6;
-    display: block;
-    margin-bottom: 4px;
+main .form form .field-loan-details > .text-wrapper::before,
+main .form form .field-personal-details > .text-wrapper::before,
+main .form form .field-loan-details > .date-wrapper::before,
+main .form form .field-personal-details > .date-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 3px;
+  height: 18px;
+  background: #5a8dee;
+  border-radius: 2px;
+}
 
-    white-space: nowrap;   /* 🔥 KEY FIX */
+
+/* =========================
+   LABEL
+========================= */
+main .form form .field-loan-details .field-label,
+main .form form .field-personal-details .field-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #7a8394;
+  margin-bottom: 4px;
+  display: block;
+  white-space: nowrap;   /* 🔥 prevents breaking */
 }
 
 
 /* =========================
    VALUE
 ========================= */
-.text-wrapper input {
-    border: none !important;
-    background: transparent !important;
-    padding: 0 !important;
-    height: auto !important;
-    pointer-events: none;
+main .form form .field-loan-details input,
+main .form form .field-personal-details input,
+main .form form .field-loan-details textarea,
+main .form form .field-personal-details textarea {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: auto !important;
+  width: auto !important;
 
-    font-size: 15px;
-    font-weight: 600;
-    color: #1f2d3d;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3f4a5a;
+  pointer-events: none;
 }
 
 
 /* =========================
-   SECOND ROW SPACING
+   DATE FIX
 ========================= */
-.field-loan-details .field-wrapper:nth-child(n+5) {
-    margin-top: 10px;
+main .form form .field-loan-details .date-wrapper input,
+main .form form .field-personal-details .date-wrapper input {
+  letter-spacing: 0;
 }
 
 
 /* =========================
-   PERSONAL SECTION FULL WIDTH
+   REMOVE FOCUS STYLES
 ========================= */
-.field-personal-details .field-current-address,
-.field-personal-details .field-residence-type {
-    width: 100% !important;
-}
-
-
-/* ADDRESS DIVIDER */
-.field-personal-details .field-current-address {
-    border-top: 1px dashed #d6dbe6;
-    margin-top: 10px;
-    padding-top: 14px;
+main .form form input:focus,
+main .form form textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 
 /* =========================
-   REMOVE AEM SPACING BUG
+   FULL WIDTH FIELDS
 ========================= */
-.field-wrapper {
-    margin-bottom: 0 !important;
+main .form form .field-personal-details .field-current-address,
+main .form form .field-personal-details .field-residence-type {
+  width: 100% !important;
+}
+
+
+/* =========================
+   DOTTED DIVIDER
+========================= */
+main .form form .field-personal-details .field-current-address {
+  border-top: 1px dashed #e4e8f0;
+  padding-top: 14px;
+  margin-top: 18px;
+}
+
+main .form form .field-personal-details .field-residence-type {
+  margin-top: 10px;
 }
 
 
