@@ -24,10 +24,15 @@ footer .footer p {
 /*-----------------------------------------------------------------------*/
 /* ================= FORM SPACING FIX ================= */
 
-/* Match footer height properly (no extra gap) */
+/* Only prevent overlap (not push too much) */
 .form-block {
-  padding-bottom: 70px; /* equal to footer height */
+  padding-bottom: 55px; /* match footer height */
   box-sizing: border-box;
+}
+
+/* Add slight natural gap above footer */
+main {
+  margin-bottom: 20px; /* controls how "down" footer feels */
 }
 
 /* ================= FIXED FOOTER ================= */
@@ -83,4 +88,3 @@ footer .footer * {
   font-size: 12px;
   margin: 0;
 }
- 
