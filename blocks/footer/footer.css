@@ -27,7 +27,6 @@ footer .footer p {
 footer.footer-wrapper {
   width: 100%;
   background: #071d49;
-  /* remove position: fixed */
 }
 
 /* ================= FOOTER BLOCK ================= */
@@ -52,4 +51,12 @@ footer.footer-wrapper .footer.block {
 
 footer.footer-wrapper .footer.block::before {
   content: "© Copyright HDFC Bank Ltd.";
+}
+
+/*-----------------------------------------------------------------------*/
+/* ================= SMALL FIX FOR SPACING ================= */
+
+/* Ensures footer doesn't look "too high" when content is small */
+main {
+  margin-bottom: 20px;
 }
