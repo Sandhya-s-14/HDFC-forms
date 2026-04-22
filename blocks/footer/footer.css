@@ -22,15 +22,12 @@ footer .footer p {
 }
 
 /*-----------------------------------------------------------------------*/
-/* ================= FIXED FOOTER ================= */
+/* ================= FOOTER WRAPPER ================= */
 
 footer.footer-wrapper {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   background: #071d49;
-  z-index: 1000;
+  /* remove position: fixed */
 }
 
 /* ================= FOOTER BLOCK ================= */
@@ -55,11 +52,4 @@ footer.footer-wrapper .footer.block {
 
 footer.footer-wrapper .footer.block::before {
   content: "© Copyright HDFC Bank Ltd.";
-}
-
-/*-----------------------------------------------------------------------*/
-/* ================= PREVENT OVERLAP ================= */
-
-main {
-  padding-bottom: 90px; /* must be >= footer height */
 }
