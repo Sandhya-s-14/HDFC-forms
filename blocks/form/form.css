@@ -1335,16 +1335,16 @@ main .form form .field-wrapper {
 }
 
 /*-------------------------------------------4TH PAGE----------------------------------------*/
-/* Review Details header */
-.field-review-details legend.field-label {
-    background: #8fb1d1;          /* light blue */
-    color: #1f2937;               /* dark text */
-    font-size: 18px;
-    font-weight: 600;
+#text-6cf6e02f2e {
+    background: #8fb1d1;              /* blue background */
     padding: 10px 16px;
+    border-bottom: 6px solid #e6b17e; /* orange strip */
+    border-radius: 4px 4px 0 0;
+}
+
+/* Paragraph inside */
+#text-6cf6e02f2e p {
     margin: 0;
-    width: 100%;
-    display: block;
-    border-bottom: 6px solid #e6b17e;  /* orange strip */
-    border-radius: 6px 6px 0 0;
+    font-size: 14px;
+    color: #1f2937;
 }
