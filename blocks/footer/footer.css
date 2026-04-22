@@ -1,3 +1,5 @@
+/* ================= BASE FOOTER ================= */
+
 footer {
   background-color: var(--light-color);
   font-size: var(--body-font-size-xs);
@@ -20,11 +22,15 @@ footer .footer p {
 }
 
 /*-----------------------------------------------------------------------*/
-/* ================= FOOTER WRAPPER ================= */
+/* ================= FIXED FOOTER ================= */
 
 footer.footer-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   background: #071d49;
+  z-index: 1000;
 }
 
 /* ================= FOOTER BLOCK ================= */
@@ -37,7 +43,7 @@ footer.footer-wrapper .footer.block {
   align-items: center;
   justify-content: center;
 
-  height: 43px; /* adjust height */
+  height: 43px;
   padding: 0 16px;
 
   color: #ffffff;
@@ -49,4 +55,11 @@ footer.footer-wrapper .footer.block {
 
 footer.footer-wrapper .footer.block::before {
   content: "© Copyright HDFC Bank Ltd.";
+}
+
+/*-----------------------------------------------------------------------*/
+/* ================= PREVENT OVERLAP ================= */
+
+main {
+  padding-bottom: 60px; /* must be >= footer height */
 }
