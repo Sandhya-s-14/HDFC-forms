@@ -22,42 +22,55 @@ footer .footer p {
 }
 
 /*-----------------------------------------------------------------------*/
-/* ================= FOOTER WRAPPER ================= */
-
-footer.footer-wrapper {
-  width: 100%;
-  background: #071d49;
+form-block {
+  padding-bottom: 100px;
+  box-sizing: border-box;
 }
-
-/* ================= FOOTER BLOCK ================= */
-
-footer.footer-wrapper .footer.block {
-  max-width: 1200px;
-  margin: 0 auto;
-
+ 
+footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  margin: 0;
+}
+ 
+/* MAIN FIX */
+footer .footer {
+  background: #03164a;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+ 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  height: 43px;
-  padding: 0 16px;
-
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 400;
+ 
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 50px;  
 }
-
-/* ================= TEXT ================= */
-
-footer.footer-wrapper .footer.block::before {
+ 
+footer .footer > div {
+  width: 100%;
+  max-width: none;
+  padding: 0 16px;   /* horizontal only */
+  margin: 0;
+  box-sizing: border-box;
+}
+ 
+footer .footer:empty::before {
   content: "© Copyright HDFC Bank Ltd.";
 }
-
-/*-----------------------------------------------------------------------*/
-/* ================= SMALL FIX FOR SPACING ================= */
-
-/* Ensures footer doesn't look "too high" when content is small */
-main {
-  display: block;
-  height: calc(100vh - 64px - 55px);
+ 
+footer .footer,
+footer .footer * {
+  color: #fff;
+  font-size: 12px;
+  margin: 0;
 }
+ 
