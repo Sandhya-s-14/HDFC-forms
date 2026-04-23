@@ -834,18 +834,24 @@ main .form form [data-id="text-c38781854a"] {
 
 main .form form [data-id="text-c38781854a"] > p {
     font-family: Roboto, Arial, sans-serif !important;
-    font-size: 14px !important;
-    background-color: #fff3cd;
-    border: 1px solid #ffc107;
-    border-radius: 6px;
+    
+    /* Background & Border (closer to screenshot) */
+    background-color: #fff8e1;       /* softer pale yellow */
+    border: 1px solid #f0c36d;       /* subtle golden border */
+    border-radius: 8px;
 
-    padding: 10px 12px;
-    margin: 6px 0;
+    /* Spacing */
+    padding: 12px 14px;
+    margin: 8px 0;
 
-    font-size: 13px !important;   /* 👈 EXACT match */
+    /* Text */
+    font-size: 13px !important;
     font-weight: 400;
-    line-height: 1.4;
-    color: #333;
+    line-height: 1.5;
+    color: #5c4b00;                  /* muted brownish text */
+
+    /* Optional subtle effect */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 
