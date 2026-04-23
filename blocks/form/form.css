@@ -1346,6 +1346,13 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
+.field-loan-application-details {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 /* ============================= */
 /* ===== MAIN LAYOUT ===== */
 /* ============================= */
@@ -1424,4 +1431,10 @@ main .form .field-loan-application-number input {
     width: auto !important;
     height: auto !important;
     margin: 0 !important;
+}
+
+.field-contact-note {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #d1d5db;
 }
