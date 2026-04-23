@@ -1346,13 +1346,10 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
-/* ============================= */
-/* ===== LOAN NUMBER BLOCK ===== */
-/* ============================= */
-
+/* ===== MAIN LAYOUT ===== */
 .field-loan-application-number {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
 }
 
@@ -1368,39 +1365,48 @@ main .form form .field-wrapper {
 }
 
 
-/* ============================= */
-/* ===== STACK TEXT PROPERLY === */
-/* ============================= */
-
-/* FORCE LABEL + VALUE TO GO VERTICAL */
+/* ===== CREATE RIGHT SIDE COLUMN ===== */
 .field-loan-application-number {
-    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
-/* label */
-.field-loan-application-number label {
+/* force label + input into column */
+.field-loan-application-number label,
+.field-loan-application-number input {
     display: block;
-    width: 100%;
+}
+
+
+/* ===== LABEL (TOP) ===== */
+.field-loan-application-number label {
     font-size: 13px;
     color: #6b7280;
     margin-bottom: 4px;
 }
 
-/* value */
+
+/* ===== VALUE (BOTTOM) ===== */
 .field-loan-application-number input {
-    display: block;
-    width: 100%;
     font-size: 22px;
     font-weight: 700;
-    border: none;
-    background: transparent;
-    padding: 0;
-    color: #111827;
+
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+
+    width: auto !important;      /* 🔥 important */
 }
 
 
-/* REMOVE INPUT BOX LOOK */
+/* ===== REMOVE INPUT BOX ===== */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
+}
+
+
+/* ===== BREAK DEFAULT AEM WIDTH ===== */
+.field-loan-application-number input,
+.field-loan-application-number .field-wrapper {
+    width: auto !important;
 }
