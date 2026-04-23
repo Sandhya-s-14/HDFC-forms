@@ -1377,7 +1377,7 @@ main .form form .field-wrapper {
 
 /* ===== VALUE ===== */
 .field-loan-application-number input {
-    width: calc(100% - 56px); */
+    width: calc(100% - 56px);
     /* font-size: 22px; */
     font-weight: 700;
     border: none !important;
