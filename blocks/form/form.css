@@ -1514,23 +1514,3 @@ main .form .field-loan-application-number input {
 }
 
 /*=========================================================================*/
-/* hide original text completely */
-#text-412da5c009 p {
-    visibility: hidden;
-    position: relative;
-}
-
-/* show custom text */
-#text-412da5c009 p::before {
-    content: "For more services, visit ";
-    visibility: visible;
-    color: #333;
-}
-
-/* blue part */
-#text-412da5c009 p::after {
-    content: "HDFC Bank Website.";
-    visibility: visible;
-    color: #1d4ed8;
-    font-weight: 500;
-}
