@@ -1500,3 +1500,15 @@ main .form .field-loan-application-number input {
     box-shadow: none;
 }
 
+.field-disbursement-note p {
+    background-color: #eef4ff;
+    color: #1e40af;
+
+    padding: 14px 16px;
+    border-radius: 10px;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    margin-top: 16px;
+}
