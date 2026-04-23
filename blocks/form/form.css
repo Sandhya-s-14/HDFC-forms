@@ -1514,31 +1514,31 @@ main .form .field-loan-application-number input {
 }
 
 /*=========================================================================*/
-/* ===== KYC TOP POPUP BANNER ===== */
-
+/* ===== KYC POPUP (FIXED TOP CENTER) ===== */
 #text-412da5c009 {
     position: fixed;
-    top: 70px;                 /* adjust based on header height */
+    top: 80px;                /* adjust under header */
     left: 50%;
     transform: translateX(-50%);
-
-    width: auto;
-    max-width: 700px;
-
     z-index: 9999;
 }
 
-/* inner text style */
+/* ===== INNER BOX ===== */
 #text-412da5c009 p {
+    margin: 0;
+
     background: #fff8e1;
     border: 1px solid #facc15;
-    border-radius: 12px;
+    border-radius: 14px;
 
-    padding: 12px 18px;
+    padding: 14px 22px;
 
+    width: fit-content;       /* 🔥 important fix */
+    max-width: 600px;
+
+    text-align: center;
     font-size: 14px;
     color: #374151;
-    text-align: center;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
