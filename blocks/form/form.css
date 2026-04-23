@@ -1346,9 +1346,25 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
-/* ===== MAKE FIELD VERTICAL ===== */
+/* ============================= */
+/* ===== MAIN CARD STYLE ====== */
+/* ============================= */
+
+main .form form .panel-wrapper.field-loan-application-details {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+
+/* ============================= */
+/* ===== LOAN NUMBER BLOCK ===== */
+/* ============================= */
+
 .field-loan-application-number {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 14px;
 }
@@ -1369,19 +1385,28 @@ main .form form .field-wrapper {
 }
 
 
-/* ===== STACK LABEL + INPUT ===== */
-.field-loan-application-number {
-    align-items: flex-start;
+/* ============================= */
+/* ===== FORCE VERTICAL LAYOUT = */
+/* ============================= */
+
+/* AEM wrappers fix */
+.field-loan-application-number .field-wrapper,
+.field-loan-application-number > div {
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-/* wrap label + input vertically */
-.field-loan-application-number label,
-.field-loan-application-number input {
-    display: block;
+
+/* fallback for deeper nesting */
+.field-loan-application-number * {
+    max-width: 100%;
 }
 
 
+/* ============================= */
 /* ===== LABEL (TOP TEXT) ===== */
+/* ============================= */
+
 .field-loan-application-number label {
     font-size: 13px;
     color: #6b7280;
@@ -1389,18 +1414,93 @@ main .form form .field-wrapper {
 }
 
 
-/* ===== VALUE (BIG NUMBER) ===== */
+/* ============================= */
+/* ===== VALUE (NUMBER) ======= */
+/* ============================= */
+
 .field-loan-application-number input {
     font-size: 22px;
     font-weight: 700;
-    border: none;
-    background: transparent;
-    padding: 0;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
     color: #111827;
+    width: auto;
 }
 
 
-/* ❌ REMOVE COPY ICON COMPLETELY */
+/* remove input box completely */
+.field-loan-application-number input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* ❌ REMOVE COPY ICON */
 .field-loan-application-number::after {
     display: none !important;
+}
+
+
+/* ============================= */
+/* ===== SUB TEXT ============== */
+/* ============================= */
+
+.plain-text-wrapper {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 10px 0 16px 58px;
+}
+
+
+/* ============================= */
+/* ===== DIVIDER ============== */
+/* ============================= */
+
+.field-loan-application-details::after {
+    content: "";
+    display: block;
+    border-bottom: 1px dashed #e5e7eb;
+    margin: 16px 0;
+}
+
+
+/* ============================= */
+/* ===== SECTION TITLE ======== */
+/* ============================= */
+
+.field-xpress-personal-loan-summary legend {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+
+/* ============================= */
+/* ===== LOAN AMOUNT BLOCK ==== */
+/* ============================= */
+
+.field-loan-amount {
+    border-left: 3px solid #6366f1;
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+
+/* label */
+.field-loan-amount label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+
+/* value */
+.field-loan-amount input {
+    font-size: 20px;
+    font-weight: 700;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    color: #111827;
 }
