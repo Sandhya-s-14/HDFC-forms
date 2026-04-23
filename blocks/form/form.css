@@ -1376,46 +1376,42 @@ main .form form .panel-wrapper.field-loan-application-details {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: #eef2ff;
-    background-image: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png');
-    background-size: 22px;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: #eef2ff url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') center/22px no-repeat;
     flex-shrink: 0;
 }
 
 
 /* ============================= */
-/* ===== FORCE VERTICAL LAYOUT = */
+/* ===== FIX AEM STRUCTURE ===== */
 /* ============================= */
 
-/* AEM wrappers fix */
+/* Force wrapper vertical */
 .field-loan-application-number .field-wrapper,
 .field-loan-application-number > div {
     display: flex !important;
     flex-direction: column !important;
 }
 
-
-/* fallback for deeper nesting */
-.field-loan-application-number * {
-    max-width: 100%;
+/* fallback for deep nesting */
+.field-loan-application-number div div {
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 
 /* ============================= */
-/* ===== LABEL (TOP TEXT) ===== */
+/* ===== LABEL (TOP) ===== */
 /* ============================= */
 
 .field-loan-application-number label {
     font-size: 13px;
     color: #6b7280;
-    margin-bottom: 4px;
+    margin: 0 0 4px 0;
 }
 
 
 /* ============================= */
-/* ===== VALUE (NUMBER) ======= */
+/* ===== VALUE (BOTTOM) ===== */
 /* ============================= */
 
 .field-loan-application-number input {
@@ -1428,22 +1424,24 @@ main .form form .panel-wrapper.field-loan-application-details {
     width: auto;
 }
 
-
-/* remove input box completely */
+/* remove input box focus */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
 }
 
 
-/* ❌ REMOVE COPY ICON */
+/* ============================= */
+/* ===== REMOVE EXTRA ICON ===== */
+/* ============================= */
+
 .field-loan-application-number::after {
     display: none !important;
 }
 
 
 /* ============================= */
-/* ===== SUB TEXT ============== */
+/* ===== SUB TEXT ===== */
 /* ============================= */
 
 .plain-text-wrapper {
@@ -1454,7 +1452,7 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== DIVIDER ============== */
+/* ===== DIVIDER ===== */
 /* ============================= */
 
 .field-loan-application-details::after {
@@ -1466,7 +1464,7 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== SECTION TITLE ======== */
+/* ===== SECTION TITLE ===== */
 /* ============================= */
 
 .field-xpress-personal-loan-summary legend {
@@ -1478,7 +1476,7 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== LOAN AMOUNT BLOCK ==== */
+/* ===== LOAN AMOUNT BLOCK ===== */
 /* ============================= */
 
 .field-loan-amount {
