@@ -1365,8 +1365,13 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 .field-loan-application-number {
     display: flex !important;
-    align-items: center !important;
-    gap: 16px;
+    align-items: flex-start !important;
+    gap: 14px;
+
+    /* Divider FIX (moves from bottom to here) */
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px dashed #e5e7eb;
 }
 
 
@@ -1385,13 +1390,12 @@ main .form form .panel-wrapper.field-loan-application-details {
 /* ===== BREAK AEM GRID ======== */
 /* ============================= */
 
-/* remove column/grid behavior */
 .field-loan-application-number .field-wrapper,
 .field-loan-application-number .cmp-adaptiveform-textinput,
 .field-loan-application-number .cmp-adaptiveform-textinput__widget,
 .field-loan-application-number > div {
     display: block !important;
-    width: auto !important;
+    width: 100% !important;
 }
 
 
@@ -1406,22 +1410,24 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== LABEL ================= */
+/* ===== LABEL (TOP) =========== */
 /* ============================= */
 
 .field-loan-application-number label {
+    display: block !important;
     font-size: 13px;
     color: #6b7280;
-    margin: 0 0 6px 0;
-    white-space: nowrap;   /* keeps in one line */
+    margin-bottom: 4px;
+    white-space: nowrap;
 }
 
 
 /* ============================= */
-/* ===== VALUE ================= */
+/* ===== VALUE (BOTTOM) ======== */
 /* ============================= */
 
 .field-loan-application-number input {
+    display: block !important;
     font-size: 22px;
     font-weight: 700;
     border: none !important;
@@ -1431,7 +1437,6 @@ main .form form .panel-wrapper.field-loan-application-details {
     width: auto !important;
 }
 
-
 /* remove input styling */
 .field-loan-application-number input:focus {
     outline: none;
@@ -1439,8 +1444,11 @@ main .form form .panel-wrapper.field-loan-application-details {
 }
 
 
-/* remove copy icon if exists */
-.field-loan-application-number::after {
+/* ============================= */
+/* ===== REMOVE WRONG DIVIDER == */
+/* ============================= */
+
+.field-loan-application-details::after {
     display: none !important;
 }
 
@@ -1452,19 +1460,7 @@ main .form form .panel-wrapper.field-loan-application-details {
 .plain-text-wrapper {
     font-size: 13px;
     color: #6b7280;
-    margin: 10px 0 16px 60px;
-}
-
-
-/* ============================= */
-/* ===== DIVIDER =============== */
-/* ============================= */
-
-.field-loan-application-details::after {
-    content: "";
-    display: block;
-    border-bottom: 1px dashed #e5e7eb;
-    margin: 16px 0;
+    margin: 10px 0 16px 58px;
 }
 
 
