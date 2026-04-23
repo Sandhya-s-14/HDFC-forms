@@ -1389,9 +1389,10 @@ main .form form .field-wrapper {
 /* label */
 .field-loan-application-number label {
     grid-column: 2;
-    font-size: 13px;
+    font-size: 14px;
     color: #6b7280;
     margin-bottom: 4px;
+    margin-top: -10px;
 }
 
 /* value */
