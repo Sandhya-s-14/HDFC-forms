@@ -1347,11 +1347,11 @@ main .form form .field-wrapper {
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
 /* ============================= */
-/* ===== MAIN CARD STYLE ====== */
+/* ===== CARD CONTAINER ======== */
 /* ============================= */
 
 main .form form .panel-wrapper.field-loan-application-details {
-    background: #ffffff;
+    background: #fff;
     border-radius: 16px;
     padding: 20px 24px;
     border: 1px solid #eee;
@@ -1365,8 +1365,8 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 .field-loan-application-number {
     display: flex !important;
-    align-items: center;
-    gap: 14px;
+    align-items: center !important;
+    gap: 16px;
 }
 
 
@@ -1382,36 +1382,43 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== FIX AEM STRUCTURE ===== */
+/* ===== BREAK AEM GRID ======== */
 /* ============================= */
 
-/* Force wrapper vertical */
+/* remove column/grid behavior */
 .field-loan-application-number .field-wrapper,
+.field-loan-application-number .cmp-adaptiveform-textinput,
+.field-loan-application-number .cmp-adaptiveform-textinput__widget,
 .field-loan-application-number > div {
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important;
+    width: auto !important;
 }
 
-/* fallback for deep nesting */
-.field-loan-application-number div div {
+
+/* ============================= */
+/* ===== FORCE VERTICAL ========= */
+/* ============================= */
+
+.field-loan-application-number .field-wrapper {
     display: flex !important;
     flex-direction: column !important;
 }
 
 
 /* ============================= */
-/* ===== LABEL (TOP) ===== */
+/* ===== LABEL ================= */
 /* ============================= */
 
 .field-loan-application-number label {
     font-size: 13px;
     color: #6b7280;
-    margin: 0 0 4px 0;
+    margin: 0 0 6px 0;
+    white-space: nowrap;   /* keeps in one line */
 }
 
 
 /* ============================= */
-/* ===== VALUE (BOTTOM) ===== */
+/* ===== VALUE ================= */
 /* ============================= */
 
 .field-loan-application-number input {
@@ -1421,38 +1428,36 @@ main .form form .panel-wrapper.field-loan-application-details {
     background: transparent !important;
     padding: 0 !important;
     color: #111827;
-    width: auto;
+    width: auto !important;
 }
 
-/* remove input box focus */
+
+/* remove input styling */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
 }
 
 
-/* ============================= */
-/* ===== REMOVE EXTRA ICON ===== */
-/* ============================= */
-
+/* remove copy icon if exists */
 .field-loan-application-number::after {
     display: none !important;
 }
 
 
 /* ============================= */
-/* ===== SUB TEXT ===== */
+/* ===== SUB TEXT ============== */
 /* ============================= */
 
 .plain-text-wrapper {
     font-size: 13px;
     color: #6b7280;
-    margin: 10px 0 16px 58px;
+    margin: 10px 0 16px 60px;
 }
 
 
 /* ============================= */
-/* ===== DIVIDER ===== */
+/* ===== DIVIDER =============== */
 /* ============================= */
 
 .field-loan-application-details::after {
@@ -1464,7 +1469,7 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== SECTION TITLE ===== */
+/* ===== SECTION TITLE ========= */
 /* ============================= */
 
 .field-xpress-personal-loan-summary legend {
@@ -1485,13 +1490,11 @@ main .form form .panel-wrapper.field-loan-application-details {
     margin-top: 10px;
 }
 
-
 /* label */
 .field-loan-amount label {
     font-size: 12px;
     color: #6b7280;
 }
-
 
 /* value */
 .field-loan-amount input {
