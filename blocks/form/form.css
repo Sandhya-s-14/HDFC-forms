@@ -1357,10 +1357,7 @@ main .form form .field-wrapper {
 }
 
 
-/* ============================= */
-/* ===== ICON (LEFT) ===== */
-/* ============================= */
-
+/* ===== ICON ===== */
 .field-loan-application-number::before {
     content: "";
     width: 44px;
@@ -1372,24 +1369,27 @@ main .form form .field-wrapper {
 
 
 /* ============================= */
-/* ===== FIX STRUCTURE ===== */
+/* ===== FORCE COLUMN LAYOUT ===== */
 /* ============================= */
 
-/* create vertical column on right */
+/* 🔥 THIS IS THE KEY FIX */
 .field-loan-application-number {
-    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-/* wrap label + input into column */
-.field-loan-application-number label,
+/* force label to take full row */
+.field-loan-application-number label {
+    width: calc(100% - 56px); /* leaves space for icon */
+}
+
+/* force input to next line */
 .field-loan-application-number input {
-    display: block;
-    width: 100%;
+    width: calc(100% - 56px);
 }
 
 
 /* ============================= */
-/* ===== LABEL (TOP) ===== */
+/* ===== LABEL ===== */
 /* ============================= */
 
 .field-loan-application-number label {
@@ -1400,7 +1400,7 @@ main .form form .field-wrapper {
 
 
 /* ============================= */
-/* ===== VALUE (BOTTOM) ===== */
+/* ===== VALUE ===== */
 /* ============================= */
 
 .field-loan-application-number input {
@@ -1411,7 +1411,6 @@ main .form form .field-wrapper {
     background: transparent !important;
     padding: 0 !important;
 
-    width: auto !important;
     height: auto !important;
     margin: 0 !important;
 }
@@ -1428,11 +1427,10 @@ main .form form .field-wrapper {
 
 
 /* ============================= */
-/* ===== BREAK GLOBAL FORM CSS ===== */
+/* ===== BREAK GLOBAL CSS ===== */
 /* ============================= */
 
 main .form .field-loan-application-number input {
     width: auto !important;
     height: auto !important;
-    margin: 0 !important;
 }
