@@ -1346,12 +1346,14 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
+/* ============================= */
 /* ===== MAIN LAYOUT ===== */
+/* ============================= */
+
 .field-loan-application-number {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    flex-wrap: wrap;
 }
 
 
@@ -1366,30 +1368,59 @@ main .form form .field-wrapper {
 }
 
 
-/* ===== LABEL ===== */
+/* ============================= */
+/* ===== RIGHT SIDE COLUMN ===== */
+/* ============================= */
+
+/* THIS is the key fix */
+.field-loan-application-number {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    column-gap: 12px;
+}
+
+
+/* place icon */
+.field-loan-application-number::before {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+/* label */
 .field-loan-application-number label {
-    width: calc(100% - 56px);   /* aligns with right side of icon */
+    grid-column: 2;
     font-size: 13px;
     color: #6b7280;
     margin-bottom: 4px;
 }
 
-
-/* ===== VALUE ===== */
+/* value */
 .field-loan-application-number input {
-    width: calc(100% - 56px);
-    /* font-size: 22px; */
+    grid-column: 2;
+
+    font-size: 22px;
     font-weight: 700;
+
     border: none !important;
     background: transparent !important;
     padding: 0 !important;
-    height: 52px !important;
-    /* margin: 0 !important; */
-    margin-left: -400px;
+
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
 }
+
 
 /* remove input UI */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
+}
+
+
+/* override global form styles */
+main .form .field-loan-application-number input {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
 }
