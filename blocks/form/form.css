@@ -1514,11 +1514,14 @@ main .form .field-loan-application-number input {
 }
 
 /*=========================================================================*/
-.field-more-services-note p {
+/* hide original text */
+#text-412da5c009 p {
+    color: transparent;
     position: relative;
 }
 
-.field-more-services-note p::after {
+/* blue part */
+#text-412da5c009 p::after {
     content: "HDFC Bank Website.";
     color: #1d4ed8;
     font-weight: 500;
