@@ -1438,3 +1438,65 @@ main .form .field-loan-application-number input {
     margin-bottom: 20px;
     border-bottom: 1px dashed #d1d5db;
 }
+
+/* ============================= */
+/* ===== SECTION CONTAINER ===== */
+/* ============================= */
+
+.field-xpress-personal-loan-summary {
+    padding: 16px 0;
+}
+
+
+/* ============================= */
+/* ===== TITLE ===== */
+/* ============================= */
+
+.field-xpress-personal-loan-summary legend {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+
+/* ============================= */
+/* ===== LOAN AMOUNT BLOCK ===== */
+/* ============================= */
+
+.field-loan-amount {
+    border-left: 3px solid #6366f1;   /* blue line */
+    padding-left: 12px;
+}
+
+
+/* ===== LABEL ===== */
+.field-loan-amount label {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 4px;
+    display: block;
+}
+
+
+/* ===== VALUE (REMOVE INPUT LOOK) ===== */
+.field-loan-amount input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    width: auto !important;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+/* remove focus outline */
+.field-loan-amount input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
