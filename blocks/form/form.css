@@ -1512,3 +1512,73 @@ main .form .field-loan-application-number input {
 
     margin-top: 16px;
 }
+
+/* ============================= */
+/* ===== MAIN CARD ===== */
+/* ============================= */
+
+.field-easy-loan-management {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+
+/* ============================= */
+/* ===== HEADER (BLUE) ===== */
+/* ============================= */
+
+.field-easy-loan-management legend {
+    background: #e8f0fe;
+    padding: 14px 16px;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* icon before heading */
+.field-easy-loan-management legend::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url('https://cdn-icons-png.flaticon.com/512/1828/1828919.png') center/contain no-repeat;
+}
+
+
+/* ============================= */
+/* ===== CONTENT ROW ===== */
+/* ============================= */
+
+.field-easy-loan-management .plain-text-wrapper {
+    background: #fff;
+    padding: 16px;
+    border-top: 1px solid #e5e7eb;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ===== TEXT ===== */
+.field-easy-loan-management .plain-text-wrapper p {
+    margin: 0;
+    font-size: 14px;
+    color: #1d4ed8;   /* blue clickable text */
+    font-weight: 500;
+}
+
+
+/* ===== RIGHT ARROW ===== */
+.field-easy-loan-management .plain-text-wrapper::after {
+    content: "›";
+    font-size: 20px;
+    color: #9ca3af;
+}
