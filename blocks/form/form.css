@@ -1346,44 +1346,70 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
-/* ===== CARD CONTAINER ===== */
+/* ===== MAIN CARD ===== */
 main .form form .panel-wrapper.field-loan-application-details {
-    background: #ffffff;
+    background: #fff;
     border-radius: 16px;
     padding: 20px 24px;
     border: 1px solid #eee;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 
-/* ===== LOAN APPLICATION NUMBER BLOCK ===== */
-main .form form .field-loan-application-number {
+/* ===== TOP SECTION (ICON + NUMBER) ===== */
+.field-loan-application-number {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
+    gap: 14px;
 }
 
-/* Number text */
-main .form form .field-loan-application-number input {
+/* ICON CIRCLE */
+.field-loan-application-number::before {
+    content: "";
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #eef2ff;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png'); /* change if needed */
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+
+/* ===== NUMBER BLOCK ===== */
+.field-loan-application-number input {
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
     background: transparent;
     padding: 0;
+    color: #111827;
 }
 
 
-/* ===== SMALL DESCRIPTION TEXT ===== */
-main .form form .plain-text-wrapper {
+/* OPTIONAL COPY ICON */
+.field-loan-application-number::after {
+    content: "📋";
+    font-size: 16px;
+    margin-left: 6px;
+    color: #6366f1;
+    cursor: pointer;
+}
+
+
+/* ===== SUBTEXT ===== */
+.plain-text-wrapper {
     font-size: 13px;
     color: #6b7280;
-    margin: 6px 0 16px;
+    margin: 10px 0 16px 58px; /* aligned with text after icon */
 }
 
 
-/* ===== SECTION DIVIDER ===== */
-main .form form .panel-wrapper.field-loan-application-details::after {
+/* ===== DIVIDER ===== */
+.field-loan-application-details hr,
+.field-loan-application-details::after {
     content: "";
     display: block;
     border-bottom: 1px dashed #e5e7eb;
@@ -1392,7 +1418,7 @@ main .form form .panel-wrapper.field-loan-application-details::after {
 
 
 /* ===== SECTION TITLE ===== */
-main .form form .field-xpress-personal-loan-summary legend {
+.field-xpress-personal-loan-summary legend {
     font-size: 16px;
     font-weight: 600;
     color: #111827;
@@ -1401,23 +1427,24 @@ main .form form .field-xpress-personal-loan-summary legend {
 
 
 /* ===== LOAN AMOUNT BLOCK ===== */
-main .form form .field-loan-amount {
-    border-left: 3px solid #4f46e5; /* purple line */
+.field-loan-amount {
+    border-left: 3px solid #6366f1;
     padding-left: 12px;
     margin-top: 10px;
 }
 
 /* Label */
-main .form form .field-loan-amount label {
+.field-loan-amount label {
     font-size: 12px;
     color: #6b7280;
 }
 
-/* Amount value */
-main .form form .field-loan-amount input {
+/* Amount */
+.field-loan-amount input {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
     background: transparent;
     padding: 0;
+    color: #111827;
 }
