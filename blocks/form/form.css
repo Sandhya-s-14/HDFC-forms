@@ -1515,5 +1515,13 @@ main .form .field-loan-application-number input {
 
 /*=========================================================================*/
 .field-more-services-note p {
+    position: relative;
+}
+
+.field-more-services-note p::after {
+    content: "HDFC Bank Website.";
+    position: absolute;
+    right: 0;
     color: #1d4ed8;
+    background: #fff;
 }
