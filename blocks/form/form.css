@@ -1347,28 +1347,16 @@ main .form form .field-wrapper {
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
 /* ============================= */
-/* ===== CARD CONTAINER ======== */
+/* ===== LOAN NUMBER FIX ======= */
 /* ============================= */
 
-main .form form .panel-wrapper.field-loan-application-details {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px 24px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-
-/* ============================= */
-/* ===== LOAN NUMBER BLOCK ===== */
-/* ============================= */
-
+/* override EDS flex */
 .field-loan-application-number {
     display: flex !important;
-    align-items: flex-start !important;
+    flex-direction: row;          /* keep icon + content horizontal */
+    align-items: center;
     gap: 14px;
 
-    /* Divider FIX (moves from bottom to here) */
     padding-bottom: 16px;
     margin-bottom: 16px;
     border-bottom: 1px dashed #e5e7eb;
@@ -1378,8 +1366,8 @@ main .form form .panel-wrapper.field-loan-application-details {
 /* ===== ICON ===== */
 .field-loan-application-number::before {
     content: "";
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: #eef2ff url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') center/22px no-repeat;
     flex-shrink: 0;
@@ -1387,57 +1375,39 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== BREAK AEM GRID ======== */
+/* ===== STACK LABEL + INPUT === */
 /* ============================= */
 
-.field-loan-application-number .field-wrapper,
-.field-loan-application-number .cmp-adaptiveform-textinput,
-.field-loan-application-number .cmp-adaptiveform-textinput__widget,
-.field-loan-application-number > div {
-    display: block !important;
-    width: 100% !important;
-}
-
-
-/* ============================= */
-/* ===== FORCE VERTICAL ========= */
-/* ============================= */
-
-.field-loan-application-number .field-wrapper {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-
-/* ============================= */
-/* ===== LABEL (TOP) =========== */
-/* ============================= */
-
-.field-loan-application-number label {
-    display: block !important;
-    font-size: 13px;
-    color: #6b7280;
-    margin-bottom: 4px;
-    white-space: nowrap;
-}
-
-
-/* ============================= */
-/* ===== VALUE (BOTTOM) ======== */
-/* ============================= */
-
+/* THIS is the key fix */
+.field-loan-application-number label,
 .field-loan-application-number input {
     display: block !important;
-    font-size: 22px;
+}
+
+
+/* create vertical flow */
+.field-loan-application-number {
+    align-items: flex-start;
+}
+
+/* wrap label + input vertically */
+.field-loan-application-number label {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.field-loan-application-number input {
+    font-size: 24px;
     font-weight: 700;
     border: none !important;
     background: transparent !important;
     padding: 0 !important;
     color: #111827;
-    width: auto !important;
+    width: auto;
 }
 
-/* remove input styling */
+/* remove input box */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
@@ -1454,36 +1424,23 @@ main .form form .panel-wrapper.field-loan-application-details {
 
 
 /* ============================= */
-/* ===== SUB TEXT ============== */
+/* ===== SUB TEXT ALIGN ======== */
 /* ============================= */
 
-.plain-text-wrapper {
+.field-contact-note {
+    margin-left: 62px;
     font-size: 13px;
     color: #6b7280;
-    margin: 10px 0 16px 58px;
 }
 
 
 /* ============================= */
-/* ===== SECTION TITLE ========= */
-/* ============================= */
-
-.field-xpress-personal-loan-summary legend {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-
-/* ============================= */
-/* ===== LOAN AMOUNT BLOCK ===== */
+/* ===== LOAN AMOUNT FIX ======= */
 /* ============================= */
 
 .field-loan-amount {
     border-left: 3px solid #6366f1;
     padding-left: 12px;
-    margin-top: 10px;
 }
 
 /* label */
