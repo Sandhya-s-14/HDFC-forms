@@ -1513,15 +1513,17 @@ main .form .field-loan-application-number input {
     margin-top: 16px;
 }
 
+/*=========================================================================*/
 /* ============================= */
-/* ===== CARD CONTAINER ===== */
+/* ===== CARD ===== */
 /* ============================= */
 
 .field-easy-loan-management {
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
     background: #fff;
+    margin-top: 16px;
 }
 
 
@@ -1530,7 +1532,7 @@ main .form .field-loan-application-number input {
 /* ============================= */
 
 .field-easy-loan-management legend {
-    background: #eaf1ff;
+    background: #dbe6ff;
     padding: 14px 16px;
 
     font-size: 16px;
@@ -1542,34 +1544,33 @@ main .form .field-loan-application-number input {
     gap: 10px;
 }
 
+/* remove unwanted + icon */
+.field-easy-loan-management legend::marker {
+    content: none;
+}
 
-/* remove that + icon */
-.field-easy-loan-management legend::marker,
+
+/* ===== ICON (LEFT) ===== */
 .field-easy-loan-management legend::before {
-    content: none !important;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url('https://cdn-icons-png.flaticon.com/512/724/724933.png') center/contain no-repeat;
 }
 
 
 /* ============================= */
-/* ===== ROW (NOT BUTTON) ===== */
+/* ===== ROW ===== */
 /* ============================= */
 
 .field-easy-loan-management .plain-text-wrapper {
-    padding: 16px;
-    background: #fff;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+    padding: 16px;
+    background: #fff;
     border-top: 1px solid #e5e7eb;
-}
-
-
-/* remove button styling completely */
-.field-easy-loan-management button,
-.field-easy-loan-management a {
-    all: unset;
 }
 
 
@@ -1582,9 +1583,26 @@ main .form .field-loan-application-number input {
 }
 
 
-/* arrow */
+/* highlight link part */
+.field-easy-loan-management .plain-text-wrapper p strong {
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+
+/* ===== RIGHT ARROW ===== */
 .field-easy-loan-management .plain-text-wrapper::after {
     content: "›";
     font-size: 20px;
     color: #9ca3af;
+}
+
+
+/* ============================= */
+/* ===== REMOVE BUTTON STYLE ===== */
+/* ============================= */
+
+.field-easy-loan-management button,
+.field-easy-loan-management a {
+    all: unset;
 }
