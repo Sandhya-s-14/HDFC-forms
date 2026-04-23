@@ -1346,3 +1346,61 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
+/* ============================= */
+/* ===== LOAN NUMBER BLOCK ===== */
+/* ============================= */
+
+.field-loan-application-number {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+
+/* ===== ICON (LEFT) ===== */
+.field-loan-application-number::before {
+    content: "";
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #eef2ff url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') center/20px no-repeat;
+    flex-shrink: 0;
+}
+
+
+/* ============================= */
+/* ===== STACK TEXT PROPERLY === */
+/* ============================= */
+
+/* FORCE LABEL + VALUE TO GO VERTICAL */
+.field-loan-application-number {
+    flex-wrap: wrap;
+}
+
+/* label */
+.field-loan-application-number label {
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+/* value */
+.field-loan-application-number input {
+    display: block;
+    width: 100%;
+    font-size: 22px;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: #111827;
+}
+
+
+/* REMOVE INPUT BOX LOOK */
+.field-loan-application-number input:focus {
+    outline: none;
+    box-shadow: none;
+}
