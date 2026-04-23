@@ -1346,14 +1346,12 @@ main .form form .field-wrapper {
 }
 
 /*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
-/* ============================= */
 /* ===== MAIN LAYOUT ===== */
-/* ============================= */
-
 .field-loan-application-number {
     display: flex;
     align-items: flex-start;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 
@@ -1368,42 +1366,19 @@ main .form form .field-wrapper {
 }
 
 
-/* ============================= */
-/* ===== FORCE COLUMN LAYOUT ===== */
-/* ============================= */
-
-/* 🔥 THIS IS THE KEY FIX */
-.field-loan-application-number {
-    flex-wrap: wrap;
-}
-
-/* force label to take full row */
-.field-loan-application-number label {
-    width: calc(100% - 56px); /* leaves space for icon */
-}
-
-/* force input to next line */
-.field-loan-application-number input {
-    width: calc(100% - 56px);
-}
-
-
-/* ============================= */
 /* ===== LABEL ===== */
-/* ============================= */
-
 .field-loan-application-number label {
+    width: calc(100% - 56px);   /* aligns with right side of icon */
     font-size: 13px;
     color: #6b7280;
     margin-bottom: 4px;
 }
 
 
-/* ============================= */
 /* ===== VALUE ===== */
-/* ============================= */
-
 .field-loan-application-number input {
+    width: calc(100% - 56px);   /* 🔥 keeps it under label */
+    
     font-size: 22px;
     font-weight: 700;
 
@@ -1416,21 +1391,15 @@ main .form form .field-wrapper {
 }
 
 
-/* ============================= */
-/* ===== REMOVE INPUT UI ===== */
-/* ============================= */
-
+/* remove input UI */
 .field-loan-application-number input:focus {
     outline: none;
     box-shadow: none;
 }
 
 
-/* ============================= */
-/* ===== BREAK GLOBAL CSS ===== */
-/* ============================= */
-
+/* break global AEM styles */
 main .form .field-loan-application-number input {
-    width: auto !important;
+    width: calc(100% - 56px) !important;
     height: auto !important;
 }
