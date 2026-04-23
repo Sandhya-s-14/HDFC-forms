@@ -1336,11 +1336,88 @@ main .form form .field-wrapper {
   color: #000 !important;
 }
 
-/*-------------------------------------------4TH PAGE----------------------------------------*/
+/*-------------------------------------------4TH PAGE(REVIEW PAGE)----------------------------------------*/
 /* Paragraph inside */
 #text-6cf6e02f2e p {
     margin: 0;
     font-size: 14px;
     color: #1f2937;
     margin-left: -3px;
+}
+
+/*----------------------------------------THANKYOU PAGE---------------------------------------------------------*/
+/* ===== CARD CONTAINER ===== */
+main .form form .panel-wrapper.field-loan-application-details {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+
+/* ===== LOAN APPLICATION NUMBER BLOCK ===== */
+main .form form .field-loan-application-number {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+/* Number text */
+main .form form .field-loan-application-number input {
+    font-size: 22px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+
+/* ===== SMALL DESCRIPTION TEXT ===== */
+main .form form .plain-text-wrapper {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 6px 0 16px;
+}
+
+
+/* ===== SECTION DIVIDER ===== */
+main .form form .panel-wrapper.field-loan-application-details::after {
+    content: "";
+    display: block;
+    border-bottom: 1px dashed #e5e7eb;
+    margin: 16px 0;
+}
+
+
+/* ===== SECTION TITLE ===== */
+main .form form .field-xpress-personal-loan-summary legend {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+
+/* ===== LOAN AMOUNT BLOCK ===== */
+main .form form .field-loan-amount {
+    border-left: 3px solid #4f46e5; /* purple line */
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+/* Label */
+main .form form .field-loan-amount label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Amount value */
+main .form form .field-loan-amount input {
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    padding: 0;
 }
