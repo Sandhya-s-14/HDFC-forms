@@ -1,107 +1,91 @@
+/* ===== Step Values ===== */
+const LOAN_STEPS = [50000, 200000, 400000, 600000, 800000, 1000000, 1500000];
+const TENURE_STEPS = [12, 24, 36, 48, 60, 72, 84];
+
 /* ===== Formatters ===== */
 function formatINR(value) {
-  return "₹" + Number(value).toLocaleString("en-IN");
+  return "₹" + value.toLocaleString("en-IN");
 }
 
-function formatMonths(value) {
-  return value + " months";
+function formatLabel(value, isLoan) {
+  if (!isLoan) return value + "m";
+  if (value >= 100000) return (value / 100000) + "L";
+  return (value / 1000) + "K";
 }
 
-/* ===== Update Bubble + Value Box ===== */
-function updateBubble(input, element) {
-  const step = input.step || 1;
-  const max = input.max || 0;
-  const min = input.min || 1;
-  const value = input.value || 1;
+/* ===== Update UI ===== */
+function updateUI(input, wrapper, stepsArray, isLoan) {
+  const index = parseInt(input.value);
+  const actualValue = stepsArray[index];
 
-  const current = Math.ceil((value - min) / step);
-  const total = Math.ceil((max - min) / step);
+  const bubble = wrapper.querySelector('.range-bubble');
+  const valueBox = wrapper.parentElement.querySelector('.loan-value-box');
 
-  const bubble = element.querySelector('.range-bubble');
-  const valueBox = element.parentElement.querySelector('.loan-value-box');
-
-  // Bubble positioning (existing logic)
-  const bubbleWidth = bubble.getBoundingClientRect().width || 31;
-  const left = `${(current / total) * 100}% - ${(current / total) * bubbleWidth}px`;
-
-  // ===== Formatting logic =====
-  let formattedValue;
-  if (parseInt(max) > 100000) {
-    formattedValue = formatINR(value);       // Loan Amount
-  } else {
-    formattedValue = formatMonths(value);    // Tenure
-  }
+  // Format display value
+  const formatted = isLoan ? formatINR(actualValue) : actualValue + " months";
 
   // Update UI
-  bubble.innerText = formattedValue;
+  if (bubble) bubble.innerText = formatted;
+  if (valueBox) valueBox.innerText = formatted;
 
-  if (valueBox) {
-    valueBox.innerText = formattedValue;
-  }
-
-  // AEM CSS variables (DO NOT REMOVE)
-  const steps = {
-    '--total-steps': total,
-    '--current-steps': current,
-  };
-
-  const style = Object.entries(steps)
-    .map(([varName, varValue]) => `${varName}:${varValue}`)
-    .join(';');
-
-  bubble.style.left = `calc(${left})`;
-  element.setAttribute('style', style);
+  // AEM progress variables
+  wrapper.style.setProperty('--total-steps', stepsArray.length - 1);
+  wrapper.style.setProperty('--current-steps', index);
 }
 
 /* ===== Main Decorate Function ===== */
-export default async function decorate(fieldDiv, fieldJson) {
+export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector('input');
 
-  // Ensure range type
+  // Detect type
+  const isLoan = fieldDiv.innerText.includes("Loan Amount");
+
+  const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
+
+  /* ===== Convert to step slider ===== */
   input.type = 'range';
-  input.min = input.min || 1;
-  input.max = input.max || 100;
-  input.step = fieldJson?.properties?.stepValue || 1;
+  input.min = 0;
+  input.max = stepsArray.length - 1;
+  input.step = 1;
+  input.value = stepsArray.length - 1;
 
-  // Wrapper
-  const div = document.createElement('div');
-  div.className = 'range-widget-wrapper decorated';
-  input.after(div);
+  /* ===== Wrapper ===== */
+  const wrapper = document.createElement('div');
+  wrapper.className = 'range-widget-wrapper decorated';
+  input.after(wrapper);
 
-  // Bubble
-  const hover = document.createElement('span');
-  hover.className = 'range-bubble';
+  /* ===== Bubble (optional, can hide via CSS) ===== */
+  const bubble = document.createElement('span');
+  bubble.className = 'range-bubble';
 
-  // Min / Max labels
-  const rangeMinEl = document.createElement('span');
-  rangeMinEl.className = 'range-min';
+  /* ===== Labels ===== */
+  const labels = document.createElement('div');
+  labels.className = 'range-labels';
 
-  const rangeMaxEl = document.createElement('span');
-  rangeMaxEl.className = 'range-max';
+  stepsArray.forEach(val => {
+    const span = document.createElement('span');
+    span.innerText = formatLabel(val, isLoan);
+    labels.appendChild(span);
+  });
 
-  rangeMinEl.innerText = `${input.min || 1}`;
-  rangeMaxEl.innerText = `${input.max}`;
-
-  // ===== Value Box (NEW - Image 2 style) =====
+  /* ===== Value Box ===== */
   const valueBox = document.createElement('div');
   valueBox.className = 'loan-value-box';
 
-  // Insert value box above slider
-  fieldDiv.insertBefore(valueBox, div);
+  fieldDiv.insertBefore(valueBox, wrapper);
 
-  // Append elements
-  div.appendChild(hover);
-  div.appendChild(input);
-  div.appendChild(rangeMinEl);
-  div.appendChild(rangeMaxEl);
+  /* ===== Append elements ===== */
+  wrapper.appendChild(bubble);
+  wrapper.appendChild(input);
+  wrapper.appendChild(labels);
 
-  // Event listener
-  input.addEventListener('input', (e) => {
-    updateBubble(e.target, div);
+  /* ===== Events ===== */
+  input.addEventListener('input', () => {
+    updateUI(input, wrapper, stepsArray, isLoan);
   });
 
-  // Initial render
-  updateBubble(input, div);
+  /* ===== Initial Render ===== */
+  updateUI(input, wrapper, stepsArray, isLoan);
 
   return fieldDiv;
 }
