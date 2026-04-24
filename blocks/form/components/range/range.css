@@ -51,3 +51,137 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /*-------------------------------------------------------*/
+/* ===== Wrapper ===== */
+.number-wrapper .range-widget-wrapper {
+  position: relative;
+  padding: 30px 0 25px;
+  --percent: 0;
+}
+
+/* ===== Range Base ===== */
+.number-wrapper input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* ===== Grey Track ===== */
+.number-wrapper .range-widget-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  z-index: 0;
+}
+
+/* ===== Orange Progress ===== */
+.number-wrapper .range-widget-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 6px;
+  width: calc(var(--percent) * 1%);
+  background: #f57c00;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  z-index: 1;
+}
+
+/* ===== Tick Marks (FIXED ALIGNMENT) ===== */
+.number-wrapper .range-widget-wrapper .ticks {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.number-wrapper .range-widget-wrapper .ticks span {
+  position: absolute;
+  width: 2px;
+  height: 6px;
+  background: #f57c00;
+  transform: translateX(-50%);
+}
+
+/* ===== BLUE HOLLOW THUMB ===== */
+.number-wrapper input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #1a73e8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+  cursor: pointer;
+  margin-top: -7px;
+  position: relative;
+  z-index: 3;
+  transition: transform 0.15s ease;
+}
+
+.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* Firefox */
+.number-wrapper input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #1a73e8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+  cursor: pointer;
+}
+
+/* ===== Value Box ===== */
+.loan-value-box {
+  position: absolute;
+  top: -40px;
+  left: calc(var(--percent) * 1%);
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* ===== Labels ===== */
+.range-labels {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  height: 20px;
+}
+
+.range-labels span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+}
+
+.range-labels span:first-child {
+  transform: translateX(0);
+}
+
+.range-labels span:last-child {
+  transform: translateX(-100%);
+}
