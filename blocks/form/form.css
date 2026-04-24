@@ -1528,10 +1528,12 @@ main .form form .field-loan-offer-based-on-declared-income {
 
 /* ---------- RIGHT CARD SIZE ---------- */
 main .form form .field-avail-panel {
-  grid-column: span 4 !important;
-  max-width: 300px;   /* ↑ increased width */
-  width: 100%;
-  margin-left: auto;
+     grid-column: span 4 !important;
+    max-width: 700px;
+    width: 100%;
+    margin-left: -100px;
+    max-height: 400px;
+    margin-top: 100px;
 }
 
 /* ---------- CARD ---------- */
@@ -1549,16 +1551,8 @@ main .form form .field-avail-panel {
   position: relative;
   padding-left: 10px;
   margin-bottom: 4px;
-}
-
-.field-avail-input::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 3px;
-  height: 14px;
-  background: #f7941d;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .field-avail-input label {
