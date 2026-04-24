@@ -33,7 +33,7 @@ function getActualValue(input, stepsArray) {
 /* ===== Normalize values ===== */
 function normalizeValue(value, type) {
   if (type === "loan") {
-    return Math.round(value / 1000) * 1000; // nearest 1K
+    return Math.round(value / 1000) * 1000;
   }
   return Math.round(value);
 }
@@ -79,11 +79,9 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ===== ✅ FINAL FIXED DETECTION ===== */
-  const labelText =
-    fieldDiv.querySelector("label")?.innerText?.toLowerCase() || "";
-
-  const isLoan = labelText.includes("loan amount");
+  /* ✅ FIXED DETECTION */
+  const originalMax = Number(input.getAttribute("max"));
+  const isLoan = originalMax > 100000;
 
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
@@ -92,7 +90,7 @@ export default function decorate(fieldDiv) {
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
-  input.step = 0.01; // smooth movement
+  input.step = 0.01;
 
   const initialValue = Number(input.value || stepsArray[0]);
   const stepIndex = stepsArray.indexOf(initialValue);
@@ -135,14 +133,12 @@ export default function decorate(fieldDiv) {
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
-  /* ===== Events ===== */
   input.addEventListener("input", () => {
     updateUI(input, wrapper, stepsArray, type);
   });
 
   enableTrackClick(wrapper, input, stepsArray);
 
-  /* ===== Initial render ===== */
   updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;
