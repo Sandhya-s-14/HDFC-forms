@@ -1563,14 +1563,14 @@ main .form .field-loan-application-number input {
 /* ===== Thumb ===== */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   background: #1a73e8;
   border-radius: 50%;
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
-  margin-top: -7px;
+  margin-top: -6px;
   transition: transform 0.15s ease;
 }
 
