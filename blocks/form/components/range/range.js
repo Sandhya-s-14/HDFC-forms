@@ -11,19 +11,42 @@ function formatMonths(value) {
   return value + " months";
 }
 
+/* ===== Find nearest step ===== */
+function getNearestIndex(value, stepsArray) {
+  let closestIndex = 0;
+  let minDiff = Infinity;
+
+  stepsArray.forEach((step, index) => {
+    const diff = Math.abs(step - value);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = index;
+    }
+  });
+
+  return closestIndex;
+}
+
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const index = parseInt(input.value);
-  const actualValue = stepsArray[index];
+  const actualValue = parseInt(input.value);
+
+  // Snap to nearest step
+  const index = getNearestIndex(actualValue, stepsArray);
+  const snappedValue = stepsArray[index];
+
+  // Force slider to snap
+  input.value = snappedValue;
 
   const valueBox = wrapper.parentElement.querySelector('.loan-value-box');
 
   const formatted = type === "loan"
-    ? formatINR(actualValue)
-    : formatMonths(actualValue);
+    ? formatINR(snappedValue)
+    : formatMonths(snappedValue);
 
   if (valueBox) valueBox.innerText = formatted;
 
+  // Progress
   wrapper.style.setProperty('--total-steps', stepsArray.length - 1);
   wrapper.style.setProperty('--current-steps', index);
 }
@@ -32,22 +55,17 @@ function updateUI(input, wrapper, stepsArray, type) {
 export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector('input');
 
-  // ✅ FIX: detect using data-id (reliable)
-  const dataId = fieldDiv.getAttribute("data-id") || "";
-
-  let type = "tenure";
-  if (dataId.includes("fc810e78cd")) {
-    type = "loan";
-  }
+  // Detect using label text (stable enough here)
+  const label = fieldDiv.closest('.number-wrapper')?.previousElementSibling?.innerText || "";
+  const type = label.includes("Amount") ? "loan" : "tenure";
 
   const stepsArray = type === "loan" ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Convert to step slider ===== */
+  /* ===== IMPORTANT: use real values (NOT index) ===== */
   input.type = 'range';
-  input.min = 0;
-  input.max = stepsArray.length - 1;
-  input.step = 1;
-  input.value = stepsArray.length - 1;
+  input.min = stepsArray[0];
+  input.max = stepsArray[stepsArray.length - 1];
+  input.step = 1; // allow smooth movement
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement('div');
@@ -83,6 +101,10 @@ export default async function decorate(fieldDiv) {
 
   /* ===== Events ===== */
   input.addEventListener('input', () => {
+    updateUI(input, wrapper, stepsArray, type);
+  });
+
+  input.addEventListener('change', () => {
     updateUI(input, wrapper, stepsArray, type);
   });
 
