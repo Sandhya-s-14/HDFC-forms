@@ -1,64 +1,21 @@
-/** styling for range */
+/* ===== RESET AEM DEFAULT RANGE ===== */
 main .form .range-widget-wrapper.decorated input[type="range"] {
-    margin: unset;
-    padding: unset;
-    appearance: none;
-    height: 5px;
-    border-radius: 5px;
-    border: none;
-    background-image: linear-gradient(to right, var(--button-primary-color) calc(100% * var(--current-steps)/var(--total-steps)), #C5C5C5 calc(100% * var(--current-steps)/var(--total-steps)));
-}
- 
-main .form .range-widget-wrapper.decorated input[type="range"]:focus {
-    outline: none;
-}
- 
-.range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #fff;
-    border: 3px solid var(--button-primary-color);
-    cursor: pointer;
-    outline: 3px solid #fff;
-}
- 
-.range-widget-wrapper.decorated input[type="range"]:focus::-webkit-slider-thumb {
-    border-color: var(--button-primary-color);
-}
- 
-.range-widget-wrapper.decorated .range-bubble {
-    color: #17252e;
-    font-size: 20px;
-    line-height: 28px;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 12px;
-}
- 
-.range-widget-wrapper.decorated .range-min,
-.range-widget-wrapper.decorated .range-max {
-    font-size: 14px;
-    line-height: 22px;
-    color: #494f50;
-    margin-top: 16px;
-    display: inline-block;
-}
- 
-.range-widget-wrapper.decorated .range-max {
-    float: right;
+  background: transparent !important;
+  background-image: none !important;
+  height: 4px !important;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
-/*-------------------------------------------------------*/
-/* ===== Wrapper ===== */
+/* ===== WRAPPER ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
   padding: 20px 0;
   --percent: 0;
 }
 
-/* ===== Range Reset ===== */
+/* ===== RANGE INPUT ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
@@ -68,7 +25,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   z-index: 2;
 }
 
-/* ===== Grey Track ===== */
+/* ===== BASE TRACK (GREY) ===== */
 .number-wrapper .range-widget-wrapper.decorated::before {
   content: "";
   position: absolute;
@@ -79,9 +36,10 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   background: #d6d6d6;
   border-radius: 2px;
   transform: translateY(-50%);
+  z-index: 0;
 }
 
-/* ===== Orange Progress ===== */
+/* ===== PROGRESS TRACK (ORANGE) ===== */
 .number-wrapper .range-widget-wrapper.decorated::after {
   content: "";
   position: absolute;
@@ -92,10 +50,22 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   background: #f57c00;
   border-radius: 2px;
   transform: translateY(-50%);
+  z-index: 1;
 }
 
-/* ===== Thumb ===== */
-.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
+/* ===== TRACK FIX (BROWSER CONSISTENCY) ===== */
+.number-wrapper input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+}
+
+.number-wrapper input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: transparent;
+}
+
+/* ===== THUMB (PERFECT CENTERED) ===== */
+.number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 18px;
   width: 18px;
@@ -105,18 +75,26 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
 
-  margin-top: -6px; /* ✅ FIXED */
+  margin-top: -7px; /* ✅ perfectly centered */
+  transition: transform 0.1s ease;
 }
 
-.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
+.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* ===== FIREFOX THUMB ===== */
+.number-wrapper input[type="range"]::-moz-range-thumb {
   height: 18px;
   width: 18px;
   background: #1a73e8;
   border-radius: 50%;
   border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #1a73e8;
+  cursor: pointer;
 }
 
-/* ===== Labels (FIXED PROPERLY) ===== */
+/* ===== LABELS ===== */
 .range-labels {
   position: relative;
   width: 100%;
@@ -132,10 +110,10 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   white-space: nowrap;
 }
 
-/* ===== Value Box ===== */
+/* ===== VALUE BOX (FLOATING ABOVE THUMB) ===== */
 .loan-value-box {
   position: absolute;
-  top: -50px;   
+  top: -50px;                 /* adjust if needed */
   left: 0;
   transform: translateX(-50%);
 
@@ -148,4 +126,5 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   white-space: nowrap;
 
   transition: left 0.15s ease;
+  z-index: 5;
 }
