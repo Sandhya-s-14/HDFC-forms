@@ -1554,19 +1554,10 @@ main .form form .field-avail-panel {
   margin-bottom: 6px;
 }
 
-.field-avail-input::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 3px;
-  height: 18px;
-  background: #f7941d;
-}
 
 .field-avail-input label {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 13px !important;
+  font-weight: 500 !important;
   color: #333;
   line-height: 1.3;
 }
@@ -1657,4 +1648,53 @@ main .form form .field-avail-panel {
   border-radius: 0 0 20px 20px;
   font-size: 12px;
   line-height: 1.5;
+}
+
+/* Reduce overall padding */
+.field-avail-panel {
+  padding: 16px 14px 0;  /* ↓ was 20px */
+}
+
+/* Reduce header spacing */
+.field-avail-input {
+  margin-bottom: 4px;
+}
+
+/* Reduce big amount spacing */
+.field-avail-input input {
+  margin-top: 2px;
+  font-size: 24px;  /* slightly smaller */
+}
+
+/* Reduce divider spacing */
+.field-emi-input {
+  margin-top: 8px;
+  padding-top: 10px;
+  gap: 10px; /* ↓ less gap */
+}
+
+/* Reduce EMI/ROI spacing */
+.field-emi-amount,
+.field-roi {
+  margin-bottom: 6px;
+}
+
+/* Reduce taxes spacing */
+.field-tax {
+  margin-top: 4px;
+}
+
+/* Reduce label spacing */
+.field-emi-amount label,
+.field-roi label,
+.field-tax label {
+  margin-bottom: 2px;
+}
+
+/* Reduce footer height */
+.field-avail-panel .plain-text-wrapper {
+  padding: 12px;
+  margin: 12px -14px 0;
+  font-size: 11px;
+  line-height: 1.4;
 }
