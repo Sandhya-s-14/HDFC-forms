@@ -51,6 +51,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /*-------------------------------------------------------*/
+/*-------------------------------------------------------*/
 /* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
@@ -65,7 +66,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   height: 6px;
   background: transparent;
   position: relative;
-  z-index: 3; /* ⬅️ increased */
+  z-index: 5; /* ABOVE bars */
   cursor: pointer;
 }
 
@@ -79,7 +80,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   background: #e0e0e0;
   transform: translateY(-50%);
   border-radius: 3px;
-  z-index: 1; /* ⬅️ added */
+  z-index: 1;
 }
 
 /* ===== Orange Progress ===== */
@@ -93,7 +94,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   transform: translateY(-50%);
   border-radius: 3px;
   pointer-events: none;
-  z-index: 2; /* ⬅️ added */
+  z-index: 2; /* BELOW thumb */
 }
 
 /* ===== Tick Marks ===== */
@@ -110,27 +111,22 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   background-position: center;
 }
 
-/* ===== PERFECT BLUE THUMB ===== */
+/* ===== SOLID BLUE THUMB ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  position: relative;     /* ⬅️ important */
-  z-index: 5;             /* ⬅️ important */
+  position: relative;
+  z-index: 10; /* TOP MOST */
 
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 
-  /* White center */
-  background: #fff;
-
-  /* Blue border */
-  border: 3px solid #1a73e8;
+  background: #1a73e8; /* solid blue */
   border-radius: 50%;
+  border: none;
 
-  /* subtle outer glow */
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+  margin-top: -5px; /* PERFECT vertical alignment */
 
   cursor: pointer;
-  margin-top: -6px;
   transition: transform 0.15s ease;
 }
 
@@ -141,14 +137,13 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 /* Firefox */
 .number-wrapper input[type="range"]::-moz-range-thumb {
   position: relative;
-  z-index: 5;
+  z-index: 10;
 
-  width: 18px;
-  height: 18px;
-  background: #fff;
-  border: 3px solid #1a73e8;
+  width: 16px;
+  height: 16px;
+  background: #1a73e8;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+  border: none;
   cursor: pointer;
 }
 
