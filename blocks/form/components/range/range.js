@@ -11,54 +11,40 @@ function formatMonths(value) {
   return value + " months";
 }
 
-/* ===== Get nearest step ===== */
-function getNearestStep(value, steps) {
-  return steps.reduce((prev, curr) =>
-    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-  );
-}
-
 /* ===== Update UI ===== */
-function updateUI(input, wrapper, value, type) {
-  // Format
+function updateUI(input, wrapper, stepsArray, type) {
+  const index = parseInt(input.value);
+  const value = stepsArray[index];
+
   const formatted =
     type === "loan"
       ? formatINR(value)
       : formatMonths(value);
 
-  // Update value box
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  // Progress
-  const min = parseInt(input.min);
-  const max = parseInt(input.max);
-
-  const percent = ((value - min) / (max - min)) * 100;
+  // ✅ PERFECT alignment
+  const percent = (index / (stepsArray.length - 1)) * 100;
   wrapper.style.setProperty("--percent", percent);
 }
 
-/* ===== Click anywhere on track ===== */
-function enableTrackClick(wrapper, input, stepsArray, type) {
+/* ===== Click Track ===== */
+function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
       const rect = wrapper.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
 
-      const min = parseInt(input.min);
-      const max = parseInt(input.max);
+      const index = Math.round(percent * (stepsArray.length - 1));
 
-      const rawValue = Math.round(min + percent * (max - min));
-
-      const snapped = getNearestStep(rawValue, stepsArray);
-
-      input.value = snapped;
-      updateUI(input, wrapper, snapped, type);
+      input.value = index;
+      input.dispatchEvent(new Event("input"));
     }
   });
 }
 
-/* ===== Main Decorate ===== */
+/* ===== Main ===== */
 export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
 
@@ -69,11 +55,11 @@ export default async function decorate(fieldDiv) {
 
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Slider Setup ===== */
+  /* ===== INDEX BASED SLIDER ===== */
   input.type = "range";
-  input.min = stepsArray[0];
-  input.max = stepsArray[stepsArray.length - 1];
-  input.step = isLoan ? 1000 : 1; // smooth drag
+  input.min = 0;
+  input.max = stepsArray.length - 1;
+  input.step = 1;
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -107,30 +93,16 @@ export default async function decorate(fieldDiv) {
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
-  /* ===== While dragging (smooth) ===== */
+  /* ===== Events ===== */
   input.addEventListener("input", () => {
-    const rawValue = parseInt(input.value);
-    updateUI(input, wrapper, rawValue, type);
+    updateUI(input, wrapper, stepsArray, type);
   });
 
-  /* ===== On release (SNAP FIX) ===== */
-  input.addEventListener("change", () => {
-    const rawValue = parseInt(input.value);
-
-    const snapped = getNearestStep(rawValue, stepsArray);
-
-    input.value = snapped;
-
-    updateUI(input, wrapper, snapped, type);
-  });
-
-  enableTrackClick(wrapper, input, stepsArray, type);
+  enableTrackClick(wrapper, input, stepsArray);
 
   /* ===== Initial ===== */
-  const initialValue = stepsArray[stepsArray.length - 1];
-  input.value = initialValue;
-
-  updateUI(input, wrapper, initialValue, type);
+  input.value = stepsArray.length - 1;
+  updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;
 }
