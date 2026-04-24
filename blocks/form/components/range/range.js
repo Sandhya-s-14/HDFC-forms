@@ -11,59 +11,71 @@ function formatMonths(value) {
   return value + " months";
 }
 
+/* ===== Get nearest step (optional highlight logic) ===== */
+function getNearestStep(value, steps) {
+  return steps.reduce((prev, curr) =>
+    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+  );
+}
+
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const index = parseInt(input.value);
-  const value = stepsArray[index];
+  const value = parseInt(input.value);
 
-  // Format display
   const formatted =
     type === "loan"
       ? formatINR(value)
       : formatMonths(value);
 
-  // Update value box
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  /* ===== Step-based progress ===== */
-  const percent = index / (stepsArray.length - 1);
+  /* ===== Smooth progress ===== */
+  const min = parseInt(input.min);
+  const max = parseInt(input.max);
 
-  wrapper.style.setProperty("--percent", percent * 100);
+  const percent = ((value - min) / (max - min)) * 100;
+  wrapper.style.setProperty("--percent", percent);
+
+  /* ===== OPTIONAL: nearest step highlight ===== */
+  const nearest = getNearestStep(value, stepsArray);
+  wrapper.setAttribute("data-step", nearest);
 }
 
-/* ===== Click anywhere on slider ===== */
-function enableTrackClick(wrapper, input, stepsArray) {
+/* ===== Click anywhere ===== */
+function enableTrackClick(wrapper, input) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
       const rect = wrapper.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
 
-      const index = Math.round(percent * (stepsArray.length - 1));
-      input.value = index;
+      const min = parseInt(input.min);
+      const max = parseInt(input.max);
 
+      input.value = Math.round(min + percent * (max - min));
       input.dispatchEvent(new Event("input"));
     }
   });
 }
 
-/* ===== Main Decorate ===== */
+/* ===== Main ===== */
 export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
 
   const originalMax = parseInt(input.max);
 
-  // Detect type
   const isLoan = originalMax > 100000;
   const type = isLoan ? "loan" : "tenure";
 
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Setup slider (INDEX BASED) ===== */
+  /* ===== CONTINUOUS slider ===== */
   input.type = "range";
-  input.min = 0;
-  input.max = stepsArray.length - 1;
-  input.step = 1;
+  input.min = stepsArray[0];
+  input.max = stepsArray[stepsArray.length - 1];
+
+  // Smooth movement
+  input.step = isLoan ? 1000 : 1;
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -94,7 +106,6 @@ export default async function decorate(fieldDiv) {
     labels.appendChild(span);
   });
 
-  /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
@@ -103,11 +114,9 @@ export default async function decorate(fieldDiv) {
     updateUI(input, wrapper, stepsArray, type);
   });
 
-  enableTrackClick(wrapper, input, stepsArray);
+  enableTrackClick(wrapper, input);
 
-  /* ===== Initial value (default to last like Image 2) ===== */
-  input.value = stepsArray.length - 1;
-
+  /* ===== Initial ===== */
   updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;

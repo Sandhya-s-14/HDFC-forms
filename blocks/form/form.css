@@ -1521,14 +1521,14 @@ main .form .field-loan-application-number input {
 
 
 /*--------------------------------OFFER PAGE--------------------------------------------------*/
-/* ===== Wrapper Fix ===== */
+/* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
   background: transparent !important;
   padding: 20px 0;
 }
 
-/* ===== Remove default AEM styling ===== */
+/* ===== Range Reset ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"] {
   -webkit-appearance: none !important;
   width: 100%;
@@ -1538,7 +1538,7 @@ main .form .field-loan-application-number input {
   z-index: 2;
 }
 
-/* ===== Grey Base Track ===== */
+/* ===== Grey Track ===== */
 .number-wrapper .range-widget-wrapper.decorated::before {
   content: "";
   position: absolute;
@@ -1552,21 +1552,21 @@ main .form .field-loan-application-number input {
   z-index: 0;
 }
 
-/* ===== Orange Progress ===== */
+/* ===== Orange Progress (FIXED) ===== */
 .number-wrapper .range-widget-wrapper.decorated::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 0;
   height: 4px;
-  width: calc((var(--current-steps) / var(--total-steps)) * 100%);
+  width: calc(var(--percent) * 1%);
   background: #f57c00;
   border-radius: 2px;
   transform: translateY(-50%);
   z-index: 1;
 }
 
-/* ===== Tick Marks (aligned on track) ===== */
+/* ===== Tick Marks ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   background-image: repeating-linear-gradient(
     to right,
@@ -1580,10 +1580,10 @@ main .form .field-loan-application-number input {
   background-repeat: no-repeat;
 }
 
-/* ===== Bigger Blue Thumb (as requested) ===== */
+/* ===== Thumb ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 18px;              /* increased size */
+  height: 18px;
   width: 18px;
   background: #1a73e8;
   border-radius: 50%;
@@ -1605,26 +1605,7 @@ main .form .field-loan-application-number input {
   cursor: pointer;
 }
 
-/* ===== Remove unwanted overlays ===== */
-.range-widget-wrapper.decorated::before,
-.range-widget-wrapper.decorated::after {
-  pointer-events: none;
-}
-
-/* ===== Value Bubble (optional polish) ===== */
-.range-widget-wrapper .range-bubble {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* ===== Min / Max labels ===== */
-.range-widget-wrapper .range-min,
-.range-widget-wrapper .range-max {
-  font-size: 12px;
-  color: #777;
-}
-
+/* ===== Labels ===== */
 .range-labels {
   display: flex;
   justify-content: space-between;
@@ -1638,6 +1619,7 @@ main .form .field-loan-application-number input {
   transform: translateX(-50%);
 }
 
+/* ===== Value Box ===== */
 .loan-value-box {
   float: right;
   margin-bottom: 10px;
