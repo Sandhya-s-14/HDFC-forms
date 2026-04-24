@@ -65,7 +65,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   height: 6px;
   background: transparent;
   position: relative;
-  z-index: 2;
+  z-index: 3; /* ⬅️ increased */
   cursor: pointer;
 }
 
@@ -79,6 +79,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   background: #e0e0e0;
   transform: translateY(-50%);
   border-radius: 3px;
+  z-index: 1; /* ⬅️ added */
 }
 
 /* ===== Orange Progress ===== */
@@ -92,6 +93,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   transform: translateY(-50%);
   border-radius: 3px;
   pointer-events: none;
+  z-index: 2; /* ⬅️ added */
 }
 
 /* ===== Tick Marks ===== */
@@ -109,9 +111,11 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /* ===== PERFECT BLUE THUMB ===== */
-/* ===== HOLLOW BLUE THUMB (LIKE IMAGE) ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
+  position: relative;     /* ⬅️ important */
+  z-index: 5;             /* ⬅️ important */
+
   width: 18px;
   height: 18px;
 
@@ -136,6 +140,9 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 
 /* Firefox */
 .number-wrapper input[type="range"]::-moz-range-thumb {
+  position: relative;
+  z-index: 5;
+
   width: 18px;
   height: 18px;
   background: #fff;
