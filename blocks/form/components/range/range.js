@@ -16,13 +16,19 @@ function updateUI(input, wrapper, stepsArray, type) {
   const index = parseInt(input.value);
   const value = stepsArray[index];
 
-  const formatted =
-    type === "loan" ? formatINR(value) : formatMonths(value);
-
-  const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
-  if (valueBox) valueBox.innerText = formatted;
-
   const percent = (index / (stepsArray.length - 1)) * 100;
+
+  // value box
+  const valueBox = wrapper.querySelector(".loan-value-box");
+  if (valueBox) {
+    valueBox.innerText =
+      type === "loan" ? formatINR(value) : formatMonths(value);
+
+    // move with thumb
+    valueBox.style.left = percent + "%";
+  }
+
+  // progress bar
   wrapper.style.setProperty("--percent", percent);
 }
 
@@ -60,10 +66,10 @@ export default async function decorate(fieldDiv) {
   wrapper.className = "range-widget-wrapper decorated";
   input.after(wrapper);
 
-  /* ===== Value Box ===== */
+  /* ===== Value Box (INSIDE WRAPPER) ===== */
   const valueBox = document.createElement("div");
   valueBox.className = "loan-value-box";
-  fieldDiv.insertBefore(valueBox, wrapper);
+  wrapper.appendChild(valueBox);
 
   /* ===== Labels ===== */
   const labels = document.createElement("div");
@@ -79,7 +85,6 @@ export default async function decorate(fieldDiv) {
           : val / 1000 + "K"
         : val + "m";
 
-    // exact positioning
     const percent = (i / (stepsArray.length - 1)) * 100;
     span.style.left = percent + "%";
 

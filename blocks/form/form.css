@@ -1524,12 +1524,12 @@ main .form .field-loan-application-number input {
 /* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
-  padding: 20px 0;
+  padding: 30px 0 25px;
   --percent: 0;
 }
 
-/* ===== Range Reset ===== */
-.number-wrapper .range-widget-wrapper.decorated input[type="range"] {
+/* ===== Range ===== */
+.number-wrapper input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 4px;
@@ -1538,34 +1538,30 @@ main .form .field-loan-application-number input {
   z-index: 2;
 }
 
-/* ===== Grey Track ===== */
-.number-wrapper .range-widget-wrapper.decorated::before {
+/* ===== Track ===== */
+.number-wrapper .range-widget-wrapper::before {
   content: "";
   position: absolute;
   top: 50%;
-  left: 0;
   width: 100%;
   height: 4px;
   background: #d6d6d6;
-  border-radius: 2px;
   transform: translateY(-50%);
 }
 
-/* ===== Orange Progress ===== */
-.number-wrapper .range-widget-wrapper.decorated::after {
+/* ===== Progress ===== */
+.number-wrapper .range-widget-wrapper::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: 0;
   height: 4px;
   width: calc(var(--percent) * 1%);
   background: #f57c00;
-  border-radius: 2px;
   transform: translateY(-50%);
 }
 
 /* ===== Thumb ===== */
-.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 18px;
   width: 18px;
@@ -1575,21 +1571,34 @@ main .form .field-loan-application-number input {
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
   margin-top: -7px;
+  transition: transform 0.15s ease;
 }
 
-.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
-  height: 18px;
-  width: 18px;
-  background: #1a73e8;
-  border-radius: 50%;
-  border: 2px solid #fff;
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
 }
 
-/* ===== Labels (FIXED PROPERLY) ===== */
+/* ===== Value Box (FLOATING) ===== */
+.loan-value-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -120%);
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: left 0.2s ease;
+}
+
+/* ===== Labels ===== */
 .range-labels {
   position: relative;
   width: 100%;
-  margin-top: 12px;
+  margin-top: 10px;
   height: 20px;
 }
 
@@ -1598,17 +1607,4 @@ main .form .field-loan-application-number input {
   transform: translateX(-50%);
   font-size: 12px;
   color: #777;
-  white-space: nowrap;
-}
-
-/* ===== Value Box ===== */
-.loan-value-box {
-  float: right;
-  margin-bottom: 10px;
-  padding: 8px 14px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  font-weight: 600;
-  font-size: 14px;
 }
