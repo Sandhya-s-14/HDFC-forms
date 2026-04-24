@@ -1611,7 +1611,8 @@ main .form .field-loan-application-number input {
 }
 
 .range-labels span {
-  transform: none; /* 🔥 FIXED */
+  transform: none;        /* 🔥 IMPORTANT */
+  justify-self: center;   /* optional but cleaner */
 }
 
 /* ===== Value Box ===== */
