@@ -1607,11 +1607,12 @@ main .form .field-loan-application-number input {
 
 /* ===== Labels ===== */
 .range-labels {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* same as steps */
   margin-top: 8px;
   font-size: 12px;
   color: #777;
+  text-align: center;
 }
 
 .range-labels span {
