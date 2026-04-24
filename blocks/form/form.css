@@ -1521,11 +1521,19 @@ main .form .field-loan-application-number input {
 
 
 /*--------------------------------OFFER PAGE--------------------------------------------------*/
-/* Right panel size */
+main .form form .field-loan-offer-based-on-declared-income {
+  grid-column: span 8 !important;
+}
+
+/* Right section */
 main .form form .field-avail-panel {
   grid-column: span 4 !important;
   max-width: 280px;
   width: 100%;
+}
+
+/* Push right panel to right edge */
+main .form form .field-avail-panel {
   margin-left: auto;
 }
 
