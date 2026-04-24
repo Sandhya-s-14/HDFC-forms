@@ -1526,7 +1526,6 @@ main .form .field-loan-application-number input {
   position: relative;
   padding: 20px 0;
   --percent: 0;
-  --steps: 6;
 }
 
 /* ===== Range Reset ===== */
@@ -1565,20 +1564,6 @@ main .form .field-loan-application-number input {
   transform: translateY(-50%);
 }
 
-/* ===== Dynamic Tick Marks ===== */
-.number-wrapper .range-widget-wrapper.decorated {
-  background-image: repeating-linear-gradient(
-    to right,
-    transparent,
-    transparent calc((100% / var(--steps)) - 1px),
-    #f57c00 calc((100% / var(--steps)) - 1px),
-    #f57c00 calc(100% / var(--steps))
-  );
-  background-position: center;
-  background-size: 100% 6px;
-  background-repeat: no-repeat;
-}
-
 /* ===== Thumb ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -1600,11 +1585,11 @@ main .form .field-loan-application-number input {
   border: 2px solid #fff;
 }
 
-/* ===== Labels (FIXED) ===== */
+/* ===== Labels (FIXED PROPERLY) ===== */
 .range-labels {
   position: relative;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 12px;
   height: 20px;
 }
 

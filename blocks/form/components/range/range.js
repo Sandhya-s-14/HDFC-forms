@@ -17,22 +17,16 @@ function updateUI(input, wrapper, stepsArray, type) {
   const value = stepsArray[index];
 
   const formatted =
-    type === "loan"
-      ? formatINR(value)
-      : formatMonths(value);
+    type === "loan" ? formatINR(value) : formatMonths(value);
 
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  // perfect alignment
   const percent = (index / (stepsArray.length - 1)) * 100;
   wrapper.style.setProperty("--percent", percent);
-
-  // dynamic ticks
-  wrapper.style.setProperty("--steps", stepsArray.length - 1);
 }
 
-/* ===== Click ===== */
+/* ===== Click Track ===== */
 function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
@@ -72,23 +66,25 @@ export default async function decorate(fieldDiv) {
   fieldDiv.insertBefore(valueBox, wrapper);
 
   /* ===== Labels ===== */
-  const percent = (index) => (index / (stepsArray.length - 1)) * 100;
+  const labels = document.createElement("div");
+  labels.className = "range-labels";
 
-stepsArray.forEach((val, i) => {
-  const span = document.createElement("span");
+  stepsArray.forEach((val, i) => {
+    const span = document.createElement("span");
 
-  span.innerText =
-    type === "loan"
-      ? val >= 100000
-        ? val / 100000 + "L"
-        : val / 1000 + "K"
-      : val + "m";
+    span.innerText =
+      type === "loan"
+        ? val >= 100000
+          ? val / 100000 + "L"
+          : val / 1000 + "K"
+        : val + "m";
 
-  // 🔥 KEY: position exactly
-  span.style.left = percent(i) + "%";
+    // exact positioning
+    const percent = (i / (stepsArray.length - 1)) * 100;
+    span.style.left = percent + "%";
 
-  labels.appendChild(span);
-});
+    labels.appendChild(span);
+  });
 
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
