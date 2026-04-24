@@ -134,3 +134,22 @@ main .form .range-widget-wrapper.decorated input[type="range"] {
   transition: left 0.15s ease;
   z-index: 5;
 }
+
+/* ===== REMOVE DEFAULT TRACK COMPLETELY ===== */
+.number-wrapper input[type="range"] {
+  background: transparent !important;
+}
+
+.number-wrapper input[type="range"]::-webkit-slider-runnable-track {
+  background: transparent !important;
+}
+
+.number-wrapper input[type="range"]::-moz-range-track {
+  background: transparent !important;
+}
+
+.number-wrapper input[type="range"]::-ms-track {
+  background: transparent !important;
+  border-color: transparent;
+  color: transparent;
+}
