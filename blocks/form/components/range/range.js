@@ -7,40 +7,41 @@ function formatINR(value) {
   return "₹" + value.toLocaleString("en-IN");
 }
 
-function formatLabel(value, isLoan) {
-  if (!isLoan) return value + "m";
-  if (value >= 100000) return (value / 100000) + "L";
-  return (value / 1000) + "K";
+function formatMonths(value) {
+  return value + " months";
 }
 
 /* ===== Update UI ===== */
-function updateUI(input, wrapper, stepsArray, isLoan) {
+function updateUI(input, wrapper, stepsArray, type) {
   const index = parseInt(input.value);
   const actualValue = stepsArray[index];
 
-  const bubble = wrapper.querySelector('.range-bubble');
   const valueBox = wrapper.parentElement.querySelector('.loan-value-box');
 
-  // Format display value
-  const formatted = isLoan ? formatINR(actualValue) : actualValue + " months";
+  let formatted;
+  if (type === "loan") {
+    formatted = formatINR(actualValue);
+  } else {
+    formatted = formatMonths(actualValue);
+  }
 
-  // Update UI
-  if (bubble) bubble.innerText = formatted;
   if (valueBox) valueBox.innerText = formatted;
 
-  // AEM progress variables
+  // AEM progress
   wrapper.style.setProperty('--total-steps', stepsArray.length - 1);
   wrapper.style.setProperty('--current-steps', index);
 }
 
-/* ===== Main Decorate Function ===== */
-export default async function decorate(fieldDiv) {
+/* ===== Main Decorate ===== */
+export default async function decorate(fieldDiv, fieldJson) {
   const input = fieldDiv.querySelector('input');
 
-  // Detect type
-  const isLoan = fieldDiv.innerText.includes("Loan Amount");
+  // ✅ Correct detection using label
+  const labelText = fieldDiv.querySelector('label')?.innerText || "";
 
-  const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
+  const type = labelText.includes("Amount") ? "loan" : "tenure";
+
+  const stepsArray = type === "loan" ? LOAN_STEPS : TENURE_STEPS;
 
   /* ===== Convert to step slider ===== */
   input.type = 'range';
@@ -49,14 +50,14 @@ export default async function decorate(fieldDiv) {
   input.step = 1;
   input.value = stepsArray.length - 1;
 
+  /* ===== Remove unwanted duplicate text ===== */
+  const existingText = fieldDiv.querySelectorAll("p");
+  existingText.forEach(el => el.remove());
+
   /* ===== Wrapper ===== */
   const wrapper = document.createElement('div');
   wrapper.className = 'range-widget-wrapper decorated';
   input.after(wrapper);
-
-  /* ===== Bubble (optional, can hide via CSS) ===== */
-  const bubble = document.createElement('span');
-  bubble.className = 'range-bubble';
 
   /* ===== Labels ===== */
   const labels = document.createElement('div');
@@ -64,7 +65,15 @@ export default async function decorate(fieldDiv) {
 
   stepsArray.forEach(val => {
     const span = document.createElement('span');
-    span.innerText = formatLabel(val, isLoan);
+
+    if (type === "loan") {
+      span.innerText = val >= 100000
+        ? (val / 100000) + "L"
+        : (val / 1000) + "K";
+    } else {
+      span.innerText = val + "m";
+    }
+
     labels.appendChild(span);
   });
 
@@ -74,18 +83,17 @@ export default async function decorate(fieldDiv) {
 
   fieldDiv.insertBefore(valueBox, wrapper);
 
-  /* ===== Append elements ===== */
-  wrapper.appendChild(bubble);
+  /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
   input.addEventListener('input', () => {
-    updateUI(input, wrapper, stepsArray, isLoan);
+    updateUI(input, wrapper, stepsArray, type);
   });
 
-  /* ===== Initial Render ===== */
-  updateUI(input, wrapper, stepsArray, isLoan);
+  /* ===== Initial ===== */
+  updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;
 }
