@@ -1521,77 +1521,72 @@ main .form .field-loan-application-number input {
 
 
 /*--------------------------------OFFER PAGE--------------------------------------------------*/
-.range-widget-wrapper.decorated input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 4px; /* thinner like image */
-  border-radius: 2px;
-  outline: none;
-
-  background: linear-gradient(
-    to right,
-    #f57c00 0%,
-    #f57c00 calc((var(--current-steps) / var(--total-steps)) * 100%),
-    #e0e0e0 calc((var(--current-steps) / var(--total-steps)) * 100%),
-    #e0e0e0 100%
-  );
-}
-
-.range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 14px;
-  width: 14px;
-  background: #1a73e8;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  margin-top: -5px;
-}
-
-.range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
-  height: 14px;
-  width: 14px;
-  background: #1a73e8;
-  border-radius: 50%;
-  border: none;
-}
-
-.range-widget-wrapper.decorated {
+.number-wrapper .range-widget-wrapper.decorated {
   position: relative;
+  background: transparent !important;
 }
 
-/* Tick marks overlay */
-.range-widget-wrapper.decorated::after {
+.number-wrapper .range-widget-wrapper.decorated input[type="range"] {
+  -webkit-appearance: none !important;
+  width: 100%;
+  height: 4px;
+  background: transparent !important;
+  position: relative;
+  z-index: 2;
+}
+
+.number-wrapper .range-widget-wrapper.decorated::before {
   content: "";
   position: absolute;
-  top: 2px;
+  top: 50%;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 4px;
+  background: #d6d6d6;
+  border-radius: 2px;
+  transform: translateY(-50%);
+}
 
-  background: repeating-linear-gradient(
+.number-wrapper .range-widget-wrapper.decorated::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: calc((var(--current-steps) / var(--total-steps)) * 100%);
+  background: #f57c00;
+  border-radius: 2px;
+  transform: translateY(-50%);
+}
+
+.number-wrapper .range-widget-wrapper.decorated input[type="range"] {
+  background-image: repeating-linear-gradient(
     to right,
     transparent,
-    transparent calc(14.28% - 1px), /* spacing between ticks */
+    transparent calc(14.28% - 1px),
     #f57c00 calc(14.28% - 1px),
     #f57c00 14.28%
   );
-
-  pointer-events: none;
+  background-size: 100% 6px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.range-widget-wrapper .range-min,
-.range-widget-wrapper .range-max {
-  font-size: 12px;
-  color: #777;
+.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  background: #1a73e8;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
 }
 
-/* If you have multiple labels */
-.range-labels span {
-  font-size: 12px;
-  color: #777;
+.number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  background: #1a73e8;
+  border-radius: 50%;
+  border: none;
 }
 
-.range-widget-wrapper.decorated {
-  background: transparent !important;
-}
