@@ -104,7 +104,8 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
-  margin-top: -7px;
+
+  margin-top: -6px; /* ✅ FIXED */
 }
 
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
