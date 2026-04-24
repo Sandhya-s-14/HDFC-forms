@@ -52,14 +52,14 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 
 /*-------------------------------------------------------*/
 /* ===== Wrapper ===== */
-.number-wrapper .range-widget-wrapper {
-  position: relative;
-  padding: 30px 0 25px;
+.range-widget-wrapper {
   --percent: 0;
+  position: relative;
+  padding: 30px 0;
 }
 
-/* ===== RANGE INPUT ===== */
-.number-wrapper input[type="range"] {
+/* ===== RANGE ===== */
+.range-widget-wrapper input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 6px;
@@ -67,7 +67,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   outline: none;
   cursor: pointer;
 
-  /* ✅ ORANGE + GREY TRACK (FIXED) */
+  /* ✅ THIS is your visible track */
   background: linear-gradient(
     to right,
     #f57c00 0%,
@@ -78,90 +78,43 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /* REMOVE DEFAULT TRACK */
-.number-wrapper input[type="range"]::-webkit-slider-runnable-track {
+.range-widget-wrapper input[type="range"]::-webkit-slider-runnable-track {
   -webkit-appearance: none;
   background: transparent;
 }
 
-.number-wrapper input[type="range"]::-moz-range-track {
-  background: #e0e0e0;
-  height: 6px;
-  border-radius: 3px;
-}
-
-/* FIREFOX PROGRESS */
-.number-wrapper input[type="range"]::-moz-range-progress {
-  background: #f57c00;
-  height: 6px;
-  border-radius: 3px;
-}
-
-/* ===== BLUE THUMB (ALWAYS ON TOP) ===== */
-.number-wrapper input[type="range"]::-webkit-slider-thumb {
+/* ===== THUMB ===== */
+.range-widget-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
   background: #fff;
   border: 3px solid #1a73e8;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.2);
   cursor: pointer;
   margin-top: -7px;
   position: relative;
-  z-index: 10;
-  transition: transform 0.15s ease;
+  z-index: 2;
 }
 
-.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
+/* Firefox */
+.range-widget-wrapper input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
 }
 
-/* FIREFOX THUMB */
-.number-wrapper input[type="range"]::-moz-range-thumb {
+.range-widget-wrapper input[type="range"]::-moz-range-progress {
+  height: 6px;
+  background: #f57c00;
+  border-radius: 3px;
+}
+
+.range-widget-wrapper input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   background: #fff;
   border: 3px solid #1a73e8;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
-  cursor: pointer;
-}
-
-/* ===== VALUE BOX ===== */
-.loan-value-box {
-  position: absolute;
-  top: -40px;
-  left: calc(var(--percent) * 1%);
-  transform: translateX(-50%);
-  padding: 6px 12px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-/* ===== LABELS ===== */
-.range-labels {
-  position: relative;
-  width: 100%;
-  margin-top: 12px;
-  height: 20px;
-}
-
-.range-labels span {
-  position: absolute;
-  transform: translateX(-50%);
-  font-size: 12px;
-  color: #777;
-  white-space: nowrap;
-}
-
-.range-labels span:first-child {
-  transform: translateX(0);
-}
-
-.range-labels span:last-child {
-  transform: translateX(-100%);
 }
