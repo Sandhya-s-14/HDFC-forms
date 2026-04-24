@@ -13,33 +13,32 @@ function formatMonths(value) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  let value = parseInt(input.value);
+  let percent = 0;
+  let displayValue = "";
 
-  const min = parseInt(input.min);
-  const max = parseInt(input.max);
+  if (type === "loan") {
+    // ✅ index-based (FIXED)
+    const index = parseInt(input.value);
+    const value = stepsArray[index];
 
-  let percent = ((value - min) / (max - min)) * 100;
+    displayValue = formatINR(value);
+    percent = (index / (stepsArray.length - 1)) * 100;
 
-  // 🔥 SNAP LOGIC FOR LOAN ONLY
-  // 🔥 SNAP LOGIC FOR LOAN ONLY
-if (type === "loan") {
-  let closest = stepsArray.reduce((prev, curr) =>
-    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-  );
+  } else {
+    // ✅ continuous (months)
+    const value = parseInt(input.value);
+    const min = parseInt(input.min);
+    const max = parseInt(input.max);
 
-  value = closest;
+    displayValue = formatMonths(value);
+    percent = ((value - min) / (max - min)) * 100;
+  }
 
-  // ✅ FIX: use index-based percent ONLY
-  const index = stepsArray.indexOf(closest);
-  percent = (index / (stepsArray.length - 1)) * 100;
-}
   // ===== Value Box =====
   const valueBox = wrapper.querySelector(".loan-value-box");
 
   if (valueBox) {
-    valueBox.innerText =
-      type === "loan" ? formatINR(value) : formatMonths(value);
-
+    valueBox.innerText = displayValue;
     valueBox.style.left = percent + "%";
   }
 
@@ -48,18 +47,23 @@ if (type === "loan") {
 }
 
 /* ===== Click anywhere on track ===== */
-function enableTrackClick(wrapper, input) {
+function enableTrackClick(wrapper, input, stepsArray, type) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
       const rect = wrapper.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
 
-      const min = parseInt(input.min);
-      const max = parseInt(input.max);
+      if (type === "loan") {
+        // index-based click
+        const index = Math.round(percent * (stepsArray.length - 1));
+        input.value = index;
+      } else {
+        // continuous click
+        const min = parseInt(input.min);
+        const max = parseInt(input.max);
+        input.value = Math.round(min + percent * (max - min));
+      }
 
-      const newValue = Math.round(min + percent * (max - min));
-
-      input.value = newValue;
       input.dispatchEvent(new Event("input"));
     }
   });
@@ -76,9 +80,18 @@ export default function decorate(fieldDiv) {
 
   /* ===== Slider Setup ===== */
   input.type = "range";
-  input.min = stepsArray[0];
-  input.max = stepsArray[stepsArray.length - 1];
-  input.step = isLoan ? 1000 : 1; // smooth movement
+
+  if (type === "loan") {
+    // ✅ FIX: index-based slider
+    input.min = 0;
+    input.max = stepsArray.length - 1;
+    input.step = 1;
+  } else {
+    // months stays continuous
+    input.min = stepsArray[0];
+    input.max = stepsArray[stepsArray.length - 1];
+    input.step = 1;
+  }
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -104,7 +117,6 @@ export default function decorate(fieldDiv) {
           : val / 1000 + "K"
         : val + "m";
 
-    // evenly spaced labels
     const percent = (i / (stepsArray.length - 1)) * 100;
     span.style.left = percent + "%";
 
@@ -120,9 +132,10 @@ export default function decorate(fieldDiv) {
     updateUI(input, wrapper, stepsArray, type);
   });
 
-  enableTrackClick(wrapper, input);
+  enableTrackClick(wrapper, input, stepsArray, type);
 
-  /* ===== Initial Render ===== */
+  /* ===== Initial ===== */
+  input.value = type === "loan" ? stepsArray.length - 1 : stepsArray[0];
   updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;
