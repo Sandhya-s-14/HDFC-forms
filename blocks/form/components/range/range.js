@@ -72,21 +72,23 @@ export default async function decorate(fieldDiv) {
   fieldDiv.insertBefore(valueBox, wrapper);
 
   /* ===== Labels ===== */
-  const labels = document.createElement("div");
-  labels.className = "range-labels";
+  const percent = (index) => (index / (stepsArray.length - 1)) * 100;
 
-  stepsArray.forEach((val) => {
-    const span = document.createElement("span");
+stepsArray.forEach((val, i) => {
+  const span = document.createElement("span");
 
-    span.innerText =
-      type === "loan"
-        ? val >= 100000
-          ? val / 100000 + "L"
-          : val / 1000 + "K"
-        : val + "m";
+  span.innerText =
+    type === "loan"
+      ? val >= 100000
+        ? val / 100000 + "L"
+        : val / 1000 + "K"
+      : val + "m";
 
-    labels.appendChild(span);
-  });
+  // 🔥 KEY: position exactly
+  span.style.left = percent(i) + "%";
+
+  labels.appendChild(span);
+});
 
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
