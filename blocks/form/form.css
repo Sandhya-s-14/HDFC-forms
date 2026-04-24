@@ -1529,12 +1529,8 @@ main .form form .field-loan-offer-based-on-declared-income {
 /* Right section */
 main .form form .field-avail-panel {
   grid-column: span 4 !important;
-  max-width: 280px;
+  max-width: 300px;
   width: 100%;
-}
-
-/* Push right panel to right edge */
-main .form form .field-avail-panel {
   margin-left: auto;
 }
 
@@ -1543,15 +1539,16 @@ main .form form .field-avail-panel {
   background: #f5e9d8;
   border-radius: 16px;
   padding: 20px;
-  max-width: 360px;
   overflow: hidden;
 }
+
+/* ------------------ HEADER ------------------ */
 
 /* Title + orange line */
 .field-avail-input {
   position: relative;
   padding-left: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .field-avail-input::before {
@@ -1564,41 +1561,61 @@ main .form form .field-avail-panel {
   background: #f7941d;
 }
 
-/* Title text */
+/* Title */
 .field-avail-input label {
   font-size: 14px;
   color: #333;
+  display: block;
 }
 
-/* BIG AMOUNT */
+/* Big amount */
 .field-avail-input input {
   border: none !important;
   background: transparent !important;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   padding: 0;
   margin-top: 6px;
 }
 
-/* Divider */
+/* ------------------ DIVIDER ------------------ */
+
 .field-emi-input {
   border-top: 1px dashed #d6c9b8;
   margin-top: 12px;
   padding-top: 16px;
 }
 
-/* EMI + ROI layout */
+/* ------------------ EMI + ROI GRID ------------------ */
+
+.field-emi-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* EMI + ROI */
 .field-emi-amount,
 .field-roi {
   width: 48%;
-  display: inline-block;
-  vertical-align: top;
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding-left: 12px;
-  margin-bottom: 16px;
 }
 
-/* Orange line for each */
+/* Taxes full width */
+.field-tax {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 12px;
+  margin-top: 8px;
+}
+
+/* ------------------ ORANGE LINES ------------------ */
+
 .field-emi-amount::before,
 .field-roi::before,
 .field-tax::before {
@@ -1611,17 +1628,24 @@ main .form form .field-avail-panel {
   background: #f7941d;
 }
 
-/* Labels */
+/* ------------------ LABELS ------------------ */
+
 .field-emi-amount label,
 .field-roi label,
 .field-tax label {
   font-size: 12px;
   color: #777;
-  display: block;
   margin-bottom: 4px;
+  line-height: 1.3;
 }
 
-/* Values */
+/* Prevent ugly wrapping */
+.field-roi label {
+  white-space: nowrap;
+}
+
+/* ------------------ VALUES ------------------ */
+
 .field-emi-amount input,
 .field-roi input,
 .field-tax input {
@@ -1630,21 +1654,17 @@ main .form form .field-avail-panel {
   font-size: 16px;
   font-weight: 600;
   padding: 0;
-}
-
-/* Taxes full width */
-.field-tax {
   width: 100%;
-  position: relative;
-  padding-left: 12px;
 }
 
-/* Bottom orange box */
-.field-plain-text1777039280849 {
+/* ------------------ FOOTER ------------------ */
+
+.field-avail-panel .plain-text-wrapper {
   background: #f7941d;
   color: #fff;
   padding: 16px;
   border-radius: 0 0 16px 16px;
   margin: 20px -20px -20px;
   font-size: 13px;
+  line-height: 1.5;
 }
