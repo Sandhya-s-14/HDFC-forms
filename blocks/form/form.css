@@ -1524,16 +1524,17 @@ main .form .field-loan-application-number input {
 /* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
-  background: transparent !important;
   padding: 20px 0;
+  --percent: 0;
+  --steps: 6;
 }
 
 /* ===== Range Reset ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"] {
-  -webkit-appearance: none !important;
+  -webkit-appearance: none;
   width: 100%;
   height: 4px;
-  background: transparent !important;
+  background: transparent;
   position: relative;
   z-index: 2;
 }
@@ -1549,10 +1550,9 @@ main .form .field-loan-application-number input {
   background: #d6d6d6;
   border-radius: 2px;
   transform: translateY(-50%);
-  z-index: 0;
 }
 
-/* ===== Orange Progress (FIXED) ===== */
+/* ===== Orange Progress ===== */
 .number-wrapper .range-widget-wrapper.decorated::after {
   content: "";
   position: absolute;
@@ -1563,17 +1563,16 @@ main .form .field-loan-application-number input {
   background: #f57c00;
   border-radius: 2px;
   transform: translateY(-50%);
-  z-index: 1;
 }
 
-/* ===== Tick Marks ===== */
+/* ===== Dynamic Tick Marks ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   background-image: repeating-linear-gradient(
     to right,
     transparent,
-    transparent calc(14.28% - 1px),
-    #f57c00 calc(14.28% - 1px),
-    #f57c00 14.28%
+    transparent calc((100% / var(--steps)) - 1px),
+    #f57c00 calc((100% / var(--steps)) - 1px),
+    #f57c00 calc(100% / var(--steps))
   );
   background-position: center;
   background-size: 100% 6px;
@@ -1591,8 +1590,6 @@ main .form .field-loan-application-number input {
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
   margin-top: -7px;
-  position: relative;
-  z-index: 3;
 }
 
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
@@ -1601,14 +1598,12 @@ main .form .field-loan-application-number input {
   background: #1a73e8;
   border-radius: 50%;
   border: 2px solid #fff;
-  box-shadow: 0 0 0 2px #1a73e8;
-  cursor: pointer;
 }
 
-/* ===== Labels ===== */
+/* ===== Labels (FIXED) ===== */
 .range-labels {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* same as steps */
+  grid-template-columns: repeat(7, 1fr);
   margin-top: 8px;
   font-size: 12px;
   color: #777;
@@ -1616,8 +1611,7 @@ main .form .field-loan-application-number input {
 }
 
 .range-labels span {
-  position: relative;
-  transform: translateX(-50%);
+  transform: none; /* 🔥 FIXED */
 }
 
 /* ===== Value Box ===== */

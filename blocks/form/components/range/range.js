@@ -24,12 +24,15 @@ function updateUI(input, wrapper, stepsArray, type) {
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  // ✅ PERFECT alignment
+  // perfect alignment
   const percent = (index / (stepsArray.length - 1)) * 100;
   wrapper.style.setProperty("--percent", percent);
+
+  // dynamic ticks
+  wrapper.style.setProperty("--steps", stepsArray.length - 1);
 }
 
-/* ===== Click Track ===== */
+/* ===== Click ===== */
 function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
@@ -48,14 +51,11 @@ function enableTrackClick(wrapper, input, stepsArray) {
 export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
 
-  const originalMax = parseInt(input.max);
-
-  const isLoan = originalMax > 100000;
+  const isLoan = parseInt(input.max) > 100000;
   const type = isLoan ? "loan" : "tenure";
-
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== INDEX BASED SLIDER ===== */
+  /* ===== Slider ===== */
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
@@ -78,14 +78,12 @@ export default async function decorate(fieldDiv) {
   stepsArray.forEach((val) => {
     const span = document.createElement("span");
 
-    if (type === "loan") {
-      span.innerText =
-        val >= 100000
+    span.innerText =
+      type === "loan"
+        ? val >= 100000
           ? val / 100000 + "L"
-          : val / 1000 + "K";
-    } else {
-      span.innerText = val + "m";
-    }
+          : val / 1000 + "K"
+        : val + "m";
 
     labels.appendChild(span);
   });
