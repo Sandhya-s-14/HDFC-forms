@@ -1638,9 +1638,8 @@ main .form form .field-avail-panel {
 .field-roi label,
 .field-tax label {
   font-size: 11px;
-  color: #7a7a7a;
-  margin-bottom: 3px;
-  display: block;
+  color: #8a8a8a; /* lighter grey */
+  font-weight: 400;
 }
 
 /* ---------------- VALUES ---------------- */
@@ -1650,9 +1649,14 @@ main .form form .field-avail-panel {
 .field-tax input {
   border: none !important;
   background: transparent !important;
-  font-size: 14px;
-  font-weight: 600;
+  outline: none !important;
+
+  font-size: 13px;     /* ↓ smaller */
+  font-weight: 600;    /* ↓ less bold */
+  color: #333;
+
   padding: 0;
+  margin-top: 2px;
 }
 
 /* ---------------- FOOTER ---------------- */
