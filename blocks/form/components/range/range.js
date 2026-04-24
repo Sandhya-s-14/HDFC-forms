@@ -21,17 +21,18 @@ function updateUI(input, wrapper, stepsArray, type) {
   let percent = ((value - min) / (max - min)) * 100;
 
   // 🔥 SNAP LOGIC FOR LOAN ONLY
-  if (type === "loan") {
-    let closest = stepsArray.reduce((prev, curr) =>
-      Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
-    );
+  // 🔥 SNAP LOGIC FOR LOAN ONLY
+if (type === "loan") {
+  let closest = stepsArray.reduce((prev, curr) =>
+    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+  );
 
-    value = closest;
+  value = closest;
 
-    percent =
-      (stepsArray.indexOf(closest) / (stepsArray.length - 1)) * 100;
-  }
-
+  // ✅ FIX: use index-based percent ONLY
+  const index = stepsArray.indexOf(closest);
+  percent = (index / (stepsArray.length - 1)) * 100;
+}
   // ===== Value Box =====
   const valueBox = wrapper.querySelector(".loan-value-box");
 
