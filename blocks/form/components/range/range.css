@@ -51,111 +51,89 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /*-------------------------------------------------------*/
-/*-------------------------------------------------------*/
 /* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
-  padding: 30px 0 30px;
-  --percent: 0;
+  padding: 60px 0 30px; /* Increased top padding for the floating box */
+  --percent: 100; /* Controlled via JS */
 }
 
 /* ===== Range Base ===== */
 .number-wrapper input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
-  height: 6px;
-  border-radius: 3px;
+  height: 8px; /* Slightly thicker bar */
+  border-radius: 4px;
   outline: none;
   cursor: pointer;
-
-  /* 🔥 REAL PROGRESS (uses your JS --percent) */
-  background: linear-gradient(
-    to right,
-    #f57c00 0%,
-    #f57c00 calc(var(--percent) * 1%),
-    #e0e0e0 calc(var(--percent) * 1%),
-    #e0e0e0 100%
-  );
+  
+  /* Combined Progress + Tick Marks */
+  /* We use two background layers: one for ticks, one for the progress color */
+  background-image: 
+    repeating-linear-gradient(
+      to right, 
+      rgba(255,255,255,0.3) 0, 
+      rgba(255,255,255,0.3) 1px, 
+      transparent 1px, 
+      transparent 16.66%
+    ),
+    linear-gradient(
+      to right,
+      #f57c00 0%,
+      #f57c00 calc(var(--percent) * 1%),
+      #ffcc80 calc(var(--percent) * 1%),
+      #ffcc80 100%
+    );
+  background-size: 100% 100%;
 }
 
-/* ===== REMOVE OLD TRACK SYSTEM ===== */
-/* ❌ DO NOT USE ::before / ::after anymore */
-
-/* ===== Tick Marks ===== */
-.number-wrapper .range-widget-wrapper {
-  background-image: repeating-linear-gradient(
-    to right,
-    transparent,
-    transparent calc(16.66% - 1px),
-    rgba(0,0,0,0.2) calc(16.66% - 1px),
-    rgba(0,0,0,0.2) 16.66%
-  );
-  background-size: 100% 6px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* ===== SOLID BLUE THUMB ===== */
+/* ===== LARGE BLUE THUMB ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-
-  width: 16px;
-  height: 16px;
-  background: #1a73e8;
+  width: 24px; /* Larger thumb per image */
+  height: 24px;
+  background: #254bdb; /* Deeper blue */
   border-radius: 50%;
-  border: none;
-
-  margin-top: -5px; /* perfect vertical alignment */
+  border: 2px solid #fff; /* Adds a crisp edge */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  margin-top: -8px; /* Center it on the 8px track */
   cursor: pointer;
 }
 
 .number-wrapper input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #1a73e8;
+  width: 24px;
+  height: 24px;
+  background: #254bdb;
   border-radius: 50%;
-  border: none;
+  border: 2px solid #fff;
   cursor: pointer;
 }
 
-/* ===== Value Box ===== */
+/* ===== Value Box (Floating) ===== */
 .loan-value-box {
   position: absolute;
-  top: -35px;
-  left: 0;
-  transform: translateX(-50%);
-  padding: 6px 12px;
+  top: 5px; /* Adjust based on padding */
+  right: 0; /* Based on the image, it's aligned to the right when at max */
+  padding: 10px 20px;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 13px;
-  white-space: nowrap;
-  transition: left 0.15s ease;
+  border: 1px solid #e0e6ed;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 /* ===== Labels ===== */
 .range-labels {
-  position: relative;
-  width: 100%;
-  margin-top: 10px;
-  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0 2px;
 }
 
 .range-labels span {
-  position: absolute;
-  transform: translateX(-50%);
-  font-size: 12px;
-  color: #777;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-/* prevent overflow on edges */
-.range-labels span:first-child {
-  transform: translateX(0);
-}
-
-.range-labels span:last-child {
-  transform: translateX(-100%);
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
 }
