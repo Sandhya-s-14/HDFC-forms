@@ -33,7 +33,7 @@ function getActualValue(input, stepsArray) {
 /* ===== Normalize values ===== */
 function normalizeValue(value, type) {
   if (type === "loan") {
-    return Math.round(value / 1000) * 1000;
+    return Math.round(value / 1000) * 1000; // nearest 1K
   }
   return Math.round(value);
 }
@@ -46,8 +46,6 @@ function updateUI(input, wrapper, stepsArray, type) {
   const actualValue = normalizeValue(rawValue, type);
 
   const percent = (sliderValue / (stepsArray.length - 1)) * 100;
-
-  input.dataset.actualValue = actualValue;
 
   const valueBox = wrapper.querySelector(".loan-value-box");
 
@@ -81,16 +79,11 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ===== ✅ FINAL AEM-SAFE DETECTION ===== */
-  const form = fieldDiv.closest("form") || document;
+  /* ===== ✅ FINAL FIXED DETECTION ===== */
+  const labelText =
+    fieldDiv.querySelector("label")?.innerText?.toLowerCase() || "";
 
-  const allFields = [
-    ...form.querySelectorAll('[data-component="numberinput"]')
-  ];
-
-  const index = allFields.indexOf(fieldDiv);
-
-  const isLoan = index === 0; // first = loan
+  const isLoan = labelText.includes("loan amount");
 
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
@@ -99,7 +92,7 @@ export default function decorate(fieldDiv) {
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
-  input.step = 0.01;
+  input.step = 0.01; // smooth movement
 
   const initialValue = Number(input.value || stepsArray[0]);
   const stepIndex = stepsArray.indexOf(initialValue);
