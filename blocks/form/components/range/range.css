@@ -51,25 +51,67 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 }
 
 /*-------------------------------------------------------*/
-/* ===== RANGE BASE ===== */
+/* ===== Wrapper ===== */
+.number-wrapper .range-widget-wrapper.decorated {
+  position: relative;
+  padding: 30px 0 30px;
+  --percent: 0;
+}
+
+/* ===== Range Base ===== */
 .number-wrapper input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 6px;
   background: transparent;
   position: relative;
-  z-index: 3; /* ABOVE track */
+  z-index: 3; /* above track */
   cursor: pointer;
 }
 
-/* ===== TRACK ===== */
-.number-wrapper .range-widget-wrapper::before,
-.number-wrapper .range-widget-wrapper::after {
+/* ===== Grey Track ===== */
+.number-wrapper .range-widget-wrapper::before {
+  content: "";
+  position: absolute;
   top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
   transform: translateY(-50%);
+  border-radius: 3px;
+  z-index: 1;
 }
 
-/* ===== PERFECT THUMB ALIGNMENT ===== */
+/* ===== Orange Progress ===== */
+.number-wrapper .range-widget-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 6px;
+  width: calc(var(--percent) * 1%);
+  background: #f57c00;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  z-index: 2;
+}
+
+/* ===== Tick Marks ===== */
+.number-wrapper .range-widget-wrapper {
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(16.66% - 1px),
+    #f57c00 calc(16.66% - 1px),
+    #f57c00 16.66%
+  );
+  background-size: 100% 6px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ===== PERFECT BLUE THUMB ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
 
@@ -79,7 +121,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 
   background: #1a73e8;
 
-  /* clean white border */
+  /* white inner border */
   border: 3px solid #fff;
 
   /* outer ring */
@@ -87,11 +129,15 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 
   cursor: pointer;
 
-  /* 🔥 CRITICAL FIX: exact center alignment */
-  margin-top: calc((6px - 18px) / 2); /* centers on track */
+  /* 🔥 PERFECT CENTER ALIGNMENT */
+  margin-top: calc((6px - 18px) / 2);
 
   position: relative;
-  z-index: 5; /* above everything */
+  z-index: 5;
+}
+
+.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
 }
 
 /* Firefox */
@@ -103,4 +149,45 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   border: 3px solid #fff;
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
+}
+
+/* ===== Value Box ===== */
+.loan-value-box {
+  position: absolute;
+  top: -35px;
+  left: 0;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: left 0.15s ease;
+}
+
+/* ===== Labels ===== */
+.range-labels {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  height: 20px;
+}
+
+.range-labels span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+}
+
+/* prevent overflow */
+.range-labels span:first-child {
+  transform: translateX(0);
+}
+
+.range-labels span:last-child {
+  transform: translateX(-100%);
 }
