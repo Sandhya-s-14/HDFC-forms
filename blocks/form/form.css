@@ -1637,3 +1637,14 @@ main .form .field-loan-application-number input {
   position: relative;
   transform: translateX(-50%);
 }
+
+.loan-value-box {
+  float: right;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
