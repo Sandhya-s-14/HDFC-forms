@@ -1,4 +1,4 @@
-/* ===== Step Values (for labels only) ===== */
+/* ===== Step Values ===== */
 const LOAN_STEPS = [50000, 200000, 400000, 600000, 800000, 1000000, 1500000];
 const TENURE_STEPS = [12, 24, 36, 48, 60, 72, 84];
 
@@ -13,7 +13,8 @@ function formatMonths(value) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const value = parseInt(input.value);
+  const index = parseInt(input.value);
+  const value = stepsArray[index];
 
   // Format display
   const formatted =
@@ -25,32 +26,21 @@ function updateUI(input, wrapper, stepsArray, type) {
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  /* ===== Smooth progress ===== */
-  const min = parseInt(input.min);
-  const max = parseInt(input.max);
+  /* ===== Step-based progress ===== */
+  const percent = index / (stepsArray.length - 1);
 
-  const percent = (value - min) / (max - min);
-
-  const totalSteps = 100;
-  const currentSteps = percent * totalSteps;
-
-  wrapper.style.setProperty("--total-steps", totalSteps);
-  wrapper.style.setProperty("--current-steps", currentSteps);
+  wrapper.style.setProperty("--percent", percent * 100);
 }
 
 /* ===== Click anywhere on slider ===== */
-function enableTrackClick(wrapper, input) {
+function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
       const rect = wrapper.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
 
-      const min = parseInt(input.min);
-      const max = parseInt(input.max);
-
-      const newValue = Math.round(min + percent * (max - min));
-
-      input.value = newValue;
+      const index = Math.round(percent * (stepsArray.length - 1));
+      input.value = index;
 
       input.dispatchEvent(new Event("input"));
     }
@@ -69,13 +59,11 @@ export default async function decorate(fieldDiv) {
 
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Setup slider ===== */
+  /* ===== Setup slider (INDEX BASED) ===== */
   input.type = "range";
-  input.min = stepsArray[0];
-  input.max = stepsArray[stepsArray.length - 1];
-
-  // Smooth movement
-  input.step = isLoan ? 1000 : 1;
+  input.min = 0;
+  input.max = stepsArray.length - 1;
+  input.step = 1;
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -96,7 +84,9 @@ export default async function decorate(fieldDiv) {
 
     if (type === "loan") {
       span.innerText =
-        val >= 100000 ? val / 100000 + "L" : val / 1000 + "K";
+        val >= 100000
+          ? val / 100000 + "L"
+          : val / 1000 + "K";
     } else {
       span.innerText = val + "m";
     }
@@ -113,9 +103,11 @@ export default async function decorate(fieldDiv) {
     updateUI(input, wrapper, stepsArray, type);
   });
 
-  enableTrackClick(wrapper, input);
+  enableTrackClick(wrapper, input, stepsArray);
 
-  /* ===== Initial ===== */
+  /* ===== Initial value (default to last like Image 2) ===== */
+  input.value = stepsArray.length - 1;
+
   updateUI(input, wrapper, stepsArray, type);
 
   return fieldDiv;
