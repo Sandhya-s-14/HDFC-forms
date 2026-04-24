@@ -63,70 +63,40 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   -webkit-appearance: none;
   width: 100%;
   height: 6px;
-  background: transparent;
-  position: relative;
-  z-index: 3; /* 👈 keeps thumb above bars */
+  border-radius: 3px;
+  outline: none;
   cursor: pointer;
+
+  /* ✅ ORANGE + GREY TRACK (FIXED) */
+  background: linear-gradient(
+    to right,
+    #f57c00 0%,
+    #f57c00 calc(var(--percent) * 1%),
+    #e0e0e0 calc(var(--percent) * 1%),
+    #e0e0e0 100%
+  );
 }
 
-/* REMOVE DEFAULT TRACK (IMPORTANT) */
+/* REMOVE DEFAULT TRACK */
 .number-wrapper input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
   background: transparent;
 }
 
 .number-wrapper input[type="range"]::-moz-range-track {
-  background: transparent;
-}
-
-/* ===== GREY TRACK ===== */
-.number-wrapper .range-widget-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 6px;
   background: #e0e0e0;
-  transform: translateY(-50%);
+  height: 6px;
   border-radius: 3px;
-  z-index: 0;
 }
 
-/* ===== ORANGE PROGRESS ===== */
-.number-wrapper .range-widget-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: calc(var(--percent) * 1%);
-  height: 6px;
+/* FIREFOX PROGRESS */
+.number-wrapper input[type="range"]::-moz-range-progress {
   background: #f57c00;
-  transform: translateY(-50%);
+  height: 6px;
   border-radius: 3px;
-  z-index: 1; /* 👈 below thumb */
 }
 
-/* ===== TICKS (OPTIONAL CLEAN VERSION) ===== */
-.number-wrapper .range-widget-wrapper .ticks {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 6px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.number-wrapper .range-widget-wrapper .ticks span {
-  position: absolute;
-  width: 2px;
-  height: 6px;
-  background: #f57c00;
-  transform: translateX(-50%);
-}
-
-/* ===== BLUE THUMB (ON TOP) ===== */
+/* ===== BLUE THUMB (ALWAYS ON TOP) ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 20px;
@@ -138,7 +108,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   cursor: pointer;
   margin-top: -7px;
   position: relative;
-  z-index: 5; /* 👈 TOP MOST */
+  z-index: 10;
   transition: transform 0.15s ease;
 }
 
@@ -146,7 +116,7 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
   transform: scale(1.1);
 }
 
-/* FIREFOX */
+/* FIREFOX THUMB */
 .number-wrapper input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
