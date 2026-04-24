@@ -81,14 +81,16 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ===== ✅ FIXED FIELD DETECTION (FINAL) ===== */
+  /* ===== ✅ FINAL AEM-SAFE DETECTION ===== */
+  const form = fieldDiv.closest("form") || document;
+
   const allFields = [
-    ...document.querySelectorAll(".number-wrapper")
+    ...form.querySelectorAll('[data-component="numberinput"]')
   ];
 
   const index = allFields.indexOf(fieldDiv);
 
-  const isLoan = index === 0; // first slider = loan
+  const isLoan = index === 0; // first = loan
 
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
