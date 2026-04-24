@@ -1521,100 +1521,88 @@ main .form .field-loan-application-number input {
 
 
 /*--------------------------------OFFER PAGE--------------------------------------------------*/
-/* Left section */
-main .form form .field-loan-offer-based-on-declared-income {
-  grid-column: span 8 !important;
-}
-
-/* Right section */
+/* Right panel size */
 main .form form .field-avail-panel {
   grid-column: span 4 !important;
-  max-width: 300px;
+  max-width: 280px;
   width: 100%;
   margin-left: auto;
 }
 
-/* Card container */
+/* Card */
 .field-avail-panel {
-  background: #f5e9d8;
-  border-radius: 16px;
-  padding: 20px;
+  background: #efe3d1;
+  border-radius: 20px;
+  padding: 20px 18px 0;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* ------------------ HEADER ------------------ */
+/* ---------------- HEADER ---------------- */
 
-/* Title + orange line */
 .field-avail-input {
   position: relative;
   padding-left: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .field-avail-input::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 4px;
+  top: 2px;
   width: 3px;
-  height: 20px;
+  height: 18px;
   background: #f7941d;
 }
 
-/* Title */
 .field-avail-input label {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   color: #333;
-  display: block;
+  line-height: 1.3;
 }
 
-/* Big amount */
+/* BIG AMOUNT */
 .field-avail-input input {
   border: none !important;
   background: transparent !important;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
-  padding: 0;
   margin-top: 6px;
+  padding: 0;
 }
 
-/* ------------------ DIVIDER ------------------ */
+/* ---------------- DIVIDER ---------------- */
 
 .field-emi-input {
-  border-top: 1px dashed #d6c9b8;
-  margin-top: 12px;
-  padding-top: 16px;
-}
+  border-top: 1px dashed #d8cbb8;
+  margin-top: 14px;
+  padding-top: 14px;
 
-/* ------------------ EMI + ROI GRID ------------------ */
-
-.field-emi-input {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
 }
 
-/* EMI + ROI */
+/* ---------------- GRID ---------------- */
+
 .field-emi-amount,
 .field-roi {
   width: 48%;
-  display: flex;
-  flex-direction: column;
   position: relative;
-  padding-left: 12px;
+  padding-left: 10px;
 }
 
-/* Taxes full width */
+/* Taxes full */
 .field-tax {
   width: 100%;
-  display: flex;
-  flex-direction: column;
   position: relative;
-  padding-left: 12px;
-  margin-top: 8px;
+  padding-left: 10px;
+  margin-top: 6px;
 }
 
-/* ------------------ ORANGE LINES ------------------ */
+/* ---------------- ORANGE LINES ---------------- */
 
 .field-emi-amount::before,
 .field-roi::before,
@@ -1622,49 +1610,43 @@ main .form form .field-avail-panel {
   content: "";
   position: absolute;
   left: 0;
-  top: 4px;
+  top: 2px;
   width: 3px;
-  height: 18px;
+  height: 16px;
   background: #f7941d;
 }
 
-/* ------------------ LABELS ------------------ */
+/* ---------------- LABELS ---------------- */
 
 .field-emi-amount label,
 .field-roi label,
 .field-tax label {
-  font-size: 12px;
-  color: #777;
-  margin-bottom: 4px;
-  line-height: 1.3;
+  font-size: 11px;
+  color: #7a7a7a;
+  margin-bottom: 3px;
+  display: block;
 }
 
-/* Prevent ugly wrapping */
-.field-roi label {
-  white-space: nowrap;
-}
-
-/* ------------------ VALUES ------------------ */
+/* ---------------- VALUES ---------------- */
 
 .field-emi-amount input,
 .field-roi input,
 .field-tax input {
   border: none !important;
   background: transparent !important;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   padding: 0;
-  width: 100%;
 }
 
-/* ------------------ FOOTER ------------------ */
+/* ---------------- FOOTER ---------------- */
 
 .field-avail-panel .plain-text-wrapper {
   background: #f7941d;
   color: #fff;
   padding: 16px;
-  border-radius: 0 0 16px 16px;
-  margin: 20px -20px -20px;
-  font-size: 13px;
+  margin: 18px -18px 0;
+  border-radius: 0 0 20px 20px;
+  font-size: 12px;
   line-height: 1.5;
 }
