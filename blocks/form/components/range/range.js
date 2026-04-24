@@ -33,7 +33,7 @@ function getActualValue(input, stepsArray) {
 /* ===== Normalize values ===== */
 function normalizeValue(value, type) {
   if (type === "loan") {
-    return Math.round(value / 1000) * 1000; // nearest 1K
+    return Math.round(value / 1000) * 1000;
   }
   return Math.round(value);
 }
@@ -71,7 +71,6 @@ function enableTrackClick(wrapper, input, stepsArray) {
       const value = percent * (stepsArray.length - 1);
 
       input.value = value;
-
       input.dispatchEvent(new Event("input", { bubbles: true }));
     }
   });
@@ -82,10 +81,12 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ===== Detect field ===== */
-  const isLoan =
-    fieldDiv.classList.contains("field-loanamount") ||
-    fieldDiv.classList.contains("field-loanamt");
+  /* ===== FIXED FIELD DETECTION ===== */
+  const labelText =
+    fieldDiv.querySelector("label")?.innerText?.toLowerCase() ||
+    fieldDiv.textContent.toLowerCase();
+
+  const isLoan = labelText.includes("loan amount");
 
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
@@ -94,7 +95,7 @@ export default function decorate(fieldDiv) {
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
-  input.step = 0.01; // smooth
+  input.step = 0.01;
 
   const initialValue = Number(input.value || stepsArray[0]);
   const index = stepsArray.indexOf(initialValue);
@@ -126,7 +127,6 @@ export default function decorate(fieldDiv) {
 
     span.style.left = `${(i / (stepsArray.length - 1)) * 100}%`;
 
-    /* click label */
     span.addEventListener("click", () => {
       input.value = i;
       input.dispatchEvent(new Event("input", { bubbles: true }));
