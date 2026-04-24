@@ -1564,7 +1564,7 @@ main .form .field-loan-application-number input {
   pointer-events: none;
 }
 
-/* ===== Tick Marks (aligned with labels) ===== */
+/* ===== Tick Marks ===== */
 .number-wrapper .range-widget-wrapper {
   background-image: repeating-linear-gradient(
     to right,
@@ -1578,33 +1578,40 @@ main .form .field-loan-application-number input {
   background-position: center;
 }
 
-/* ===== THUMB (solid blue like your reference) ===== */
-input[type="range"]::-webkit-slider-thumb {
+/* ===== PERFECT BLUE THUMB ===== */
+.number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: #1a73e8;
   border-radius: 50%;
-  border: none;
+
+  /* white inner border */
+  border: 3px solid #fff;
+
+  /* outer ring */
+  box-shadow: 0 0 0 2px #1a73e8;
+
   cursor: pointer;
 
-  /* Perfect vertical alignment */
-  margin-top: -5px;
+  /* vertical alignment */
+  margin-top: -6px;
 
   transition: transform 0.15s ease;
 }
 
-input[type="range"]::-webkit-slider-thumb:hover {
+.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.1);
 }
 
 /* Firefox */
-input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+.number-wrapper input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
   background: #1a73e8;
   border-radius: 50%;
-  border: none;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
 }
 
