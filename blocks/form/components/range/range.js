@@ -81,25 +81,27 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ===== FIXED FIELD DETECTION ===== */
-  const labelText =
-    fieldDiv.querySelector("label")?.innerText?.toLowerCase() ||
-    fieldDiv.textContent.toLowerCase();
+  /* ===== ✅ FIXED FIELD DETECTION (FINAL) ===== */
+  const allFields = [
+    ...document.querySelectorAll(".number-wrapper")
+  ];
 
-  const isLoan = labelText.includes("loan amount");
+  const index = allFields.indexOf(fieldDiv);
+
+  const isLoan = index === 0; // first slider = loan
 
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Setup slider ===== */
+  /* ===== Slider Setup ===== */
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
   input.step = 0.01;
 
   const initialValue = Number(input.value || stepsArray[0]);
-  const index = stepsArray.indexOf(initialValue);
-  input.value = index >= 0 ? index : 0;
+  const stepIndex = stepsArray.indexOf(initialValue);
+  input.value = stepIndex >= 0 ? stepIndex : 0;
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
