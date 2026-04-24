@@ -1579,22 +1579,25 @@ main .form .field-loan-application-number input {
 }
 
 /* ===== PERFECT BLUE THUMB ===== */
+/* ===== HOLLOW BLUE THUMB (LIKE IMAGE) ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 18px;
   height: 18px;
-  background: #1a73e8;
+
+  /* White center */
+  background: #fff;
+
+  /* Blue border */
+  border: 3px solid #1a73e8;
+
   border-radius: 50%;
 
-  /* white inner border */
-  border: 3px solid #fff;
-
-  /* outer ring */
-  box-shadow: 0 0 0 2px #1a73e8;
+  /* subtle outer glow */
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
 
   cursor: pointer;
 
-  /* vertical alignment */
   margin-top: -6px;
 
   transition: transform 0.15s ease;
@@ -1608,10 +1611,10 @@ main .form .field-loan-application-number input {
 .number-wrapper input[type="range"]::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  background: #1a73e8;
+  background: #fff;
+  border: 3px solid #1a73e8;
   border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 2px #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
   cursor: pointer;
 }
 
