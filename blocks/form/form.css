@@ -1524,7 +1524,7 @@ main .form .field-loan-application-number input {
 /* ===== Wrapper ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
-  padding: 32px 0 28px;
+  padding: 30px 0 30px;
   --percent: 0;
 }
 
@@ -1532,26 +1532,26 @@ main .form .field-loan-application-number input {
 .number-wrapper input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
-  height: 6px;                 /* slightly thicker for better UI */
+  height: 6px;
   background: transparent;
   position: relative;
   z-index: 2;
   cursor: pointer;
 }
 
-/* ===== Track (Grey) ===== */
+/* ===== Grey Track ===== */
 .number-wrapper .range-widget-wrapper::before {
   content: "";
   position: absolute;
   top: 50%;
   width: 100%;
   height: 6px;
-  background: #d6d6d6;
+  background: #e0e0e0;
   transform: translateY(-50%);
   border-radius: 3px;
 }
 
-/* ===== Progress (Orange) ===== */
+/* ===== Orange Progress ===== */
 .number-wrapper .range-widget-wrapper::after {
   content: "";
   position: absolute;
@@ -1564,50 +1564,56 @@ main .form .field-loan-application-number input {
   pointer-events: none;
 }
 
-/* ===== THUMB (Perfect Centered + Clean) ===== */
+/* ===== Tick Marks (aligned with labels) ===== */
+.number-wrapper .range-widget-wrapper {
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(16.66% - 1px),
+    #f57c00 calc(16.66% - 1px),
+    #f57c00 16.66%
+  );
+  background-size: 100% 6px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ===== THUMB (solid blue like your reference) ===== */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #ffffff;
-  border: 3px solid #1a73e8;
+  width: 16px;
+  height: 16px;
+  background: #1a73e8;
   border-radius: 50%;
+  border: none;
   cursor: pointer;
 
-  /* 🔥 Perfect vertical alignment */
-  margin-top: -6px;
+  /* Perfect vertical alignment */
+  margin-top: -5px;
 
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.1);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
 }
 
-/* ===== Firefox Thumb ===== */
+/* Firefox */
 input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #ffffff;
-  border: 3px solid #1a73e8;
+  width: 16px;
+  height: 16px;
+  background: #1a73e8;
   border-radius: 50%;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* ===== Remove Firefox Track Weirdness ===== */
-input[type="range"]::-moz-range-track {
-  background: transparent;
-}
-
-/* ===== Value Box (Floating Tooltip) ===== */
+/* ===== Value Box ===== */
 .loan-value-box {
   position: absolute;
-  top: 0;
+  top: -35px;
   left: 0;
-  transform: translate(-50%, -130%);
+  transform: translateX(-50%);
   padding: 6px 12px;
   background: #fff;
   border: 1px solid #ddd;
@@ -1615,28 +1621,14 @@ input[type="range"]::-moz-range-track {
   font-weight: 600;
   font-size: 13px;
   white-space: nowrap;
-
-  /* smooth follow */
   transition: left 0.15s ease;
-}
-
-/* ===== Optional Tooltip Arrow ===== */
-.loan-value-box::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px;
-  border-style: solid;
-  border-color: #fff transparent transparent transparent;
 }
 
 /* ===== Labels ===== */
 .range-labels {
   position: relative;
   width: 100%;
-  margin-top: 12px;
+  margin-top: 10px;
   height: 20px;
 }
 
@@ -1648,11 +1640,11 @@ input[type="range"]::-moz-range-track {
   white-space: nowrap;
 }
 
-/* ===== Small polish ===== */
+/* prevent overflow on edges */
 .range-labels span:first-child {
-  transform: translateX(0);   /* prevent left overflow */
+  transform: translateX(0);
 }
 
 .range-labels span:last-child {
-  transform: translateX(-100%); /* prevent right overflow */
+  transform: translateX(-100%);
 }
