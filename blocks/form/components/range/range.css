@@ -11,8 +11,9 @@ main .form .range-widget-wrapper.decorated input[type="range"] {
 /* ===== WRAPPER ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
-  padding: 20px 0;
+  padding: 10px 0;
   --percent: 0;
+  margin-top: 28px;
 }
 
 /* ===== RANGE INPUT ===== */
