@@ -11,7 +11,7 @@ function formatMonths(value) {
   return value + " months";
 }
 
-/* ===== Get nearest step (optional highlight logic) ===== */
+/* ===== Get nearest step ===== */
 function getNearestStep(value, steps) {
   return steps.reduce((prev, curr) =>
     Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
@@ -20,29 +20,30 @@ function getNearestStep(value, steps) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const value = parseInt(input.value);
+  const rawValue = parseInt(input.value);
 
+  // ✅ Snap ONLY for display
+  const snappedValue = getNearestStep(rawValue, stepsArray);
+
+  // Format
   const formatted =
     type === "loan"
-      ? formatINR(value)
-      : formatMonths(value);
+      ? formatINR(snappedValue)
+      : formatMonths(snappedValue);
 
+  // Update value box
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  /* ===== Smooth progress ===== */
+  // ✅ Smooth progress (based on raw value)
   const min = parseInt(input.min);
   const max = parseInt(input.max);
 
-  const percent = ((value - min) / (max - min)) * 100;
+  const percent = ((rawValue - min) / (max - min)) * 100;
   wrapper.style.setProperty("--percent", percent);
-
-  /* ===== OPTIONAL: nearest step highlight ===== */
-  const nearest = getNearestStep(value, stepsArray);
-  wrapper.setAttribute("data-step", nearest);
 }
 
-/* ===== Click anywhere ===== */
+/* ===== Click anywhere on track ===== */
 function enableTrackClick(wrapper, input) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
@@ -52,30 +53,31 @@ function enableTrackClick(wrapper, input) {
       const min = parseInt(input.min);
       const max = parseInt(input.max);
 
-      input.value = Math.round(min + percent * (max - min));
+      const newValue = Math.round(min + percent * (max - min));
+      input.value = newValue;
+
       input.dispatchEvent(new Event("input"));
     }
   });
 }
 
-/* ===== Main ===== */
+/* ===== Main Decorate ===== */
 export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
 
   const originalMax = parseInt(input.max);
 
+  // Detect type
   const isLoan = originalMax > 100000;
   const type = isLoan ? "loan" : "tenure";
 
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== CONTINUOUS slider ===== */
+  /* ===== Continuous Slider ===== */
   input.type = "range";
   input.min = stepsArray[0];
   input.max = stepsArray[stepsArray.length - 1];
-
-  // Smooth movement
-  input.step = isLoan ? 1000 : 1;
+  input.step = isLoan ? 1000 : 1; // smooth movement
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -106,12 +108,24 @@ export default async function decorate(fieldDiv) {
     labels.appendChild(span);
   });
 
+  /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
   input.addEventListener("input", () => {
     updateUI(input, wrapper, stepsArray, type);
+  });
+
+  /* ===== Snap on release (KEY FIX) ===== */
+  input.addEventListener("change", () => {
+    const rawValue = parseInt(input.value);
+
+    const nearest = getNearestStep(rawValue, stepsArray);
+
+    input.value = nearest;
+
+    input.dispatchEvent(new Event("input"));
   });
 
   enableTrackClick(wrapper, input);
