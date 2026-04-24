@@ -65,6 +65,7 @@ main .form .range-widget-wrapper.decorated input[type="range"] {
 }
 
 /* ===== THUMB (FINAL PERFECT ALIGNMENT) ===== */
+/* ===== THUMB (FINAL STABLE FIX) ===== */
 .number-wrapper input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 18px;
@@ -75,8 +76,13 @@ main .form .range-widget-wrapper.decorated input[type="range"] {
   box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
 
-  margin-top: -8px; /* 🔥 FINAL FIX */
-  transition: transform 0.1s ease;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); /* ✅ perfect centering */
+}
+
+.number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+  transform: translateY(-50%) scale(1.1);
 }
 
 .number-wrapper input[type="range"]::-webkit-slider-thumb:hover {
