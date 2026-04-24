@@ -18,28 +18,27 @@ function updateUI(input, wrapper, stepsArray, type) {
 
   const valueBox = wrapper.parentElement.querySelector('.loan-value-box');
 
-  let formatted;
-  if (type === "loan") {
-    formatted = formatINR(actualValue);
-  } else {
-    formatted = formatMonths(actualValue);
-  }
+  const formatted = type === "loan"
+    ? formatINR(actualValue)
+    : formatMonths(actualValue);
 
   if (valueBox) valueBox.innerText = formatted;
 
-  // AEM progress
   wrapper.style.setProperty('--total-steps', stepsArray.length - 1);
   wrapper.style.setProperty('--current-steps', index);
 }
 
 /* ===== Main Decorate ===== */
-export default async function decorate(fieldDiv, fieldJson) {
+export default async function decorate(fieldDiv) {
   const input = fieldDiv.querySelector('input');
 
-  // ✅ Correct detection using label
-  const labelText = fieldDiv.querySelector('label')?.innerText || "";
+  // ✅ FIX: detect using data-id (reliable)
+  const dataId = fieldDiv.getAttribute("data-id") || "";
 
-  const type = labelText.includes("Amount") ? "loan" : "tenure";
+  let type = "tenure";
+  if (dataId.includes("fc810e78cd")) {
+    type = "loan";
+  }
 
   const stepsArray = type === "loan" ? LOAN_STEPS : TENURE_STEPS;
 
@@ -50,14 +49,15 @@ export default async function decorate(fieldDiv, fieldJson) {
   input.step = 1;
   input.value = stepsArray.length - 1;
 
-  /* ===== Remove unwanted duplicate text ===== */
-  const existingText = fieldDiv.querySelectorAll("p");
-  existingText.forEach(el => el.remove());
-
   /* ===== Wrapper ===== */
   const wrapper = document.createElement('div');
   wrapper.className = 'range-widget-wrapper decorated';
   input.after(wrapper);
+
+  /* ===== Value Box ===== */
+  const valueBox = document.createElement('div');
+  valueBox.className = 'loan-value-box';
+  fieldDiv.insertBefore(valueBox, wrapper);
 
   /* ===== Labels ===== */
   const labels = document.createElement('div');
@@ -76,12 +76,6 @@ export default async function decorate(fieldDiv, fieldJson) {
 
     labels.appendChild(span);
   });
-
-  /* ===== Value Box ===== */
-  const valueBox = document.createElement('div');
-  valueBox.className = 'loan-value-box';
-
-  fieldDiv.insertBefore(valueBox, wrapper);
 
   /* ===== Append ===== */
   wrapper.appendChild(input);
