@@ -1602,17 +1602,18 @@ main .form .field-loan-application-number input {
 
 /* ===== Labels (FIXED) ===== */
 .range-labels {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  margin-top: 8px;
-  font-size: 12px;
-  color: #777;
-  text-align: center;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  height: 20px;
 }
 
 .range-labels span {
-  transform: none;        /* 🔥 IMPORTANT */
-  justify-self: center;   /* optional but cleaner */
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
 }
 
 /* ===== Value Box ===== */
