@@ -1574,8 +1574,8 @@ main .form .field-loan-application-number input {
 
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 14px;
-  width: 14px;
+  height: 17px;
+  width: 16px;
   background: #1a73e8;
   border-radius: 50%;
   border: none;
@@ -1583,8 +1583,8 @@ main .form .field-loan-application-number input {
 }
 
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
-  height: 14px;
-  width: 14px;
+  height: 17px;
+  width: 16px;
   background: #1a73e8;
   border-radius: 50%;
   border: none;
