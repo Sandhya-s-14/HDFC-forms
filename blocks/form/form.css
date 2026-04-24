@@ -1532,8 +1532,8 @@ main .form form .field-avail-panel {
     max-width: 700px !important;
     width: 100% !important;
     margin-left: -100px !important;
-    max-height: 400px !important;
-    margin-top: 100px !important;
+    max-height: 390px !important;
+    margin-top: 130px !important;
 }
 
 /* ---------- CARD ---------- */
