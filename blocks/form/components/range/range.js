@@ -19,32 +19,27 @@ function getNearestStep(value, steps) {
 }
 
 /* ===== Update UI ===== */
-function updateUI(input, wrapper, stepsArray, type) {
-  const rawValue = parseInt(input.value);
-
-  // ✅ Snap ONLY for display
-  const snappedValue = getNearestStep(rawValue, stepsArray);
-
+function updateUI(input, wrapper, value, type) {
   // Format
   const formatted =
     type === "loan"
-      ? formatINR(snappedValue)
-      : formatMonths(snappedValue);
+      ? formatINR(value)
+      : formatMonths(value);
 
   // Update value box
   const valueBox = wrapper.parentElement.querySelector(".loan-value-box");
   if (valueBox) valueBox.innerText = formatted;
 
-  // ✅ Smooth progress (based on raw value)
+  // Progress
   const min = parseInt(input.min);
   const max = parseInt(input.max);
 
-  const percent = ((rawValue - min) / (max - min)) * 100;
+  const percent = ((value - min) / (max - min)) * 100;
   wrapper.style.setProperty("--percent", percent);
 }
 
 /* ===== Click anywhere on track ===== */
-function enableTrackClick(wrapper, input) {
+function enableTrackClick(wrapper, input, stepsArray, type) {
   wrapper.addEventListener("click", (e) => {
     if (e.target !== input) {
       const rect = wrapper.getBoundingClientRect();
@@ -53,10 +48,12 @@ function enableTrackClick(wrapper, input) {
       const min = parseInt(input.min);
       const max = parseInt(input.max);
 
-      const newValue = Math.round(min + percent * (max - min));
-      input.value = newValue;
+      const rawValue = Math.round(min + percent * (max - min));
 
-      input.dispatchEvent(new Event("input"));
+      const snapped = getNearestStep(rawValue, stepsArray);
+
+      input.value = snapped;
+      updateUI(input, wrapper, snapped, type);
     }
   });
 }
@@ -67,17 +64,16 @@ export default async function decorate(fieldDiv) {
 
   const originalMax = parseInt(input.max);
 
-  // Detect type
   const isLoan = originalMax > 100000;
   const type = isLoan ? "loan" : "tenure";
 
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Continuous Slider ===== */
+  /* ===== Slider Setup ===== */
   input.type = "range";
   input.min = stepsArray[0];
   input.max = stepsArray[stepsArray.length - 1];
-  input.step = isLoan ? 1000 : 1; // smooth movement
+  input.step = isLoan ? 1000 : 1; // smooth drag
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -108,30 +104,33 @@ export default async function decorate(fieldDiv) {
     labels.appendChild(span);
   });
 
-  /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
-  /* ===== Events ===== */
+  /* ===== While dragging (smooth) ===== */
   input.addEventListener("input", () => {
-    updateUI(input, wrapper, stepsArray, type);
+    const rawValue = parseInt(input.value);
+    updateUI(input, wrapper, rawValue, type);
   });
 
-  /* ===== Snap on release (KEY FIX) ===== */
+  /* ===== On release (SNAP FIX) ===== */
   input.addEventListener("change", () => {
     const rawValue = parseInt(input.value);
 
-    const nearest = getNearestStep(rawValue, stepsArray);
+    const snapped = getNearestStep(rawValue, stepsArray);
 
-    input.value = nearest;
+    input.value = snapped;
 
-    input.dispatchEvent(new Event("input"));
+    updateUI(input, wrapper, snapped, type);
   });
 
-  enableTrackClick(wrapper, input);
+  enableTrackClick(wrapper, input, stepsArray, type);
 
   /* ===== Initial ===== */
-  updateUI(input, wrapper, stepsArray, type);
+  const initialValue = stepsArray[stepsArray.length - 1];
+  input.value = initialValue;
+
+  updateUI(input, wrapper, initialValue, type);
 
   return fieldDiv;
 }
