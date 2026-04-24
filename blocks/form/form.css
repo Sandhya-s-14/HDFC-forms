@@ -1521,11 +1521,14 @@ main .form .field-loan-application-number input {
 
 
 /*--------------------------------OFFER PAGE--------------------------------------------------*/
+/* ===== Wrapper Fix ===== */
 .number-wrapper .range-widget-wrapper.decorated {
   position: relative;
   background: transparent !important;
+  padding: 20px 0;
 }
 
+/* ===== Remove default AEM styling ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"] {
   -webkit-appearance: none !important;
   width: 100%;
@@ -1535,6 +1538,7 @@ main .form .field-loan-application-number input {
   z-index: 2;
 }
 
+/* ===== Grey Base Track ===== */
 .number-wrapper .range-widget-wrapper.decorated::before {
   content: "";
   position: absolute;
@@ -1545,8 +1549,10 @@ main .form .field-loan-application-number input {
   background: #d6d6d6;
   border-radius: 2px;
   transform: translateY(-50%);
+  z-index: 0;
 }
 
+/* ===== Orange Progress ===== */
 .number-wrapper .range-widget-wrapper.decorated::after {
   content: "";
   position: absolute;
@@ -1557,9 +1563,11 @@ main .form .field-loan-application-number input {
   background: #f57c00;
   border-radius: 2px;
   transform: translateY(-50%);
+  z-index: 1;
 }
 
-.number-wrapper .range-widget-wrapper.decorated input[type="range"] {
+/* ===== Tick Marks (aligned on track) ===== */
+.number-wrapper .range-widget-wrapper.decorated {
   background-image: repeating-linear-gradient(
     to right,
     transparent,
@@ -1567,26 +1575,53 @@ main .form .field-loan-application-number input {
     #f57c00 calc(14.28% - 1px),
     #f57c00 14.28%
   );
-  background-size: 100% 6px;
   background-position: center;
+  background-size: 100% 6px;
   background-repeat: no-repeat;
 }
 
+/* ===== Bigger Blue Thumb (as requested) ===== */
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 17px;
-  width: 16px;
+  height: 18px;              /* increased size */
+  width: 18px;
   background: #1a73e8;
   border-radius: 50%;
-  border: none;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #1a73e8;
   cursor: pointer;
+  margin-top: -7px;
+  position: relative;
+  z-index: 3;
 }
 
 .number-wrapper .range-widget-wrapper.decorated input[type="range"]::-moz-range-thumb {
-  height: 17px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
   background: #1a73e8;
   border-radius: 50%;
-  border: none;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #1a73e8;
+  cursor: pointer;
+}
+
+/* ===== Remove unwanted overlays ===== */
+.range-widget-wrapper.decorated::before,
+.range-widget-wrapper.decorated::after {
+  pointer-events: none;
+}
+
+/* ===== Value Bubble (optional polish) ===== */
+.range-widget-wrapper .range-bubble {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== Min / Max labels ===== */
+.range-widget-wrapper .range-min,
+.range-widget-wrapper .range-max {
+  font-size: 12px;
+  color: #777;
 }
 
