@@ -13,7 +13,7 @@ function formatMonths(value) {
 
 /* ===== Get interpolated value ===== */
 function getActualValue(input, stepsArray) {
-  const sliderValue = Number(input.value);
+  const sliderValue = Number(input._sliderValue ?? input.value);
 
   const lowerIndex = Math.floor(sliderValue);
   const upperIndex = Math.ceil(sliderValue);
@@ -40,7 +40,7 @@ function normalizeValue(value, type) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const sliderValue = Number(input.value);
+  const sliderValue = Number(input._sliderValue ?? input.value);
 
   const rawValue = getActualValue(input, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
@@ -57,12 +57,9 @@ function updateUI(input, wrapper, stepsArray, type) {
   }
 
   wrapper.style.setProperty("--percent", percent);
-  Object.defineProperty(input, "valueAsNumber", {
-  configurable: true,
-  get() {
-    return actualValue;
-  }
-});
+
+  // 🔥 Store actual value for API
+  input._actualValue = actualValue;
 }
 
 /* ===== Click on track ===== */
@@ -74,7 +71,7 @@ function enableTrackClick(wrapper, input, stepsArray) {
 
       const value = percent * (stepsArray.length - 1);
 
-      input.value = value;
+      input._sliderValue = value;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     }
   });
@@ -85,7 +82,6 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
-  /* ✅ FIXED DETECTION */
   const originalMax = Number(input.getAttribute("max"));
   const isLoan = originalMax > 100000;
 
@@ -100,7 +96,29 @@ export default function decorate(fieldDiv) {
 
   const initialValue = Number(input.value || stepsArray[0]);
   const stepIndex = stepsArray.indexOf(initialValue);
-  input.value = stepIndex >= 0 ? stepIndex : 0;
+
+  input._sliderValue = stepIndex >= 0 ? stepIndex : 0;
+
+  /* ===== OVERRIDE VALUE (🔥 MAIN FIX) ===== */
+  const originalDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    "value"
+  );
+
+  Object.defineProperty(input, "value", {
+    get() {
+      // API reads this → return actual value
+      if (this._actualValue !== undefined) {
+        return this._actualValue;
+      }
+      // slider movement uses this
+      return originalDescriptor.get.call(this);
+    },
+    set(val) {
+      this._sliderValue = val;
+      originalDescriptor.set.call(this, val);
+    }
+  });
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -129,7 +147,7 @@ export default function decorate(fieldDiv) {
     span.style.left = `${(i / (stepsArray.length - 1)) * 100}%`;
 
     span.addEventListener("click", () => {
-      input.value = i;
+      input._sliderValue = i;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
