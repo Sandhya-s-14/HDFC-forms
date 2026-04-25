@@ -1748,7 +1748,7 @@ main .form form .field-avail-panel {
 /*-------------------------------------------------*/
 #panelcontainer-6d1d4f32b7 > legend.field-label {
   background: none !important;
-  padding: 0 0 8px 28px !important; /* space for icon */
+  /*padding: 0 0 8px 28px !important; /* space for icon */
   margin: 0;
 
   font-size: 15px;
@@ -1766,7 +1766,7 @@ main .form form .field-avail-panel {
 }
 
 #text-d5ebca7507 {
-  background: #d4f8ff;          /* light blue */
+  background: #e6fbff;          /* light blue */
   border-radius: 16px;
 
   padding: 16px 20px 16px 60px; /* space for icon */
