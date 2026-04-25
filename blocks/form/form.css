@@ -1621,9 +1621,9 @@ main .form form .field-avail-panel {
   background: transparent !important;
   outline: none !important;
 
-  font-size: 12px;
-  font-weight: 700;
-  color: #2f3a4a;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
 
   padding: 0;
   margin-top: 3px;
@@ -1631,6 +1631,11 @@ main .form form .field-avail-panel {
 
   pointer-events: auto;
   cursor: text;
+
+  /* 🔥 FIX FOR HIDDEN NUMBERS */
+  white-space: normal;       /* allow wrapping */
+  word-break: break-word;    /* break long numbers */
+  overflow: visible;
 }
 
 /* ---------- LABEL ---------- */
@@ -1649,6 +1654,8 @@ main .form form .field-avail-panel {
 .field-tax {
   display: flex;
   flex-direction: column;
+  position: relative;   /* 🔥 REQUIRED for orange line */
+  padding-left: 10px;
 }
 
 /* ---------- ORANGE LINE ---------- */
