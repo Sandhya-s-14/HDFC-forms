@@ -265,6 +265,7 @@ main .form form .checkbox-wrapper, main .form form .radio-wrapper {
     flex-wrap: wrap;
     align-items: center;
     margin: 0;
+    gap: 7px;
 }
 
 main .form form fieldset > .radio-wrapper,
@@ -945,7 +946,7 @@ main .form form .field-source-of-income input[type="radio"]:checked ~ span {
     position: absolute;
     left: 10px;
 
-    top: 18%;                       /* 👈 FIXED alignment */
+    top: 28%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
     width: 20px;
@@ -961,7 +962,7 @@ main .form form .field-source-of-income input[type="radio"]:checked ~ span {
     position: absolute;
     left: 34px;
 
-    top: 18%;                       /* 👈 FIXED alignment */
+    top: 32%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
     font-size: 14px;
