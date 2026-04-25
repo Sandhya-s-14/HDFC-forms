@@ -13,7 +13,7 @@ function formatMonths(value) {
 
 /* ===== Get interpolated value ===== */
 function getActualValue(input, stepsArray) {
-  const sliderValue = Number(input._sliderValue ?? input.value);
+  const sliderValue = Number(input._sliderValue);
 
   const lowerIndex = Math.floor(sliderValue);
   const upperIndex = Math.ceil(sliderValue);
@@ -25,22 +25,19 @@ function getActualValue(input, stepsArray) {
   const lowerValue = stepsArray[lowerIndex];
   const upperValue = stepsArray[upperIndex];
 
-  const ratio = sliderValue - lowerIndex;
-
-  return lowerValue + (upperValue - lowerValue) * ratio;
+  return lowerValue + (upperValue - lowerValue) * (sliderValue - lowerIndex);
 }
 
 /* ===== Normalize values ===== */
 function normalizeValue(value, type) {
-  if (type === "loan") {
-    return Math.round(value / 1000) * 1000;
-  }
-  return Math.round(value);
+  return type === "loan"
+    ? Math.round(value / 1000) * 1000
+    : Math.round(value);
 }
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const sliderValue = Number(input._sliderValue ?? input.value);
+  const sliderValue = Number(input._sliderValue);
 
   const rawValue = getActualValue(input, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
@@ -58,14 +55,13 @@ function updateUI(input, wrapper, stepsArray, type) {
 
   wrapper.style.setProperty("--percent", percent);
 
-  // 🔥 Store actual value for API
+  // 🔥 store actual value for API
   input._actualValue = actualValue;
 }
 
 /* ===== Click on track ===== */
 function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
-    // ❌ Ignore clicks on thumb itself
     if (e.target === input) return;
 
     const rect = input.getBoundingClientRect();
@@ -74,9 +70,8 @@ function enableTrackClick(wrapper, input, stepsArray) {
     const clamped = Math.max(0, Math.min(1, percent));
     const value = clamped * (stepsArray.length - 1);
 
-    // ✅ update BOTH slider + UI state
+    // ✅ ONLY update slider state (NOT input.value)
     input._sliderValue = value;
-    input.value = value;
 
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
@@ -104,7 +99,7 @@ export default function decorate(fieldDiv) {
 
   input._sliderValue = stepIndex >= 0 ? stepIndex : 0;
 
-  /* ===== OVERRIDE VALUE (🔥 MAIN FIX) ===== */
+  /* ===== VALUE OVERRIDE (KEEP THIS) ===== */
   const originalDescriptor = Object.getOwnPropertyDescriptor(
     HTMLInputElement.prototype,
     "value"
@@ -112,15 +107,13 @@ export default function decorate(fieldDiv) {
 
   Object.defineProperty(input, "value", {
     get() {
-      // API reads this → return actual value
       if (this._actualValue !== undefined) {
-        return this._actualValue;
+        return this._actualValue; // API reads this
       }
-      // slider movement uses this
       return originalDescriptor.get.call(this);
     },
     set(val) {
-      this._sliderValue = val;
+      this._sliderValue = Number(val); // sync slider
       originalDescriptor.set.call(this, val);
     }
   });
@@ -162,7 +155,11 @@ export default function decorate(fieldDiv) {
   wrapper.appendChild(input);
   wrapper.appendChild(labels);
 
+  /* ===== Events ===== */
   input.addEventListener("input", () => {
+    // 🔥 sync when user drags thumb
+    input._sliderValue = Number(originalDescriptor.get.call(input));
+
     updateUI(input, wrapper, stepsArray, type);
   });
 
