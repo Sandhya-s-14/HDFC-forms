@@ -1337,6 +1337,21 @@ main .form form .field-wrapper {
 }
 
 /*-------------------------------------------4TH PAGE(REVIEW PAGE)----------------------------------------*/
+/* Review Details heading fix */
+#panelcontainer-e43a2b8f30 > legend.field-label {
+  background: none !important;   /* remove blue background */
+  padding: 0 !important;         /* remove spacing */
+  margin: 0 0 8px 0;             /* small gap below */
+
+  font-size: 16px;
+  font-weight: 600;
+  color: #2f3a4a;
+
+  border-radius: 0;
+  width: auto;
+  display: block;
+}
+
 /* Paragraph inside */
 #text-6cf6e02f2e p {
     margin: 0;
