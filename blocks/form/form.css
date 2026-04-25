@@ -1792,7 +1792,7 @@ main .form form .field-avail-panel {
   width: 32px;
   height: 32px;
 
-  background: url("https://www.google.com/imgres?q=loan%20money%20bag%20png%20blue&imgurl=https%3A%2F%2Fimg.freepik.com%2Fpremium-psd%2Floan-fund-money-bag-finance-economy-3d-object_996812-158.jpg&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Fpremium-psd%2Floan-fund-money-bag-finance-economy-3d-object_255535848.htm&docid=B9XTI2-xr-wVqM&tbnid=JJIYRfGxiOpEjM&vet=12ahUKEwjC--ePsoiUAxXrwTgGHTyzJHIQnPAOegQIGRAB..i&w=626&h=626&hcb=2&itg=1&ved=2ahUKEwjC--ePsoiUAxXrwTgGHTyzJHIQnPAOegQIGRAB") no-repeat center;
+ background: url("https://cdn-icons-png.flaticon.com/512/2331/2331941.png") no-repeat center;
   background-size: contain;
 }
 
@@ -1800,10 +1800,14 @@ main .form form .field-avail-panel {
   background: none !important;
   border: none !important;
   padding: 0 !important;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 #text-5cfe4df835 p {
   background: none !important;
   border: none !important;
   padding: 0 !important;
+  font-size: 14px;
+  font-weight: 700;
 }
