@@ -65,15 +65,20 @@ function updateUI(input, wrapper, stepsArray, type) {
 /* ===== Click on track ===== */
 function enableTrackClick(wrapper, input, stepsArray) {
   wrapper.addEventListener("click", (e) => {
-    if (e.target !== input) {
-      const rect = wrapper.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
+    // ❌ Ignore clicks on thumb itself
+    if (e.target === input) return;
 
-      const value = percent * (stepsArray.length - 1);
+    const rect = input.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
 
-      input._sliderValue = value;
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    }
+    const clamped = Math.max(0, Math.min(1, percent));
+    const value = clamped * (stepsArray.length - 1);
+
+    // ✅ update BOTH slider + UI state
+    input._sliderValue = value;
+    input.value = value;
+
+    input.dispatchEvent(new Event("input", { bubbles: true }));
   });
 }
 
