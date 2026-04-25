@@ -910,8 +910,6 @@ main .form form .field-source-of-income label {
 
   display: flex;
   align-items: center;
-  gap: 8px;
-
   cursor: pointer;
 }
 
