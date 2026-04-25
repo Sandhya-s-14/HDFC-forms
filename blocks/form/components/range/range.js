@@ -33,37 +33,8 @@ function normalizeValue(value, type) {
     : Math.round(value);
 }
 
-/* ===== Update UI ===== */
-function updateUI(input, wrapper, stepsArray, type, hidden) {
-  const index = Number(input.value);
-
-  const rawValue = getActualValue(index, stepsArray);
-  const actualValue = normalizeValue(rawValue, type);
-
-  const percent = (index / (stepsArray.length - 1)) * 100;
-
-  /* ===== FIX: keep slider + UI perfectly synced ===== */
-  input.style.setProperty("--percent", percent);
-  wrapper.style.setProperty("--percent", percent);
-
-  /* ===== Value Box ===== */
-  const valueBox = wrapper.querySelector(".loan-value-box");
-
-  if (valueBox) {
-    valueBox.innerText =
-      type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
-
-    valueBox.style.left = percent + "%";
-  }
-
-  /* ===== AEM VALUE ===== */
-  if (hidden) {
-    hidden.value = actualValue;
-  }
-}
-
 /* ===== Click on track ===== */
-function enableTrackClick(wrapper, input) {
+function enableTrackClick(wrapper, input, originalDescriptor) {
   wrapper.addEventListener("click", (e) => {
     if (e.target === input) return;
 
@@ -73,9 +44,7 @@ function enableTrackClick(wrapper, input) {
     const clamped = Math.max(0, Math.min(1, percent));
     const value = clamped * (input.max - input.min);
 
-    /* ===== IMPORTANT FIX ===== */
     input.value = value;
-
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
 }
@@ -98,16 +67,35 @@ export default function decorate(fieldDiv) {
   input.min = 0;
   input.max = stepsArray.length - 1;
   input.step = 0.01;
-
-  /* ===== FIX: always start correctly ===== */
   input.value = 0;
 
-  /* ===== Hidden input (AEM FIX) ===== */
+  /* ===== Store original descriptor ===== */
+  const originalDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    "value"
+  );
+
+  /* ===== SAFE VALUE OVERRIDE ===== */
+  Object.defineProperty(input, "value", {
+    get() {
+      // AEM reads this → return actual value
+      if (this._actualValue !== undefined) {
+        return this._actualValue;
+      }
+      return originalDescriptor.get.call(this);
+    },
+    set(val) {
+      // Keep slider working normally
+      this._index = Number(val);
+      originalDescriptor.set.call(this, val);
+    }
+  });
+
+  /* ===== Hidden input (backup for AEM) ===== */
   const hidden = document.createElement("input");
   hidden.type = "hidden";
   hidden.name = originalName;
 
-  /* remove name from slider */
   input.removeAttribute("name");
 
   /* ===== Wrapper ===== */
@@ -145,20 +133,41 @@ export default function decorate(fieldDiv) {
     labels.appendChild(span);
   });
 
+  /* ===== Update UI ===== */
+  function updateUI() {
+    const index = Number(originalDescriptor.get.call(input)); // REAL slider index
+
+    const rawValue = getActualValue(index, stepsArray);
+    const actualValue = normalizeValue(rawValue, type);
+
+    const percent = (index / (stepsArray.length - 1)) * 100;
+
+    wrapper.style.setProperty("--percent", percent);
+
+    if (valueBox) {
+      valueBox.innerText =
+        type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
+
+      valueBox.style.left = percent + "%";
+    }
+
+    // 🔥 IMPORTANT: set actual value for AEM
+    input._actualValue = actualValue;
+    hidden.value = actualValue;
+  }
+
   /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(hidden);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
-  input.addEventListener("input", () => {
-    updateUI(input, wrapper, stepsArray, type, hidden);
-  });
+  input.addEventListener("input", updateUI);
 
-  enableTrackClick(wrapper, input);
+  enableTrackClick(wrapper, input, originalDescriptor);
 
   /* ===== Initial render ===== */
-  updateUI(input, wrapper, stepsArray, type, hidden);
+  updateUI();
 
   return fieldDiv;
 }
