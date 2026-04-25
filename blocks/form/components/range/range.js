@@ -35,17 +35,18 @@ function normalizeValue(value, type) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type, hidden) {
-  const index = Number(input.value); // ✅ single source of truth
+  const index = Number(input.value);
 
   const rawValue = getActualValue(index, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
 
   const percent = (index / (stepsArray.length - 1)) * 100;
 
-  // progress bar
+  /* ===== FIX: keep slider + UI perfectly synced ===== */
+  input.style.setProperty("--percent", percent);
   wrapper.style.setProperty("--percent", percent);
 
-  // value box
+  /* ===== Value Box ===== */
   const valueBox = wrapper.querySelector(".loan-value-box");
 
   if (valueBox) {
@@ -55,7 +56,7 @@ function updateUI(input, wrapper, stepsArray, type, hidden) {
     valueBox.style.left = percent + "%";
   }
 
-  // ✅ send correct value to AEM
+  /* ===== AEM VALUE ===== */
   if (hidden) {
     hidden.value = actualValue;
   }
@@ -72,7 +73,9 @@ function enableTrackClick(wrapper, input) {
     const clamped = Math.max(0, Math.min(1, percent));
     const value = clamped * (input.max - input.min);
 
+    /* ===== IMPORTANT FIX ===== */
     input.value = value;
+
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
 }
@@ -96,7 +99,7 @@ export default function decorate(fieldDiv) {
   input.max = stepsArray.length - 1;
   input.step = 0.01;
 
-  // start from beginning
+  /* ===== FIX: always start correctly ===== */
   input.value = 0;
 
   /* ===== Hidden input (AEM FIX) ===== */
@@ -104,7 +107,7 @@ export default function decorate(fieldDiv) {
   hidden.type = "hidden";
   hidden.name = originalName;
 
-  // remove name from slider
+  /* remove name from slider */
   input.removeAttribute("name");
 
   /* ===== Wrapper ===== */
