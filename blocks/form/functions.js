@@ -222,6 +222,62 @@ function initOtp(globals) {
   startOtpTimer(globals);
 }
 
+/* ================= OFFER CALCULATION ================= */
+
+function calculateOffer(globals) {
+  const form = globals.form;
+
+  try {
+    const loanAmount = form.offer.loanAmount.value;
+    const tenure = form.offer.tenure.value;
+
+    if (!loanAmount || !tenure) {
+      console.log("⚠️ Missing values");
+      return;
+    }
+
+    console.log("📤 Request:", loanAmount, tenure);
+
+    fetch("https://lugged-delay-rift.ngrok-free.dev/api/offer/calculate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        loanAmount: Number(loanAmount),
+        tenure: Number(tenure)
+      })
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log("📥 Response:", data);
+
+        globals.functions.setProperty(form.offer.emi, {
+          value: data.emi,
+          readOnly: true
+        });
+
+        globals.functions.setProperty(form.offer.roi, {
+          value: data.roi,
+          readOnly: true
+        });
+
+        globals.functions.setProperty(form.offer.taxes, {
+          value: data.taxes,
+          readOnly: true
+        });
+      })
+      .catch(function (error) {
+        console.error("❌ API Error:", error);
+      });
+
+  } catch (err) {
+    console.error("❌ Function Error:", err);
+  }
+}
+
 /* ================= DEBUG ================= */
 
 function debugForm(globals) {
@@ -240,4 +296,5 @@ export {
   resendOtp,
   initOtp,
   debugForm,
+  calculateOffer,
 };
