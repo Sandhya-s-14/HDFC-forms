@@ -1634,6 +1634,17 @@ main .form form .field-avail-panel {
   text-overflow: ellipsis;  /* prevent breaking */
 }
 
+.field-emi-amount label, .field-roi label, .field-tax input {
+    border: none;
+    background: transparent;
+    padding: 2px 0;
+    margin: 0;
+    /* font-size: 16px; */
+    /* font-weight: 600; */
+    color: #3f4a5a;
+    pointer-events: auto;
+    cursor: text;
+}
 /* ---------- ROI ---------- */
 .field-roi label {
   white-space: nowrap;
