@@ -39,6 +39,13 @@ function normalizeValue(value, type) {
 function updateUI(input, wrapper, stepsArray, type) {
   const sliderValue = Number(input._sliderValue);
 
+  // 🔥 IMPORTANT: sync native value (this fixes thumb)
+  const originalDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    "value"
+  );
+  originalDescriptor.set.call(input, sliderValue);
+
   const rawValue = getActualValue(input, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
 
