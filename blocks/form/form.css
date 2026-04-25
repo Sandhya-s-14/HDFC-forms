@@ -164,7 +164,7 @@ main .form select {
     /* width: 100%; */
     /* height: 42px; */
     color: var(--form-label-color);
-    /* padding: var(--form-input-padding); */
+    padding: var(--form-input-padding); 
     /* font-size: var(--form-input-font-size); */
     /* max-width: unset; */
     /* margin-top: .5rem; */
@@ -876,44 +876,63 @@ main .form form [data-id="text-c38781854a"] > p {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-
 /* ============================= */
 /* 🔹 SOURCE OF INCOME          */
 /* ============================= */
 
-/* 🔹 Move whole block slightly up */
+/* Move block slightly up */
 main .form form .field-source-of-income {
-    margin-top: -9px;   /* 👈 adjust (-6px to -12px if needed) */
+  margin-top: -8px;
 }
 
 
-/* 🔹 Heading spacing */
+/* 🔹 Heading */
 main .form form .field-source-of-income legend {
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #1f2937 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #1f2937 !important;
 
-    margin-bottom: 10px;   /* 👈 space below heading */
+  margin-bottom: 12px;
 }
 
 
-/* 🔹 Radio labels spacing */
+/* 🔹 Each option wrapper */
+main .form form .field-source-of-income .radio-wrapper {
+  margin-bottom: 12px;
+}
+
+
+/* 🔹 Label */
 main .form form .field-source-of-income label {
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    color: #374151 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #374151 !important;
 
-    line-height: 1.6;      /* 👈 increased spacing between lines */
-    display: block;
-    margin-bottom: 10px;   /* 👈 space between options */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
 }
 
 
-/* 🔹 Selected state */
-main .form form .field-source-of-income input[type="radio"]:checked + label,
-main .form form .field-source-of-income label:has(input:checked) {
-    font-weight: 500 !important;
-    color: #111827 !important;
+/* 🔹 Radio button */
+main .form form .field-source-of-income input[type="radio"] {
+  accent-color: #2563eb;   /* blue like UI */
+  cursor: pointer;
+}
+
+
+/* 🔹 Selected state (SAFE version) */
+main .form form .field-source-of-income input[type="radio"]:checked {
+  outline: none;
+}
+
+/* Make selected label darker */
+main .form form .field-source-of-income input[type="radio"]:checked + span,
+main .form form .field-source-of-income input[type="radio"]:checked ~ span {
+  font-weight: 500;
+  color: #111827;
 }
 
 
