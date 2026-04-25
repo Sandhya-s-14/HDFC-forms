@@ -1613,62 +1613,55 @@ main .form form .field-avail-panel {
 }
 
 /* ---------- LABEL + VALUE INLINE (IMPORTANT FIX) ---------- */
+/* ---------- COMMON VALUE STYLE ---------- */
+.field-emi-amount input,
+.field-roi input,
+.field-tax input {
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
 
-/* EMI inline */
-.field-emi-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2f3a4a;
+
+  padding: 0;
+  margin-top: 3px;
+  width: 100%;
+
+  pointer-events: none;   /* 🔥 makes it look like text (not editable) */
+}
+
+/* ---------- LABEL ---------- */
+.field-emi-amount label,
+.field-roi label,
+.field-tax label {
+  font-size: 11px;
+  color: #8a8a8a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- LAYOUT ---------- */
+.field-emi-amount,
+.field-roi,
+.field-tax {
   display: flex;
   flex-direction: column;
 }
 
-/* Keep label in one line */
-.field-emi-amount label {
-  white-space: nowrap;
-  font-size: 11px;
-  color: #777;
+/* ---------- ORANGE LINE ---------- */
+.field-emi-amount::before,
+.field-roi::before,
+.field-tax::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 3px;
+  height: 16px;
+  background: #f7941d;
 }
-
-/* VALUE - no wrap + visible */
-.field-emi-amount input {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;  /* prevent breaking */
-}
-
-.field-emi-amount label, .field-roi label, .field-tax input {
-    border: none;
-    background: transparent;
-    padding: 2px 0;
-    margin: 0;
-    /* font-size: 16px; */
-    /* font-weight: 600; */
-    color: #3f4a5a;
-    pointer-events: auto;
-    cursor: text;
-}
-/* ---------- ROI ---------- */
-.field-roi label {
-  white-space: nowrap;
-  font-size: 11px;
-  color: #777;
-}
-
-.field-roi input {
-  white-space: nowrap;
-}
-
-/* ---------- TAX ---------- */
-.field-tax label {
-  white-space: nowrap;
-  font-size: 11px;
-  color: #777;
-}
-
-.field-tax input {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* ---------- VALUES ---------- */
 .field-emi-amount input,
 .field-roi input,
