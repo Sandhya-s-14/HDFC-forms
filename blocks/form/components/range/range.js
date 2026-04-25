@@ -57,7 +57,12 @@ function updateUI(input, wrapper, stepsArray, type) {
   }
 
   wrapper.style.setProperty("--percent", percent);
-  input.setAttribute("value", actualValue);
+  Object.defineProperty(input, "valueAsNumber", {
+  configurable: true,
+  get() {
+    return actualValue;
+  }
+});
 }
 
 /* ===== Click on track ===== */
