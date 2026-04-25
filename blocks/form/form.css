@@ -852,28 +852,27 @@ main .form form {
 /* ============================= */
 /* 🔹 INFO BOX (YELLOW)         */
 /* ============================= */
-main .form form [data-id="text-c38781854a"] {
-    border: none !important;
-    background: none !important;
-    padding: 0 !important;
+main .form form [data-id="text-c8c6b3a0ab"] {
+  border: none !important;
+  background: none !important;
+  padding: 0 !important;
 }
 
-main .form form [data-id="text-c38781854a"] > p {
-    font-family: Roboto, Arial, sans-serif !important;
+main .form form [data-id="text-c8c6b3a0ab"] > p {
+  font-family: Roboto, Arial, sans-serif !important;
 
-    background-color: #fff8e1 !important;
-    border: 1px solid #f0c36d !important;
-    border-radius: 8px !important;
+  background-color: #fff8e1 !important;
+  border: 1px solid #f0c36d !important;
+  border-radius: 8px !important;
 
-    padding: 12px 14px !important;
-    margin: 8px 0 !important;
+  padding: 12px 14px !important;
+  margin: 6px 0 0 !important;
 
-    font-size: 13px !important;
-    font-weight: 400 !important;
-    line-height: 1.5 !important;
-    color: #5c4b00 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #5c4b00 !important;
 
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 /* ============================= */
