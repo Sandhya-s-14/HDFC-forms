@@ -1464,7 +1464,7 @@ main .form .field-loan-application-number input {
 /* ===== LOAN AMOUNT BLOCK ===== */
 /* ============================= */
 
-.field-loan-amount {
+#textinput-4c43fe36d2 {
     border-left: 3px solid #6366f1;   /* blue line */
     padding-left: 12px;
 }

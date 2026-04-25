@@ -103,6 +103,8 @@ main .form form .field-personal-details > legend.field-label.accordion-legend {
   font-weight: 600;
   color: #3f4a5a;
   margin: 0 0 10px;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
 }
 
 
