@@ -804,6 +804,21 @@ main .form form {
     color: #333 !important;
 }
 
+#panelcontainer-2f9e68b1dd > legend.field-label {
+  background: none !important;   /* remove highlight */
+  padding: 0 !important;
+  margin: 0 0 12px 0;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: #2f3a4a;
+
+  display: block;
+  width: auto;
+
+  border-radius: 0;
+}
+
 
 /* ============================= */
 /* 🔹 INPUT FIELDS              */
@@ -914,7 +929,7 @@ main .form form .field-source-of-income label:has(input:checked) {
     position: absolute;
     left: 10px;
 
-    top: 30%;                       /* 👈 FIXED alignment */
+    top: 18%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
     width: 20px;
@@ -930,7 +945,7 @@ main .form form .field-source-of-income label:has(input:checked) {
     position: absolute;
     left: 34px;
 
-    top: 32%;                       /* 👈 FIXED alignment */
+    top: 18%;                       /* 👈 FIXED alignment */
     transform: translateY(-50%);
 
     font-size: 14px;
