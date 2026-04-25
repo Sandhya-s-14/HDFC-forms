@@ -70,7 +70,6 @@ function enableTrackClick(wrapper, input, stepsArray) {
     const value = clamped * (stepsArray.length - 1);
 
     input._sliderValue = value;
-    input.value = value;
 
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
@@ -164,7 +163,6 @@ input.value = sliderIndex;
 
     span.addEventListener("click", () => {
       input._sliderValue = i;
-      input.value = i;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
@@ -176,9 +174,9 @@ input.value = sliderIndex;
 
   /* ===== Events ===== */
   input.addEventListener("input", () => {
-    input._sliderValue = Number(originalDescriptor.get.call(input));
-    updateUI(input, wrapper, stepsArray, type);
-  });
+  input._sliderValue = Number(originalDescriptor.get.call(input));
+  updateUI(input, wrapper, stepsArray, type);
+});
 
   enableTrackClick(wrapper, input, stepsArray);
 
