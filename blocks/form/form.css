@@ -852,12 +852,19 @@ main .form form {
 /* ============================= */
 /* 🔹 INFO BOX (YELLOW)         */
 /* ============================= */
+/* Reset wrapper */
 main .form form [data-id="text-c8c6b3a0ab"] {
   border: none !important;
   background: none !important;
   padding: 0 !important;
+
+  /* 🔥 move to right column */
+  margin-left: auto;
+  width: 100%;
+  max-width: 360px;   /* match radio block width */
 }
 
+/* Style box */
 main .form form [data-id="text-c8c6b3a0ab"] > p {
   font-family: Roboto, Arial, sans-serif !important;
 
@@ -866,7 +873,7 @@ main .form form [data-id="text-c8c6b3a0ab"] > p {
   border-radius: 8px !important;
 
   padding: 12px 14px !important;
-  margin: 6px 0 0 !important;
+  margin: 8px 0 0 !important;
 
   font-size: 13px !important;
   line-height: 1.5 !important;
@@ -874,6 +881,8 @@ main .form form [data-id="text-c8c6b3a0ab"] > p {
 
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
+
+
 
 /* ============================= */
 /* 🔹 SOURCE OF INCOME          */
