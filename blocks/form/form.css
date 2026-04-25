@@ -1589,7 +1589,7 @@ main .form form .field-avail-panel {
     max-width: 700px !important;
     width: 100% !important;
     margin-left: -100px !important;
-    max-height: 330px !important;
+    max-height: 390px !important;
     margin-top: 160px !important;
 }
 
@@ -1827,7 +1827,7 @@ main .form form .field-avail-panel {
   content: "";
 
   position: absolute;
-  left: 18px;
+  left: 9px;
   top: 50%;
   transform: translateY(-50%);
 
