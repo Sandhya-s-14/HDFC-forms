@@ -57,6 +57,7 @@ function updateUI(input, wrapper, stepsArray, type) {
   }
 
   wrapper.style.setProperty("--percent", percent);
+  input.setAttribute("value", actualValue);
 }
 
 /* ===== Click on track ===== */
