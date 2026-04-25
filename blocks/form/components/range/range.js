@@ -94,8 +94,28 @@ export default function decorate(fieldDiv) {
   input.step = 0.01;
 
   /* ===== IMPORTANT FIX: Always start from 0 ===== */
-  input._sliderValue = 0;
-  input.value = 0;
+  // 🔥 derive slider position from actual value (if exists)
+const initialActual = Number(input.getAttribute("value")) || stepsArray[0];
+
+// find closest interpolated position
+let sliderIndex = 0;
+
+for (let i = 0; i < stepsArray.length - 1; i++) {
+  const min = stepsArray[i];
+  const max = stepsArray[i + 1];
+
+  if (initialActual >= min && initialActual <= max) {
+    const ratio = (initialActual - min) / (max - min);
+    sliderIndex = i + ratio;
+    break;
+  }
+}
+
+// fallback if not found
+if (!sliderIndex) sliderIndex = 0;
+
+input._sliderValue = sliderIndex;
+input.value = sliderIndex;
 
   /* ===== VALUE OVERRIDE ===== */
   const originalDescriptor = Object.getOwnPropertyDescriptor(
