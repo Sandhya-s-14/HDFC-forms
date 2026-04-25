@@ -55,7 +55,6 @@ function updateUI(input, wrapper, stepsArray, type) {
 
   wrapper.style.setProperty("--percent", percent);
 
-  // 🔥 store actual value for API
   input._actualValue = actualValue;
 }
 
@@ -70,8 +69,8 @@ function enableTrackClick(wrapper, input, stepsArray) {
     const clamped = Math.max(0, Math.min(1, percent));
     const value = clamped * (stepsArray.length - 1);
 
-    // ✅ ONLY update slider state (NOT input.value)
     input._sliderValue = value;
+    input.value = value;
 
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
@@ -94,12 +93,11 @@ export default function decorate(fieldDiv) {
   input.max = stepsArray.length - 1;
   input.step = 0.01;
 
-  const initialValue = Number(input.value || stepsArray[0]);
-  const stepIndex = stepsArray.indexOf(initialValue);
+  /* ===== IMPORTANT FIX: Always start from 0 ===== */
+  input._sliderValue = 0;
+  input.value = 0;
 
-  input._sliderValue = stepIndex >= 0 ? stepIndex : 0;
-
-  /* ===== VALUE OVERRIDE (KEEP THIS) ===== */
+  /* ===== VALUE OVERRIDE ===== */
   const originalDescriptor = Object.getOwnPropertyDescriptor(
     HTMLInputElement.prototype,
     "value"
@@ -108,12 +106,12 @@ export default function decorate(fieldDiv) {
   Object.defineProperty(input, "value", {
     get() {
       if (this._actualValue !== undefined) {
-        return this._actualValue; // API reads this
+        return this._actualValue;
       }
       return originalDescriptor.get.call(this);
     },
     set(val) {
-      this._sliderValue = Number(val); // sync slider
+      this._sliderValue = Number(val);
       originalDescriptor.set.call(this, val);
     }
   });
@@ -146,6 +144,7 @@ export default function decorate(fieldDiv) {
 
     span.addEventListener("click", () => {
       input._sliderValue = i;
+      input.value = i;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
@@ -157,9 +156,7 @@ export default function decorate(fieldDiv) {
 
   /* ===== Events ===== */
   input.addEventListener("input", () => {
-    // 🔥 sync when user drags thumb
     input._sliderValue = Number(originalDescriptor.get.call(input));
-
     updateUI(input, wrapper, stepsArray, type);
   });
 
