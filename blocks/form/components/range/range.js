@@ -12,11 +12,9 @@ function formatMonths(value) {
 }
 
 /* ===== Get interpolated value ===== */
-function getActualValue(input, stepsArray) {
-  const sliderValue = Number(input._sliderValue);
-
-  const lowerIndex = Math.floor(sliderValue);
-  const upperIndex = Math.ceil(sliderValue);
+function getActualValue(index, stepsArray) {
+  const lowerIndex = Math.floor(index);
+  const upperIndex = Math.ceil(index);
 
   if (lowerIndex === upperIndex) {
     return stepsArray[lowerIndex];
@@ -25,10 +23,10 @@ function getActualValue(input, stepsArray) {
   const lowerValue = stepsArray[lowerIndex];
   const upperValue = stepsArray[upperIndex];
 
-  return lowerValue + (upperValue - lowerValue) * (sliderValue - lowerIndex);
+  return lowerValue + (upperValue - lowerValue) * (index - lowerIndex);
 }
 
-/* ===== Normalize values ===== */
+/* ===== Normalize ===== */
 function normalizeValue(value, type) {
   return type === "loan"
     ? Math.round(value / 1000) * 1000
@@ -36,23 +34,19 @@ function normalizeValue(value, type) {
 }
 
 /* ===== Update UI ===== */
-function updateUI(input, wrapper, stepsArray, type) {
-  const sliderValue = Number(input._sliderValue);
+function updateUI(input, wrapper, stepsArray, type, hidden) {
+  const index = Number(input.value);
 
-  // 🔥 IMPORTANT: sync native value (this fixes thumb)
-  const originalDescriptor = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
-    "value"
-  );
-  originalDescriptor.set.call(input, sliderValue);
-
-  const rawValue = getActualValue(input, stepsArray);
+  const rawValue = getActualValue(index, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
 
-  const percent = (sliderValue / (stepsArray.length - 1)) * 100;
+  const percent = (index / (stepsArray.length - 1)) * 100;
 
+  // update progress bar
+  wrapper.style.setProperty("--percent", percent);
+
+  // update value box
   const valueBox = wrapper.querySelector(".loan-value-box");
-
   if (valueBox) {
     valueBox.innerText =
       type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
@@ -60,13 +54,14 @@ function updateUI(input, wrapper, stepsArray, type) {
     valueBox.style.left = percent + "%";
   }
 
-  wrapper.style.setProperty("--percent", percent);
-
-  input._actualValue = actualValue;
+  // ✅ THIS IS THE IMPORTANT PART (AEM FIX)
+  if (hidden) {
+    hidden.value = actualValue;
+  }
 }
 
-/* ===== Click on track ===== */
-function enableTrackClick(wrapper, input, stepsArray) {
+/* ===== Enable track click ===== */
+function enableTrackClick(wrapper, input) {
   wrapper.addEventListener("click", (e) => {
     if (e.target === input) return;
 
@@ -74,10 +69,9 @@ function enableTrackClick(wrapper, input, stepsArray) {
     const percent = (e.clientX - rect.left) / rect.width;
 
     const clamped = Math.max(0, Math.min(1, percent));
-    const value = clamped * (stepsArray.length - 1);
+    const value = clamped * (input.max - input.min);
 
-    input._sliderValue = value;
-
+    input.value = value;
     input.dispatchEvent(new Event("input", { bubbles: true }));
   });
 }
@@ -99,52 +93,21 @@ export default function decorate(fieldDiv) {
   input.max = stepsArray.length - 1;
   input.step = 0.01;
 
-  /* ===== IMPORTANT FIX: Always start from 0 ===== */
-  // 🔥 derive slider position from actual value (if exists)
-const initialActual = Number(input.getAttribute("value")) || stepsArray[0];
+  // ✅ ALWAYS start at beginning
+  input.value = 0;
 
-// find closest interpolated position
-let sliderIndex = 0;
+  /* ===== Create hidden input for AEM ===== */
+  const hidden = document.createElement("input");
+  hidden.type = "hidden";
+  hidden.name = input.name; // AEM will read this
 
-for (let i = 0; i < stepsArray.length - 1; i++) {
-  const min = stepsArray[i];
-  const max = stepsArray[i + 1];
-
-  if (initialActual >= min && initialActual <= max) {
-    const ratio = (initialActual - min) / (max - min);
-    sliderIndex = i + ratio;
-    break;
-  }
-}
-
-// fallback if not found
-if (!sliderIndex) sliderIndex = 0;
-
-input._sliderValue = sliderIndex;
-input.value = sliderIndex;
-
-  /* ===== VALUE OVERRIDE ===== */
-  const originalDescriptor = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
-    "value"
-  );
-
-  Object.defineProperty(input, "value", {
-    get() {
-      if (this._actualValue !== undefined) {
-        return this._actualValue;
-      }
-      return originalDescriptor.get.call(this);
-    },
-    set(val) {
-      this._sliderValue = Number(val);
-      originalDescriptor.set.call(this, val);
-    }
-  });
+  // ❗ remove name from slider (important)
+  input.removeAttribute("name");
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
   wrapper.className = "range-widget-wrapper decorated";
+
   input.after(wrapper);
 
   /* ===== Value Box ===== */
@@ -169,25 +132,27 @@ input.value = sliderIndex;
     span.style.left = `${(i / (stepsArray.length - 1)) * 100}%`;
 
     span.addEventListener("click", () => {
-      input._sliderValue = i;
+      input.value = i;
       input.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
     labels.appendChild(span);
   });
 
+  /* ===== Append elements ===== */
   wrapper.appendChild(input);
+  wrapper.appendChild(hidden);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
   input.addEventListener("input", () => {
-  input._sliderValue = Number(originalDescriptor.get.call(input));
-  updateUI(input, wrapper, stepsArray, type);
-});
+    updateUI(input, wrapper, stepsArray, type, hidden);
+  });
 
-  enableTrackClick(wrapper, input, stepsArray);
+  enableTrackClick(wrapper, input);
 
-  updateUI(input, wrapper, stepsArray, type);
+  /* ===== Initial render ===== */
+  updateUI(input, wrapper, stepsArray, type, hidden);
 
   return fieldDiv;
 }
