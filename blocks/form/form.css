@@ -1538,7 +1538,7 @@ main .form form .field-avail-panel {
 
 /* ---------- CARD ---------- */
 .field-avail-panel {
-  background: #efe3d1;
+  background: #fff3e3;
   border-radius: 16px;
   padding: 12px 14px 0;   /* ↓ compact height */
   margin-top: 10px;
@@ -1571,7 +1571,7 @@ main .form form .field-avail-panel {
 
 /* ---------- DIVIDER ---------- */
 .field-emi-input {
-  border-top: 1px dashed #d8cbb8;
+  border-top: 1px dashed #131313;
   margin-top: 6px;
   padding-top: 6px;
 
@@ -1621,7 +1621,7 @@ main .form form .field-avail-panel {
   background: transparent !important;
   outline: none !important;
 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: #2f3a4a;
 
@@ -1629,7 +1629,8 @@ main .form form .field-avail-panel {
   margin-top: 3px;
   width: 100%;
 
-  pointer-events: none;   /* 🔥 makes it look like text (not editable) */
+  pointer-events: auto;
+  cursor: text;
 }
 
 /* ---------- LABEL ---------- */
