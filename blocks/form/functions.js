@@ -226,7 +226,7 @@ function initOtp(globals) {
 
 function calculateOffer(globals) {
   const form = globals.form;
-
+  console.log("🔥 calculateOffer triggered");
   try {
     const loanAmount = form.offer.loanAmount.value;
     const tenure = form.offer.tenure.value;
