@@ -35,18 +35,19 @@ function normalizeValue(value, type) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type, hidden) {
-  const index = Number(input.value);
+  const index = Number(input.value); // ✅ single source of truth
 
   const rawValue = getActualValue(index, stepsArray);
   const actualValue = normalizeValue(rawValue, type);
 
   const percent = (index / (stepsArray.length - 1)) * 100;
 
-  // update progress bar
+  // progress bar
   wrapper.style.setProperty("--percent", percent);
 
-  // update value box
+  // value box
   const valueBox = wrapper.querySelector(".loan-value-box");
+
   if (valueBox) {
     valueBox.innerText =
       type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
@@ -54,13 +55,13 @@ function updateUI(input, wrapper, stepsArray, type, hidden) {
     valueBox.style.left = percent + "%";
   }
 
-  // ✅ THIS IS THE IMPORTANT PART (AEM FIX)
+  // ✅ send correct value to AEM
   if (hidden) {
     hidden.value = actualValue;
   }
 }
 
-/* ===== Enable track click ===== */
+/* ===== Click on track ===== */
 function enableTrackClick(wrapper, input) {
   wrapper.addEventListener("click", (e) => {
     if (e.target === input) return;
@@ -81,6 +82,8 @@ export default function decorate(fieldDiv) {
   const input = fieldDiv.querySelector("input");
   if (!input) return fieldDiv;
 
+  const originalName = input.getAttribute("name");
+
   const originalMax = Number(input.getAttribute("max"));
   const isLoan = originalMax > 100000;
 
@@ -93,15 +96,15 @@ export default function decorate(fieldDiv) {
   input.max = stepsArray.length - 1;
   input.step = 0.01;
 
-  // ✅ ALWAYS start at beginning
+  // start from beginning
   input.value = 0;
 
-  /* ===== Create hidden input for AEM ===== */
+  /* ===== Hidden input (AEM FIX) ===== */
   const hidden = document.createElement("input");
   hidden.type = "hidden";
-  hidden.name = input.name; // AEM will read this
+  hidden.name = originalName;
 
-  // ❗ remove name from slider (important)
+  // remove name from slider
   input.removeAttribute("name");
 
   /* ===== Wrapper ===== */
@@ -139,7 +142,7 @@ export default function decorate(fieldDiv) {
     labels.appendChild(span);
   });
 
-  /* ===== Append elements ===== */
+  /* ===== Append ===== */
   wrapper.appendChild(input);
   wrapper.appendChild(hidden);
   wrapper.appendChild(labels);
