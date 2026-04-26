@@ -165,7 +165,7 @@ main .form select {
     height: 42px; 
     color: var(--form-label-color);
     padding: var(--form-input-padding); 
-    font-size: var(--form-input-font-size);
+    /*font-size: var(--form-input-font-size); */
     max-width: unset;
     margin-top: .5rem;
     margin-bottom: 1rem;
