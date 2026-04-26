@@ -69,12 +69,27 @@ export default function decorate(fieldDiv) {
   input.step = 0.01;
   input.value = 0;
 
-  /* ===== Hidden input (AEM FIX) ===== */
-  const hidden = document.createElement("input");
-  hidden.type = "hidden";
-  hidden.name = originalName;
+  /* ===== Store original descriptor ===== */
+  const originalDescriptor = Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    "value"
+  );
 
-  input.removeAttribute("name");
+  /* ===== SAFE OVERRIDE ===== */
+  Object.defineProperty(input, "value", {
+    get() {
+      // AEM reads this → actual value
+      if (this._actualValue !== undefined) {
+        return this._actualValue;
+      }
+      return originalDescriptor.get.call(this);
+    },
+    set(val) {
+      // Slider movement uses index
+      this._index = Number(val);
+      originalDescriptor.set.call(this, val);
+    }
+  });
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -113,7 +128,8 @@ export default function decorate(fieldDiv) {
 
   /* ===== Update UI ===== */
   function updateUI() {
-    const index = Number(input.value);
+    // 🔥 ALWAYS read REAL slider value (index)
+    const index = Number(originalDescriptor.get.call(input));
 
     const rawValue = getActualValue(index, stepsArray);
     const actualValue = normalizeValue(rawValue, type);
@@ -129,12 +145,15 @@ export default function decorate(fieldDiv) {
       valueBox.style.left = percent + "%";
     }
 
-    hidden.value = actualValue;
+    // ✅ store actual value for AEM
+    input._actualValue = actualValue;
+
+    // 🔥 CRITICAL FIX: keep thumb at correct index
+    originalDescriptor.set.call(input, index);
   }
 
   /* ===== Append ===== */
   wrapper.appendChild(input);
-  wrapper.appendChild(hidden);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
