@@ -76,20 +76,17 @@ export default function decorate(fieldDiv) {
   );
 
   /* ===== SAFE OVERRIDE ===== */
-  Object.defineProperty(input, "value", {
-    get() {
-      // AEM reads this → actual value
-      if (this._actualValue !== undefined) {
-        return this._actualValue;
-      }
-      return originalDescriptor.get.call(this);
-    },
-    set(val) {
-      // Slider movement uses index
-      this._index = Number(val);
-      originalDescriptor.set.call(this, val);
-    }
-  });
+ Object.defineProperty(input, "value", {
+  get() {
+    // 🔥 ONLY for AEM read (NOT for browser rendering)
+    return this._actualValue ?? originalDescriptor.get.call(this);
+  },
+  set(val) {
+    // 🔥 ALWAYS keep slider index clean
+    this._index = Number(val);
+    originalDescriptor.set.call(this, val);
+  }
+});
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -128,29 +125,27 @@ export default function decorate(fieldDiv) {
 
   /* ===== Update UI ===== */
   function updateUI() {
-    // 🔥 ALWAYS read REAL slider value (index)
-    const index = Number(originalDescriptor.get.call(input));
+  // ✅ ALWAYS read real slider value (index)
+  const index = Number(originalDescriptor.get.call(input));
 
-    const rawValue = getActualValue(index, stepsArray);
-    const actualValue = normalizeValue(rawValue, type);
+  const rawValue = getActualValue(index, stepsArray);
+  const actualValue = normalizeValue(rawValue, type);
 
-    const percent = (index / (stepsArray.length - 1)) * 100;
+  const percent = (index / (stepsArray.length - 1)) * 100;
 
-    wrapper.style.setProperty("--percent", percent);
+  wrapper.style.setProperty("--percent", percent);
 
-    if (valueBox) {
-      valueBox.innerText =
-        type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
+  valueBox.innerText =
+    type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
 
-      valueBox.style.left = percent + "%";
-    }
+  valueBox.style.left = percent + "%";
 
-    // ✅ store actual value for AEM
-    input._actualValue = actualValue;
+  // ✅ store actual value (for AEM only)
+  input._actualValue = actualValue;
 
-    // 🔥 CRITICAL FIX: keep thumb at correct index
-    originalDescriptor.set.call(input, index);
-  }
+  // 🔥 THIS LINE FIXES YOUR ISSUE
+  originalDescriptor.set.call(input, index);
+}
 
   /* ===== Append ===== */
   wrapper.appendChild(input);
