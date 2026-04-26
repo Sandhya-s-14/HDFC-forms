@@ -154,3 +154,14 @@ main .form .range-widget-wrapper.decorated input[type="range"] {
   border-color: transparent;
   color: transparent;
 }
+
+.field-emi-amount input {
+  width: auto !important;
+  min-width: max-content !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.field-emi-amount {
+  flex: 0 0 auto !important;
+}
