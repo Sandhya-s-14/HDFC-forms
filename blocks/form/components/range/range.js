@@ -76,31 +76,45 @@ export default function decorate(fieldDiv) {
   );
 
   /* ===== SAFE OVERRIDE ===== */
-Object.defineProperty(input, "value", {
-  get() {
-    return this._actualValue ?? originalDescriptor.get.call(this);
-  },
-  set(val) {
-    const num = Number(val);
+  Object.defineProperty(input, "value", {
+    get() {
+      return this._actualValue ?? originalDescriptor.get.call(this);
+    },
+    set(val) {
+      const num = Number(val);
 
-    // 🔥 CRITICAL FIX: detect AEM writing actual value
-    if (num > stepsArray.length) {
-      // convert actual value → index
-      const index = stepsArray.findIndex((step, i) => {
-        return num <= step;
-      });
+      const minStep = stepsArray[0];
+      const maxStep = stepsArray[stepsArray.length - 1];
 
-      const safeIndex = index !== -1 ? index : stepsArray.length - 1;
+      // 🔥 Detect AEM writing actual value → convert to index
+      if (num >= minStep && num <= maxStep) {
+        let closestIndex = 0;
+        let minDiff = Infinity;
 
-      originalDescriptor.set.call(this, safeIndex);
-      this._index = safeIndex;
-    } else {
-      // normal slider movement
-      originalDescriptor.set.call(this, val);
-      this._index = num;
+        stepsArray.forEach((step, i) => {
+          const diff = Math.abs(step - num);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIndex = i;
+          }
+        });
+
+        originalDescriptor.set.call(this, closestIndex);
+        this._index = closestIndex;
+      } else {
+        // normal slider movement
+        originalDescriptor.set.call(this, val);
+        this._index = num;
+      }
     }
-  }
-});
+  });
+
+  /* ===== Hidden input (for AEM) ===== */
+  const hidden = document.createElement("input");
+  hidden.type = "hidden";
+  hidden.name = originalName;
+
+  input.removeAttribute("name");
 
   /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
@@ -139,30 +153,33 @@ Object.defineProperty(input, "value", {
 
   /* ===== Update UI ===== */
   function updateUI() {
-  // ✅ ALWAYS read real slider value (index)
-  const index = Number(originalDescriptor.get.call(input));
+    const index = Number(originalDescriptor.get.call(input));
 
-  const rawValue = getActualValue(index, stepsArray);
-  const actualValue = normalizeValue(rawValue, type);
+    const rawValue = getActualValue(index, stepsArray);
+    const actualValue = normalizeValue(rawValue, type);
 
-  const percent = (index / (stepsArray.length - 1)) * 100;
+    const percent = (index / (stepsArray.length - 1)) * 100;
 
-  wrapper.style.setProperty("--percent", percent);
+    wrapper.style.setProperty("--percent", percent);
 
-  valueBox.innerText =
-    type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
+    if (valueBox) {
+      valueBox.innerText =
+        type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
 
-  valueBox.style.left = percent + "%";
+      valueBox.style.left = percent + "%";
+    }
 
-  // ✅ store actual value (for AEM only)
-  input._actualValue = actualValue;
+    // store actual value
+    input._actualValue = actualValue;
+    hidden.value = actualValue;
 
-  // 🔥 THIS LINE FIXES YOUR ISSUE
-  originalDescriptor.set.call(input, index);
-}
+    // 🔥 CRITICAL FIX: lock slider (prevents thumb jump)
+    originalDescriptor.set.call(input, index);
+  }
 
   /* ===== Append ===== */
   wrapper.appendChild(input);
+  wrapper.appendChild(hidden);
   wrapper.appendChild(labels);
 
   /* ===== Events ===== */
