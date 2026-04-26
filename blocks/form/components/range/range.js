@@ -76,15 +76,29 @@ export default function decorate(fieldDiv) {
   );
 
   /* ===== SAFE OVERRIDE ===== */
- Object.defineProperty(input, "value", {
+Object.defineProperty(input, "value", {
   get() {
-    // 🔥 ONLY for AEM read (NOT for browser rendering)
     return this._actualValue ?? originalDescriptor.get.call(this);
   },
   set(val) {
-    // 🔥 ALWAYS keep slider index clean
-    this._index = Number(val);
-    originalDescriptor.set.call(this, val);
+    const num = Number(val);
+
+    // 🔥 CRITICAL FIX: detect AEM writing actual value
+    if (num > stepsArray.length) {
+      // convert actual value → index
+      const index = stepsArray.findIndex((step, i) => {
+        return num <= step;
+      });
+
+      const safeIndex = index !== -1 ? index : stepsArray.length - 1;
+
+      originalDescriptor.set.call(this, safeIndex);
+      this._index = safeIndex;
+    } else {
+      // normal slider movement
+      originalDescriptor.set.call(this, val);
+      this._index = num;
+    }
   }
 });
 
