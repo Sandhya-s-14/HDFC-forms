@@ -34,7 +34,7 @@ function normalizeValue(value, type) {
 }
 
 /* ===== Click on track ===== */
-function enableTrackClick(wrapper, input, originalDescriptor) {
+function enableTrackClick(wrapper, input) {
   wrapper.addEventListener("click", (e) => {
     if (e.target === input) return;
 
@@ -69,29 +69,7 @@ export default function decorate(fieldDiv) {
   input.step = 0.01;
   input.value = 0;
 
-  /* ===== Store original descriptor ===== */
-  const originalDescriptor = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
-    "value"
-  );
-
-  /* ===== SAFE VALUE OVERRIDE ===== */
-  Object.defineProperty(input, "value", {
-    get() {
-      // AEM reads this → return actual value
-      if (this._actualValue !== undefined) {
-        return this._actualValue;
-      }
-      return originalDescriptor.get.call(this);
-    },
-    set(val) {
-      // Keep slider working normally
-      this._index = Number(val);
-      originalDescriptor.set.call(this, val);
-    }
-  });
-
-  /* ===== Hidden input (backup for AEM) ===== */
+  /* ===== Hidden input (AEM FIX) ===== */
   const hidden = document.createElement("input");
   hidden.type = "hidden";
   hidden.name = originalName;
@@ -135,7 +113,7 @@ export default function decorate(fieldDiv) {
 
   /* ===== Update UI ===== */
   function updateUI() {
-    const index = Number(originalDescriptor.get.call(input)); // REAL slider index
+    const index = Number(input.value);
 
     const rawValue = getActualValue(index, stepsArray);
     const actualValue = normalizeValue(rawValue, type);
@@ -151,8 +129,6 @@ export default function decorate(fieldDiv) {
       valueBox.style.left = percent + "%";
     }
 
-    // 🔥 IMPORTANT: set actual value for AEM
-    input._actualValue = actualValue;
     hidden.value = actualValue;
   }
 
@@ -164,7 +140,7 @@ export default function decorate(fieldDiv) {
   /* ===== Events ===== */
   input.addEventListener("input", updateUI);
 
-  enableTrackClick(wrapper, input, originalDescriptor);
+  enableTrackClick(wrapper, input);
 
   /* ===== Initial render ===== */
   updateUI();
