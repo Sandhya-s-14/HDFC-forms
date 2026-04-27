@@ -1839,7 +1839,8 @@ main .form form .field-avail-panel {
 /* =========================
    Legend Styling
 ========================= */
-.panel-wrapper > legend.field-label {
+/* Target ONLY Offer Page */
+.panel-wrapper.field-offer-page > legend.field-label {
   background: none !important;
   margin: 0 0 8px 0;
 
@@ -1852,7 +1853,7 @@ main .form form .field-avail-panel {
   gap: 8px;
 }
 
-.panel-wrapper > legend.field-label::before {
+.panel-wrapper.field-offer-page > legend.field-label::before {
   content: "🎉";
   font-size: 16px;
 }
