@@ -195,10 +195,16 @@ export default function decorate(fieldDiv) {
   /* ===== Initial render ===== */
   updateUI();
 
-  /* 🔥 Trigger AEM Rule on Load */
   setTimeout(() => {
-    input.dispatchEvent(new Event("change", { bubbles: true }));
-  }, 0);
+  // 🔥 force correct value into DOM before trigger
+  const actualValue = input._actualValue;
+
+  HTMLInputElement.prototype.value.set.call(input, actualValue);
+
+  // 🔥 use INPUT event (EDS prefers this)
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+
+}, 300); // ⬅️ important delay
 
   return fieldDiv;
 }
