@@ -218,13 +218,14 @@ main .form form textarea:focus {
 /* =========================
    STRUCTURE FIX
 ========================= */
+/*
 main .form form .text-wrapper,
 main .form form .date-wrapper {
   display: flex;
-  /* flex-direction: column; */
+  /* flex-direction: column;
   gap: 2px;
 }
-
+/*
 
 /* =========================
    FULL WIDTH FIELDS
