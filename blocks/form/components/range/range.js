@@ -67,7 +67,10 @@ export default function decorate(fieldDiv) {
   input.min = 0;
   input.max = stepsArray.length - 1;
   input.step = 0.01;
-  input.value = 0;
+
+  /* ✅ DEFAULT VALUE = MAX (15L / 84 months) */
+  const defaultValue = Number(input.getAttribute("value"));
+  input.value = defaultValue || stepsArray.length - 1;
 
   /* ===== Store original descriptor ===== */
   const originalDescriptor = Object.getOwnPropertyDescriptor(
@@ -86,7 +89,6 @@ export default function decorate(fieldDiv) {
       const minStep = stepsArray[0];
       const maxStep = stepsArray[stepsArray.length - 1];
 
-      // 🔥 Detect AEM writing actual value → convert to index
       if (num >= minStep && num <= maxStep) {
         let closestIndex = 0;
         let minDiff = Infinity;
@@ -102,7 +104,6 @@ export default function decorate(fieldDiv) {
         originalDescriptor.set.call(this, closestIndex);
         this._index = closestIndex;
       } else {
-        // normal slider movement
         originalDescriptor.set.call(this, val);
         this._index = num;
       }
@@ -173,7 +174,11 @@ export default function decorate(fieldDiv) {
     input._actualValue = actualValue;
     hidden.value = actualValue;
 
-    // 🔥 CRITICAL FIX: lock slider (prevents thumb jump)
+    // 🔥 Sync with AEM
+    input.value = actualValue;
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+
+    // lock slider
     originalDescriptor.set.call(input, index);
   }
 
@@ -189,6 +194,11 @@ export default function decorate(fieldDiv) {
 
   /* ===== Initial render ===== */
   updateUI();
+
+  /* 🔥 Trigger AEM Rule on Load */
+  setTimeout(() => {
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }, 0);
 
   return fieldDiv;
 }
