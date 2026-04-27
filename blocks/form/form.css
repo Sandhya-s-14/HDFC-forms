@@ -1797,30 +1797,14 @@ main .form form .field-avail-panel {
 }
 
 /*-------------------------------------------------*/
-#panelcontainer-6d1d4f32b7 > legend.field-label {
-  background: none !important;
-  /*padding: 0 0 8px 28px !important; /* space for icon */
-  margin: 0;
-
-  font-size: 15px;
-  font-weight: 500;
-  color: #3f4a5a;
-
-  position: relative;
-  display: inline-block;
-}
-
-#panelcontainer-6d1d4f32b7 > legend.field-label::before {
-  content: "🎉";   /* you can change icon */
-  left: 55px;
-  font-size: 16px;
-}
-
-#text-d5ebca7507 {
-  background: #e6fbff;          /* light blue */
+/* =========================
+   Banner Styling
+========================= */
+.plain-text-wrapper.field-loan-offer-banner-text {
+  background: #e6fbff;
   border-radius: 16px;
 
-  padding: 16px 20px 16px 60px; /* space for icon */
+  padding: 16px 20px 16px 60px;
   margin: 12px 0;
 
   font-size: 14px;
@@ -1832,33 +1816,43 @@ main .form form .field-avail-panel {
   align-items: center;
 }
 
-#text-d5ebca7507::before {
+.plain-text-wrapper.field-loan-offer-banner-text::before {
   content: "";
-
   position: absolute;
-  left: 9px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
 
   width: 32px;
   height: 32px;
 
- background: url("https://cdn-icons-png.flaticon.com/512/2331/2331941.png") no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/2331/2331941.png") no-repeat center;
   background-size: contain;
 }
 
-#text-cdd0e53085 p {
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  font-size: 14px;
-  font-weight: 700;
+.plain-text-wrapper.field-loan-offer-banner-text p {
+  margin: 0;
+  font-weight: 600;
 }
 
-#text-5cfe4df835 p {
+
+/* =========================
+   Legend Styling
+========================= */
+.panel-wrapper > legend.field-label {
   background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  font-size: 14px;
-  font-weight: 700;
+  margin: 0 0 8px 0;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #3f4a5a;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-wrapper > legend.field-label::before {
+  content: "🎉";
+  font-size: 16px;
 }
