@@ -23,6 +23,11 @@ footer .footer p {
 
 /*-----------------------------------------------------------------------*/
 /* ================= FORM SPACING FIX ================= */
+main,
+.form-block,
+.root {
+  min-height: calc(100vh - 50px);
+}
 
 /* Only prevent overlap (not push too much) */
 .form-block {
