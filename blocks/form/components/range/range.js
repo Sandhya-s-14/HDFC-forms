@@ -193,18 +193,18 @@ export default function decorate(fieldDiv) {
   enableTrackClick(wrapper, input);
 
   /* ===== Initial render ===== */
+  // ✅ ensure default index
+input.value = stepsArray.length - 1;
+
+// 🔥 force full calculation once
+requestAnimationFrame(() => {
   updateUI();
 
+  // now trigger rule with correct value
   setTimeout(() => {
-  // 🔥 force correct value into DOM before trigger
-  const actualValue = input._actualValue;
-
-  HTMLInputElement.prototype.value.set.call(input, actualValue);
-
-  // 🔥 use INPUT event (EDS prefers this)
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-
-}, 300); // ⬅️ important delay
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }, 100);
+}); // ⬅️ important delay
 
   return fieldDiv;
 }
