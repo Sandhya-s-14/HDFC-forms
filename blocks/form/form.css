@@ -1839,21 +1839,20 @@ main .form form .field-avail-panel {
 /* =========================
    Legend Styling
 ========================= */
-/* Target ONLY Offer Page */
-.panel-wrapper.field-offer-page > legend.field-label {
+/main .form fieldset.field-loan-offer-based-on-declared-income > legend.field-label {
   background: none !important;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px 0 !important;
 
-  font-size: 15px;
-  font-weight: 500;
-  color: #3f4a5a;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #3f4a5a !important;
 
-  display: flex;
+  display: flex !important;
   align-items: center;
   gap: 8px;
 }
 
-.panel-wrapper.field-offer-page > legend.field-label::before {
+main .form fieldset.field-loan-offer-based-on-declared-income > legend.field-label::before {
   content: "🎉";
   font-size: 16px;
 }
